@@ -1,7 +1,7 @@
 package hub.forum.api.controller;
 
-import hub.forum.api.topico.CriarTopico;
-import hub.forum.api.topico.DadosTopico;
+import hub.forum.api.domain.topico.CriarTopico;
+import hub.forum.api.domain.topico.DadosTopico;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
