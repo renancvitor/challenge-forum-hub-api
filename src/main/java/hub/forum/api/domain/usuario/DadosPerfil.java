@@ -1,4 +1,4 @@
 package hub.forum.api.domain.usuario;
 
-public record Usuario() {
+public record DadosPerfil(String nome) {
 }

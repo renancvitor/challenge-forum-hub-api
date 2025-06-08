@@ -1,14 +1,14 @@
 package hub.forum.api.domain.topico;
 
-import hub.forum.api.domain.curso.Curso;
-import hub.forum.api.domain.resposta.Resposta;
-import hub.forum.api.domain.usuario.Usuario;
+import hub.forum.api.domain.curso.DadosCurso;
+import hub.forum.api.domain.resposta.DadosResposta;
+import hub.forum.api.domain.usuario.DadosUsuario;
 
 public record DadosTopico(String titulo,
                           String mensagem,
                           String dataCriacao,
                           String status,
-                          Usuario autor,
-                          Curso curso,
-                          Resposta respostas) {
+                          DadosUsuario autor,
+                          DadosCurso curso,
+                          DadosResposta respostas) {
 }
