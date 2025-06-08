@@ -4,9 +4,11 @@ import hub.forum.api.domain.curso.DadosCurso;
 import hub.forum.api.domain.resposta.DadosResposta;
 import hub.forum.api.domain.usuario.DadosUsuario;
 
+import java.time.LocalDateTime;
+
 public record DadosTopico(String titulo,
                           String mensagem,
-                          String dataCriacao,
+                          LocalDateTime dataCriacao,
                           StatusTopico status,
                           DadosUsuario autor,
                           DadosCurso curso,
