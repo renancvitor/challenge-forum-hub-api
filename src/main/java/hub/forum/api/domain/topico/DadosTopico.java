@@ -7,7 +7,7 @@ import hub.forum.api.domain.usuario.DadosUsuario;
 public record DadosTopico(String titulo,
                           String mensagem,
                           String dataCriacao,
-                          String status,
+                          StatusTopico status,
                           DadosUsuario autor,
                           DadosCurso curso,
                           DadosResposta respostas) {

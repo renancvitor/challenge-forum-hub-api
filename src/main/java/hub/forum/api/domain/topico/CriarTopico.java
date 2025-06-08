@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CriarTopico {
 
-    public void criar(DadosTopico dados) {
-
+    public DadosDetalhamentoTopico criar(DadosTopico dados) {
+        return null;
     }
 }
