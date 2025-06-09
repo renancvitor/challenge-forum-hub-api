@@ -23,7 +23,7 @@ public class Resposta {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paciente_id")
+    @JoinColumn(name = "topico_id")
     private Topico topico;
     private LocalDateTime dataCriacao;
 
@@ -31,4 +31,11 @@ public class Resposta {
     @JoinColumn(name = "paciente_id")
     private Usuario autor;
     private String solucao;
+
+    public Resposta(DadosResposta dados) {
+        this.topico = new Topico(dados.topico());
+        this.dataCriacao = dados.dataCriacao();
+        this.autor = new Usuario(dados.autor());
+        this.solucao = dados.solucao();
+    }
 }

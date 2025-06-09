@@ -5,6 +5,7 @@ import hub.forum.api.domain.resposta.DadosResposta;
 import hub.forum.api.domain.usuario.DadosUsuario;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public record DadosTopico(String titulo,
                           String mensagem,
@@ -12,5 +13,5 @@ public record DadosTopico(String titulo,
                           StatusTopico status,
                           DadosUsuario autor,
                           DadosCurso curso,
-                          DadosResposta respostas) {
+                          List<DadosResposta> respostas) {
 }

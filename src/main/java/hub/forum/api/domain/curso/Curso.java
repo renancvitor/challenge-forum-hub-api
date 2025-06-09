@@ -21,4 +21,8 @@ public class Curso {
 
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
+
+    public Curso(DadosCurso dados) {
+        this.nome = dados.nome();
+    }
 }

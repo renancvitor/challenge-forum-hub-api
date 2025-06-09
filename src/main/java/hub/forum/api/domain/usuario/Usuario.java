@@ -24,4 +24,11 @@ public class Usuario {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paciente_id")
     private Perfil perfil;
+
+    public Usuario(DadosUsuario dados) {
+        this.nome = dados.nome();
+        this.email = dados.email();
+        this.senha = dados.senha();
+        this.perfil = new Perfil(dados.perfil());
+    }
 }

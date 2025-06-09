@@ -18,4 +18,8 @@ public class Perfil {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+
+    public Perfil(DadosPerfil dados) {
+        this.nome = dados.nome();
+    }
 }

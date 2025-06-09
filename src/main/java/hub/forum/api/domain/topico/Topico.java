@@ -11,6 +11,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Table(name = "topicos")
 @Entity(name = "Topico")
@@ -31,14 +34,25 @@ public class Topico {
     private StatusTopico status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paciente_id")
+    @JoinColumn(name = "usuario_id")
     private Usuario autor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paciente_id")
+    @JoinColumn(name = "curso_id")
     private Curso curso;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paciente_id")
-    private Resposta respostas;
+    @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Resposta> respostas = new ArrayList<>();
+
+    public Topico(DadosTopico dados) {
+        this.titulo = dados.titulo();
+        this.mensagem = dados.mensagem();
+        this.dataCriacao = dados.dataCriacao();
+        this.status = dados.status();
+        this.autor = new Usuario(dados.autor());
+        this.curso = new Curso(dados.curso());
+        this.respostas = dados.respostas().stream()
+                .map(Resposta::new)
+                .collect(Collectors.toList());
+    }
 }
