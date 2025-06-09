@@ -8,8 +8,8 @@ public record DadosDetalhamentoTopico(
         String mensagem,
         LocalDateTime dataCriacao,
         StatusTopico status,
-        String nomeAutor,
-        String nomeCurso) {
+        Long idAutor,
+        Long idCurso) {
 
     public DadosDetalhamentoTopico(Topico topico) {
         this(
@@ -18,8 +18,8 @@ public record DadosDetalhamentoTopico(
                 topico.getMensagem(),
                 topico.getDataCriacao(),
                 topico.getStatus(),
-                topico.getAutor().getNome(),
-                topico.getCurso().getNome()
+                topico.getAutor().getId(),
+                topico.getCurso().getId()
         );
     }
 }
