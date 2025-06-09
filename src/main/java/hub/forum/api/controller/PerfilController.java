@@ -1,7 +1,7 @@
 package hub.forum.api.controller;
 
 import hub.forum.api.domain.usuario.DadosDetalhamentoPerfil;
-import hub.forum.api.domain.usuario.DadosPerfil;
+import hub.forum.api.domain.usuario.DadosCadastroPerfil;
 import hub.forum.api.domain.usuario.Perfil;
 import hub.forum.api.domain.usuario.PerfilRepository;
 import jakarta.validation.Valid;
@@ -23,7 +23,7 @@ public class PerfilController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<DadosDetalhamentoPerfil> cadastrar(@RequestBody @Valid DadosPerfil dados,
+    public ResponseEntity<DadosDetalhamentoPerfil> cadastrar(@RequestBody @Valid DadosCadastroPerfil dados,
                                     UriComponentsBuilder uriComponentsBuilder) {
         var perfil = new Perfil(dados);
         repository.save(perfil);

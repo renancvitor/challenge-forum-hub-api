@@ -21,7 +21,7 @@ public class Perfil {
     @Column(unique = true, nullable = false)
     private String nome;
 
-    public Perfil(DadosPerfil dados) {
+    public Perfil(DadosCadastroPerfil dados) {
         this.nome = dados.nome();
     }
 }
