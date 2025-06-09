@@ -9,8 +9,8 @@ public record DadosDetalhamentoTopico(
         LocalDateTime dataCriacao,
         StatusTopico status,
         String nomeAutor,
-        String nomeCurso
-) {
+        String nomeCurso) {
+    
     public DadosDetalhamentoTopico(Topico topico) {
         this(
                 topico.getId(),
