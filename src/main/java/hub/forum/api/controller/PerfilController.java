@@ -23,7 +23,7 @@ public class PerfilController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrar(@RequestBody @Valid DadosPerfil dados,
+    public ResponseEntity<DadosDetalhamentoPerfil> cadastrar(@RequestBody @Valid DadosPerfil dados,
                                     UriComponentsBuilder uriComponentsBuilder) {
         var perfil = new Perfil(dados);
         repository.save(perfil);

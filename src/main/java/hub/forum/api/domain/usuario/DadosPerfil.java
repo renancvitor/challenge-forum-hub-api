@@ -1,4 +1,6 @@
 package hub.forum.api.domain.usuario;
 
-public record DadosPerfil(String nome) {
+import jakarta.validation.constraints.NotBlank;
+
+public record DadosPerfil(@NotBlank String nome) {
 }
