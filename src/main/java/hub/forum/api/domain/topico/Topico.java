@@ -29,7 +29,16 @@ public class Topico {
 
     @Enumerated(EnumType.STRING)
     private StatusTopico status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "paciente_id")
     private Usuario autor;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "paciente_id")
     private Curso curso;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "paciente_id")
     private Resposta respostas;
 }
