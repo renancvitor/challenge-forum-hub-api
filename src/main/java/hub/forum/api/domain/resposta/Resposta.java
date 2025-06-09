@@ -30,7 +30,7 @@ public class Resposta {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     private Usuario autor;
-    private String solucao;
+    private Boolean solucao;
 
     public Resposta(DadosResposta dados) {
         this.topico = new Topico(dados.topico());

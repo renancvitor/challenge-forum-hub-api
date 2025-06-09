@@ -10,7 +10,7 @@ public record DadosDetalhamentoTopico(
         StatusTopico status,
         String nomeAutor,
         String nomeCurso) {
-    
+
     public DadosDetalhamentoTopico(Topico topico) {
         this(
                 topico.getId(),
