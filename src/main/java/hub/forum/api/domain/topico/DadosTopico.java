@@ -9,7 +9,6 @@ import java.util.List;
 
 public record DadosTopico(String titulo,
                           String mensagem,
-                          LocalDateTime dataCriacao,
                           StatusTopico status,
                           DadosUsuario autor,
                           DadosCurso curso,

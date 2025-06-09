@@ -47,7 +47,7 @@ public class Topico {
     public Topico(DadosTopico dados) {
         this.titulo = dados.titulo();
         this.mensagem = dados.mensagem();
-        this.dataCriacao = dados.dataCriacao();
+        this.dataCriacao = LocalDateTime.now();
         this.status = dados.status();
         this.autor = new Usuario(dados.autor());
         this.curso = new Curso(dados.curso());

@@ -1,0 +1,5 @@
+CREATE TABLE cursos (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    categoria VARCHAR(255) NOT NULL
+);

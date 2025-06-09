@@ -34,7 +34,7 @@ public class Resposta {
 
     public Resposta(DadosResposta dados) {
         this.topico = new Topico(dados.topico());
-        this.dataCriacao = dados.dataCriacao();
+        this.dataCriacao = LocalDateTime.now();
         this.autor = new Usuario(dados.autor());
         this.solucao = dados.solucao();
     }

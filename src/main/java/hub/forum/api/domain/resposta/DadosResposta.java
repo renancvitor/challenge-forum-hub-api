@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 
 public record DadosResposta(String mensagem,
                             DadosTopico topico,
-                            LocalDateTime dataCriacao,
                             DadosUsuario autor,
                             Boolean solucao) {
 }
