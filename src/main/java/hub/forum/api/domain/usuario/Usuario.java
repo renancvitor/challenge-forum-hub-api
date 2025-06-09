@@ -22,7 +22,7 @@ public class Usuario {
     private String senha;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paciente_id")
+    @JoinColumn(name = "perfil_id")
     private Perfil perfil;
 
     public Usuario(DadosUsuario dados) {

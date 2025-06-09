@@ -28,7 +28,7 @@ public class Resposta {
     private LocalDateTime dataCriacao;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paciente_id")
+    @JoinColumn(name = "usuario_id")
     private Usuario autor;
     private String solucao;
 
