@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Table(name = "topicos")
 @Entity(name = "Topico")
@@ -44,7 +43,7 @@ public class Topico {
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Resposta> respostas = new ArrayList<>();
 
-    public Topico(DadosTopico dados, Usuario autor, Curso curso) {
+    public Topico(DadosCriarTopico dados, Usuario autor, Curso curso) {
         this.titulo = dados.titulo();
         this.mensagem = dados.mensagem();
         this.dataCriacao = LocalDateTime.now();

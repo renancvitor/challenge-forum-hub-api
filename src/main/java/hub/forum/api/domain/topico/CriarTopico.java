@@ -23,7 +23,7 @@ public class CriarTopico {
 
     @PostMapping
     @Transactional
-    public DadosDetalhamentoTopico criar(DadosTopico dados) {
+    public DadosDetalhamentoTopico criar(DadosCriarTopico dados) {
         Usuario autor = usuarioRepository.findById(dados.autorId())
                 .orElseThrow(() -> new RuntimeException("Autor não encontrado"));
         Curso curso = cursoRepository.findById(dados.cursoId())

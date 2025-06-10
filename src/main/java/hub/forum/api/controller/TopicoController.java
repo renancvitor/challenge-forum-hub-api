@@ -1,7 +1,7 @@
 package hub.forum.api.controller;
 
 import hub.forum.api.domain.topico.CriarTopico;
-import hub.forum.api.domain.topico.DadosTopico;
+import hub.forum.api.domain.topico.DadosCriarTopico;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class TopicoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity enviarMensagem(@RequestBody @Valid DadosTopico dados) {
+    public ResponseEntity criarTopico(@RequestBody @Valid DadosCriarTopico dados) {
         var dto = criarTopico.criar(dados);
         return ResponseEntity.ok(dto);
     }
