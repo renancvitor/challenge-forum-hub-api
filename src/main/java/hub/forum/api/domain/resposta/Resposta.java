@@ -32,10 +32,10 @@ public class Resposta {
     private Usuario autor;
     private Boolean solucao;
 
-    public Resposta(DadosResposta dados) {
-        this.topico = new Topico(dados.topico());
+    public Resposta(DadosResposta dados, Topico topico, Usuario autor) {
+        this.topico = topico;
         this.dataCriacao = LocalDateTime.now();
-        this.autor = new Usuario(dados.autor());
+        this.autor = autor;
         this.solucao = dados.solucao();
     }
 }

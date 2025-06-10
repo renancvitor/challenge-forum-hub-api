@@ -25,10 +25,10 @@ public class Usuario {
     @JoinColumn(name = "perfil_id")
     private Perfil perfil;
 
-    public Usuario(DadosCadastroUsuario dados) {
+    public Usuario(DadosCadastroUsuario dados, Perfil perfil) {
         this.nome = dados.nome();
         this.email = dados.email();
         this.senha = dados.senha();
-        this.perfil = new Perfil(dados.perfil());
+        this.perfil = perfil;
     }
 }

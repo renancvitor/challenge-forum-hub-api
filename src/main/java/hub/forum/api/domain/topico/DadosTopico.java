@@ -9,7 +9,7 @@ import java.util.List;
 public record DadosTopico(String titulo,
                           String mensagem,
                           StatusTopico status,
-                          DadosCadastroUsuario autor,
-                          DadosCurso curso,
+                          Long autorId,
+                          Long cursoId,
                           List<DadosResposta> respostas) {
 }

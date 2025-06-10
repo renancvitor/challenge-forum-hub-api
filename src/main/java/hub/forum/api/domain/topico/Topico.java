@@ -44,15 +44,12 @@ public class Topico {
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Resposta> respostas = new ArrayList<>();
 
-    public Topico(DadosTopico dados) {
+    public Topico(DadosTopico dados, Usuario autor, Curso curso) {
         this.titulo = dados.titulo();
         this.mensagem = dados.mensagem();
         this.dataCriacao = LocalDateTime.now();
         this.status = dados.status();
-        this.autor = new Usuario(dados.autor());
-        this.curso = new Curso(dados.curso());
-        this.respostas = dados.respostas().stream()
-                .map(Resposta::new)
-                .collect(Collectors.toList());
+        this.autor = autor;
+        this.curso = curso;
     }
 }

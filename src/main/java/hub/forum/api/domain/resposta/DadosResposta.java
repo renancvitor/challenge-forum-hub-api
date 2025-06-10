@@ -4,7 +4,7 @@ import hub.forum.api.domain.topico.DadosTopico;
 import hub.forum.api.domain.usuario.DadosCadastroUsuario;
 
 public record DadosResposta(String mensagem,
-                            DadosTopico topico,
-                            DadosCadastroUsuario autor,
+                            Long topicoId,
+                            Long autorId,
                             Boolean solucao) {
 }

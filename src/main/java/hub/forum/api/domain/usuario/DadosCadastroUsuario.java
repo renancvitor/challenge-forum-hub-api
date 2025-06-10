@@ -14,5 +14,5 @@ public record DadosCadastroUsuario(@NotBlank(message = "Nome é obrigatório")
                                    String senha,
                                    @NotNull(message = "Perfil é obnigatório")
                                    @Valid
-                                   DadosCadastroPerfil perfil) {
+                                   Long perfilId) {
 }
