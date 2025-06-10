@@ -7,6 +7,8 @@ import hub.forum.api.domain.usuario.UsuarioRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,8 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository repository;
 
+    @PostMapping
+    @Transactional
     public ResponseEntity<DadosDetalhamentoUsuario> cadastrar(@RequestBody @Valid DadosCadastroUsuario dados,
                                                               UriComponentsBuilder uriComponentsBuilder) {
         var usuario = new Usuario(dados);
