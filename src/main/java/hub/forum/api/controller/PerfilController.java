@@ -29,7 +29,8 @@ public class PerfilController {
         repository.save(perfil);
 
         var uri = uriComponentsBuilder.path("/perfis/{id}")
-                .buildAndExpand(perfil.getId()).toUri();
+                .buildAndExpand(perfil.getId())
+                .toUri();
 
         return ResponseEntity.created(uri).body(new DadosDetalhamentoPerfil(perfil));
     }
