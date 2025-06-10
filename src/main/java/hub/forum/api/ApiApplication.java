@@ -9,5 +9,6 @@ public class ApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApiApplication.class, args);
 	}
-// Curso 01, tópico 03, vídeo 04
+// Curso 01, tópico 03, vídeo 05
+	// Próxima entidade para popular BD --> Curso
 }
