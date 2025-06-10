@@ -30,7 +30,7 @@ public class Topico {
     private LocalDateTime dataCriacao;
 
     @Enumerated(EnumType.STRING)
-    private StatusTopico status;
+    private StatusTopico status = StatusTopico.NAO_RESPONDIDO;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
