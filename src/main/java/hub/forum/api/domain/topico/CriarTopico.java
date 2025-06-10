@@ -35,5 +35,37 @@ public class CriarTopico {
         return new DadosDetalhamentoTopico(topico);
     }
 
+    @Transactional
+    public void receberResposta(Long topicoId) {
+        Topico topico = topicoRepository.findById(topicoId)
+                .orElseThrow(() -> new RuntimeException("Tõpico não encontrado"));
 
+        topico.setStatus(StatusTopico.NAO_SOLUCIONADO);
+    }
+
+    @Transactional
+    public void validarResposta(Long topicoId, Long autorId) {
+        Topico topico = topicoRepository.findById(topicoId)
+                .orElseThrow(() -> new RuntimeException("Tópico não encontrado"));
+
+        if (!topico.getAutor().getId().equals(autorId)) {
+            throw new RuntimeException("Apenas o autor pode validar a resposta");
+        }
+
+        topico.setStatus(StatusTopico.SOLUCIONADO);
+    }
+
+    @Transactional
+    public void deletarTopico(Long topicoId, Usuario usuario) {
+        Topico topico = topicoRepository.findById(topicoId)
+                .orElseThrow(() -> new RuntimeException("Tópico não encontrado"));
+
+        String nomePerfil = usuario.getPerfil().getNome();
+
+        if (!nomePerfil.equals("ADMIN") && !nomePerfil.equals("MODERADOR")) {
+            throw new RuntimeException("Apenas ADMIN ou MODERADOR podem deletar um tópico");
+        }
+
+        topico.setAtivo(false);
+    }
 }
