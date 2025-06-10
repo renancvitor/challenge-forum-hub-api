@@ -1,5 +1,6 @@
 package hub.forum.api.domain.curso;
 
+import hub.forum.api.domain.categoria.Categoria;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

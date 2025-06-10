@@ -1,5 +1,6 @@
 package hub.forum.api.domain.usuario;
 
+import hub.forum.api.domain.perfil.Perfil;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

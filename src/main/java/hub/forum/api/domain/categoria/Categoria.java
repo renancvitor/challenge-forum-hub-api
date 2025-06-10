@@ -1,4 +1,4 @@
-package hub.forum.api.domain.curso;
+package hub.forum.api.domain.categoria;
 
 public enum Categoria {
 

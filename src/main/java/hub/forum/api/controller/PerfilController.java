@@ -1,9 +1,9 @@
 package hub.forum.api.controller;
 
-import hub.forum.api.domain.usuario.DadosDetalhamentoPerfil;
-import hub.forum.api.domain.usuario.DadosCadastroPerfil;
-import hub.forum.api.domain.usuario.Perfil;
-import hub.forum.api.domain.usuario.PerfilRepository;
+import hub.forum.api.domain.perfil.DadosDetalhamentoPerfil;
+import hub.forum.api.domain.perfil.DadosCadastroPerfil;
+import hub.forum.api.domain.perfil.Perfil;
+import hub.forum.api.domain.perfil.PerfilRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

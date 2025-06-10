@@ -1,7 +1,6 @@
 package hub.forum.api.domain.curso;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import hub.forum.api.domain.categoria.Categoria;
 
 public record DadosDetalhamentoCurso(Long id,
                                      String nome,

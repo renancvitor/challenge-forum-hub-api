@@ -1,4 +1,4 @@
-package hub.forum.api.domain.usuario;
+package hub.forum.api.domain.perfil;
 
 import jakarta.validation.constraints.NotBlank;
 

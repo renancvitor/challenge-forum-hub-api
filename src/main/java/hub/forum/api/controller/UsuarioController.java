@@ -1,5 +1,7 @@
 package hub.forum.api.controller;
 
+import hub.forum.api.domain.perfil.Perfil;
+import hub.forum.api.domain.perfil.PerfilRepository;
 import hub.forum.api.domain.usuario.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
