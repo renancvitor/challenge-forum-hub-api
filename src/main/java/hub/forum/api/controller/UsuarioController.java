@@ -1,9 +1,6 @@
 package hub.forum.api.controller;
 
-import hub.forum.api.domain.usuario.DadosCadastroUsuario;
-import hub.forum.api.domain.usuario.DadosDetalhamentoUsuario;
-import hub.forum.api.domain.usuario.Usuario;
-import hub.forum.api.domain.usuario.UsuarioRepository;
+import hub.forum.api.domain.usuario.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +16,20 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class UsuarioController {
 
     @Autowired
-    private UsuarioRepository repository;
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private PerfilRepository perfilRepository;
 
     @PostMapping
     @Transactional
     public ResponseEntity<DadosDetalhamentoUsuario> cadastrar(@RequestBody @Valid DadosCadastroUsuario dados,
                                                               UriComponentsBuilder uriComponentsBuilder) {
-        var usuario = new Usuario(dados);
-        repository.save(usuario);
+        Perfil perfil = perfilRepository.findById(dados.perfilId())
+                .orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
+
+        var usuario = new Usuario(dados, perfil);
+        usuarioRepository.save(usuario);
 
         var uri = uriComponentsBuilder.path("/usuarios/{id}")
                 .buildAndExpand(usuario.getId())
