@@ -7,10 +7,9 @@ import hub.forum.api.domain.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Service
-public class CriarTopico {
+public class TopicoService {
 
     @Autowired
     private TopicoRepository topicoRepository;
@@ -21,7 +20,6 @@ public class CriarTopico {
     @Autowired
     private CursoRepository cursoRepository;
 
-    @PostMapping
     @Transactional
     public DadosDetalhamentoTopico criar(DadosCriarTopico dados) {
         Usuario autor = usuarioRepository.findById(dados.autorId())
