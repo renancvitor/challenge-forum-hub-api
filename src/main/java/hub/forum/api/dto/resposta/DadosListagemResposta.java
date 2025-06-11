@@ -4,8 +4,7 @@ import hub.forum.api.domain.resposta.Resposta;
 
 import java.time.LocalDateTime;
 
-public record DadosListagemResposta(Long id,
-                                    String mensagem,
+public record DadosListagemResposta(String mensagem,
                                     String tituloTopico,
                                     LocalDateTime dataCriacao,
                                     String nomeAutor,
@@ -13,7 +12,6 @@ public record DadosListagemResposta(Long id,
 
     public DadosListagemResposta(Resposta resposta) {
         this(
-                resposta.getId(),
                 resposta.getMensagem(),
                 resposta.getTopico().getTitulo(),
                 resposta.getDataCriacao(),
