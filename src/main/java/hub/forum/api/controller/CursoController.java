@@ -3,7 +3,7 @@ package hub.forum.api.controller;
 import hub.forum.api.domain.curso.Curso;
 import hub.forum.api.domain.curso.DadosCadastroCurso;
 import hub.forum.api.domain.curso.DadosDetalhamentoCurso;
-import hub.forum.api.domain.curso.CursoRepository;
+import hub.forum.api.repository.CursoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

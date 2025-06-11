@@ -3,16 +3,14 @@ package hub.forum.api.domain.resposta;
 import hub.forum.api.domain.topico.Topico;
 import hub.forum.api.domain.usuario.Usuario;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Table(name = "respostas")
 @Entity(name = "Resposta")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -21,6 +19,7 @@ public class Resposta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String mensagem;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "topico_id")
@@ -32,10 +31,18 @@ public class Resposta {
     private Usuario autor;
     private Boolean solucao;
 
-    public Resposta(DadosResposta dados, Topico topico, Usuario autor) {
+    @Column(nullable = false)
+    private Boolean ativo = true;
+
+    public Resposta(DadosCadastroResposta dados, Topico topico, Usuario autor) {
+        this.mensagem = dados.mensagem();
         this.topico = topico;
         this.dataCriacao = LocalDateTime.now();
         this.autor = autor;
-        this.solucao = dados.solucao();
+        this.solucao = false;
+    }
+
+    public void marcarComoSolucao() {
+        this.solucao = true;
     }
 }

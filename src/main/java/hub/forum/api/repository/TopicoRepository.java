@@ -1,5 +1,6 @@
-package hub.forum.api.domain.topico;
+package hub.forum.api.repository;
 
+import hub.forum.api.domain.topico.Topico;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

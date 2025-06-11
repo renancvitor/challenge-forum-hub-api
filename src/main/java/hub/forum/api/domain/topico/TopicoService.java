@@ -1,9 +1,10 @@
 package hub.forum.api.domain.topico;
 
 import hub.forum.api.domain.curso.Curso;
-import hub.forum.api.domain.curso.CursoRepository;
+import hub.forum.api.repository.CursoRepository;
 import hub.forum.api.domain.usuario.Usuario;
-import hub.forum.api.domain.usuario.UsuarioRepository;
+import hub.forum.api.repository.UsuarioRepository;
+import hub.forum.api.repository.TopicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +52,7 @@ public class TopicoService {
         }
 
         topico.setStatus(StatusTopico.SOLUCIONADO);
+        topicoRepository.save(topico);
     }
 
     @Transactional
