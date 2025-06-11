@@ -3,15 +3,16 @@ package hub.forum.api.controller;
 import hub.forum.api.dto.perfil.DadosDetalhamentoPerfil;
 import hub.forum.api.dto.perfil.DadosCadastroPerfil;
 import hub.forum.api.domain.perfil.Perfil;
+import hub.forum.api.dto.perfil.DadosListagemPerfil;
 import hub.forum.api.repository.PerfilRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
@@ -33,5 +34,13 @@ public class PerfilController {
                 .toUri();
 
         return ResponseEntity.created(uri).body(new DadosDetalhamentoPerfil(perfil));
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<DadosListagemPerfil>> listar(@PageableDefault(size = 10,
+            sort = ("nome")) Pageable paginacao) {
+        var page = repository.findAll(paginacao)
+                .map(DadosListagemPerfil::new);
+        return ResponseEntity.ok(page);
     }
 }
