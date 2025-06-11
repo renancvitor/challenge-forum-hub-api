@@ -1,10 +1,10 @@
 package hub.forum.api.controller;
 
-import hub.forum.api.domain.resposta.RespostaService;
-import hub.forum.api.domain.topico.DadosListagemTopico;
-import hub.forum.api.domain.topico.TopicoService;
-import hub.forum.api.domain.topico.DadosCriarTopico;
-import hub.forum.api.domain.topico.validar.DadosValidarResposta;
+import hub.forum.api.service.RespostaService;
+import hub.forum.api.dto.topico.DadosListagemTopico;
+import hub.forum.api.service.TopicoService;
+import hub.forum.api.dto.topico.DadosCriarTopico;
+import hub.forum.api.dto.topico.validar.DadosValidarResposta;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.repository.TopicoRepository;
 import jakarta.validation.Valid;

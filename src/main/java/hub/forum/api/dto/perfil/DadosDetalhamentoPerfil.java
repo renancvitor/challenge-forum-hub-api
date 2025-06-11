@@ -1,4 +1,6 @@
-package hub.forum.api.domain.perfil;
+package hub.forum.api.dto.perfil;
+
+import hub.forum.api.domain.perfil.Perfil;
 
 public record DadosDetalhamentoPerfil(Long id,
                                       String nome) {

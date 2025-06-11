@@ -4,6 +4,7 @@ package hub.forum.api.domain.topico;
 import hub.forum.api.domain.curso.Curso;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.domain.resposta.Resposta;
+import hub.forum.api.dto.topico.DadosCriarTopico;
 import jakarta.persistence.*;
 import lombok.*;
 

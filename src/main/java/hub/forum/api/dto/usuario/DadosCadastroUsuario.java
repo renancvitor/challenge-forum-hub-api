@@ -1,4 +1,4 @@
-package hub.forum.api.domain.usuario;
+package hub.forum.api.dto.usuario;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;

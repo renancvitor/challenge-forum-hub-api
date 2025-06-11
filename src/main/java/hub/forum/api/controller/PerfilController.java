@@ -1,7 +1,7 @@
 package hub.forum.api.controller;
 
-import hub.forum.api.domain.perfil.DadosDetalhamentoPerfil;
-import hub.forum.api.domain.perfil.DadosCadastroPerfil;
+import hub.forum.api.dto.perfil.DadosDetalhamentoPerfil;
+import hub.forum.api.dto.perfil.DadosCadastroPerfil;
 import hub.forum.api.domain.perfil.Perfil;
 import hub.forum.api.repository.PerfilRepository;
 import jakarta.validation.Valid;

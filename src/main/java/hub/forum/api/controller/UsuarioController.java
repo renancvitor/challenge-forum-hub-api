@@ -1,6 +1,9 @@
 package hub.forum.api.controller;
 
 import hub.forum.api.domain.perfil.Perfil;
+import hub.forum.api.dto.usuario.DadosCadastroUsuario;
+import hub.forum.api.dto.usuario.DadosDetalhamentoUsuario;
+import hub.forum.api.dto.usuario.DadosListagemUsuario;
 import hub.forum.api.repository.PerfilRepository;
 import hub.forum.api.domain.usuario.*;
 import hub.forum.api.repository.UsuarioRepository;

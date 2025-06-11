@@ -1,6 +1,10 @@
-package hub.forum.api.domain.topico;
+package hub.forum.api.service;
 
 import hub.forum.api.domain.curso.Curso;
+import hub.forum.api.dto.topico.DadosCriarTopico;
+import hub.forum.api.dto.topico.DadosDetalhamentoTopico;
+import hub.forum.api.domain.topico.StatusTopico;
+import hub.forum.api.domain.topico.Topico;
 import hub.forum.api.repository.CursoRepository;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.repository.UsuarioRepository;

@@ -1,4 +1,4 @@
-package hub.forum.api.domain.resposta;
+package hub.forum.api.dto.resposta;
 
 public record DadosCadastroResposta(String mensagem,
                                     Long topicoId,

@@ -1,9 +1,9 @@
 package hub.forum.api.controller;
 
 import hub.forum.api.domain.curso.Curso;
-import hub.forum.api.domain.curso.DadosCadastroCurso;
-import hub.forum.api.domain.curso.DadosDetalhamentoCurso;
-import hub.forum.api.domain.curso.DadosListagemCurso;
+import hub.forum.api.dto.curso.DadosCadastroCurso;
+import hub.forum.api.dto.curso.DadosDetalhamentoCurso;
+import hub.forum.api.dto.curso.DadosListagemCurso;
 import hub.forum.api.repository.CursoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

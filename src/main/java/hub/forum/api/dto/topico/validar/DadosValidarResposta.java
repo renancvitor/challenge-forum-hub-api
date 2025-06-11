@@ -1,4 +1,4 @@
-package hub.forum.api.domain.topico.validar;
+package hub.forum.api.dto.topico.validar;
 
 public record DadosValidarResposta(Long autorId) {
 }

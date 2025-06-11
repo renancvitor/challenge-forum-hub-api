@@ -2,10 +2,14 @@ package hub.forum.api.controller;
 
 import hub.forum.api.domain.resposta.*;
 import hub.forum.api.domain.topico.Topico;
+import hub.forum.api.dto.resposta.DadosCadastroResposta;
+import hub.forum.api.dto.resposta.DadosDetalhamentoResposta;
+import hub.forum.api.dto.resposta.DadosListagemResposta;
 import hub.forum.api.repository.TopicoRepository;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.repository.UsuarioRepository;
 import hub.forum.api.repository.RespostaRepository;
+import hub.forum.api.service.RespostaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

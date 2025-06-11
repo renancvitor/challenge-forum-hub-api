@@ -1,6 +1,8 @@
-package hub.forum.api.domain.topico;
+package hub.forum.api.dto.topico;
 
-import hub.forum.api.domain.resposta.DadosListagemResposta;
+import hub.forum.api.domain.topico.StatusTopico;
+import hub.forum.api.domain.topico.Topico;
+import hub.forum.api.dto.resposta.DadosListagemResposta;
 
 import java.time.LocalDateTime;
 import java.util.List;

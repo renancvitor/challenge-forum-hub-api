@@ -1,6 +1,7 @@
-package hub.forum.api.domain.topico;
+package hub.forum.api.dto.topico;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import hub.forum.api.domain.topico.StatusTopico;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

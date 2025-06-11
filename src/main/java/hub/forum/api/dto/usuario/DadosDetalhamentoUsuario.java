@@ -1,6 +1,7 @@
-package hub.forum.api.domain.usuario;
+package hub.forum.api.dto.usuario;
 
 import hub.forum.api.domain.perfil.Perfil;
+import hub.forum.api.domain.usuario.Usuario;
 
 public record DadosDetalhamentoUsuario(Long id,
                                        String nome,

@@ -1,8 +1,8 @@
-package hub.forum.api.domain.resposta;
+package hub.forum.api.service;
 
+import hub.forum.api.domain.resposta.Resposta;
 import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.domain.topico.Topico;
-import hub.forum.api.domain.topico.TopicoService;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.repository.RespostaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

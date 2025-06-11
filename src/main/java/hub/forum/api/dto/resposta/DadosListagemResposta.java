@@ -1,4 +1,6 @@
-package hub.forum.api.domain.resposta;
+package hub.forum.api.dto.resposta;
+
+import hub.forum.api.domain.resposta.Resposta;
 
 import java.time.LocalDateTime;
 
