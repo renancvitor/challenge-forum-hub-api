@@ -1,7 +1,7 @@
 package hub.forum.api.service;
 
 import hub.forum.api.domain.curso.Curso;
-import hub.forum.api.dto.topico.DadosCriarTopico;
+import hub.forum.api.dto.topico.DadosCadastroTopico;
 import hub.forum.api.dto.topico.DadosDetalhamentoTopico;
 import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.domain.topico.Topico;
@@ -26,7 +26,7 @@ public class TopicoService {
     private CursoRepository cursoRepository;
 
     @Transactional
-    public DadosDetalhamentoTopico criar(DadosCriarTopico dados) {
+    public DadosDetalhamentoTopico criar(DadosCadastroTopico dados) {
         Usuario autor = usuarioRepository.findById(dados.autorId())
                 .orElseThrow(() -> new RuntimeException("Autor não encontrado"));
         Curso curso = cursoRepository.findById(dados.cursoId())

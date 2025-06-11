@@ -3,7 +3,7 @@ package hub.forum.api.controller;
 import hub.forum.api.service.RespostaService;
 import hub.forum.api.dto.topico.DadosListagemTopico;
 import hub.forum.api.service.TopicoService;
-import hub.forum.api.dto.topico.DadosCriarTopico;
+import hub.forum.api.dto.topico.DadosCadastroTopico;
 import hub.forum.api.dto.topico.validar.DadosValidarResposta;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.repository.TopicoRepository;
@@ -31,7 +31,7 @@ public class TopicoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity criarTopico(@RequestBody @Valid DadosCriarTopico dados) {
+    public ResponseEntity criarTopico(@RequestBody @Valid DadosCadastroTopico dados) {
         var dto = topicoService.criar(dados);
         return ResponseEntity.ok(dto);
     }

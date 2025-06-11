@@ -4,7 +4,7 @@ package hub.forum.api.domain.topico;
 import hub.forum.api.domain.curso.Curso;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.domain.resposta.Resposta;
-import hub.forum.api.dto.topico.DadosCriarTopico;
+import hub.forum.api.dto.topico.DadosCadastroTopico;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -45,7 +45,7 @@ public class Topico {
     @Column(nullable = false)
     private Boolean ativo = true;
 
-    public Topico(DadosCriarTopico dados, Usuario autor, Curso curso) {
+    public Topico(DadosCadastroTopico dados, Usuario autor, Curso curso) {
         this.titulo = dados.titulo();
         this.mensagem = dados.mensagem();
         this.dataCriacao = LocalDateTime.now();
