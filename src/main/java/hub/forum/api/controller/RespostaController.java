@@ -8,6 +8,9 @@ import hub.forum.api.repository.UsuarioRepository;
 import hub.forum.api.repository.RespostaRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +46,14 @@ public class RespostaController {
                 .toUri();
 
         return ResponseEntity.created(uri).body(new DadosDetalhamentoResposta(resposta));
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<DadosListagemResposta>> listar(@PageableDefault(size = 10,
+            sort = ("topico.titulo")) Pageable paginacao) {
+        var page = respostaRepository.findAll(paginacao)
+                .map(DadosListagemResposta::new);
+        return ResponseEntity.ok(page);
     }
 
     @DeleteMapping("/{id}")
