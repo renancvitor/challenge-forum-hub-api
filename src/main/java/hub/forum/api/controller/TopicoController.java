@@ -1,12 +1,17 @@
 package hub.forum.api.controller;
 
 import hub.forum.api.domain.resposta.RespostaService;
+import hub.forum.api.domain.topico.DadosListagemTopico;
 import hub.forum.api.domain.topico.TopicoService;
 import hub.forum.api.domain.topico.DadosCriarTopico;
 import hub.forum.api.domain.topico.validar.DadosValidarResposta;
 import hub.forum.api.domain.usuario.Usuario;
+import hub.forum.api.repository.TopicoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +26,22 @@ public class TopicoController {
     @Autowired
     private RespostaService respostaService;
 
+    @Autowired
+    private TopicoRepository topicoRepository;
+
     @PostMapping
     @Transactional
     public ResponseEntity criarTopico(@RequestBody @Valid DadosCriarTopico dados) {
         var dto = topicoService.criar(dados);
         return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<DadosListagemTopico>> listar(@PageableDefault(size = 10,
+            sort = ("titulo")) Pageable paginacao) {
+        var page = topicoRepository.findAllAtivos(paginacao)
+                .map(DadosListagemTopico::new);
+        return ResponseEntity.ok(page);
     }
 
     @PostMapping("/{id}/responder")
