@@ -45,14 +45,6 @@ public class RespostaController {
         return ResponseEntity.created(uri).body(new DadosDetalhamentoResposta(resposta));
     }
 
-    @PutMapping("/{id}/solucao")
-    public ResponseEntity<?> marcarSolucao(@PathVariable Long idTopico,
-                                           @PathVariable Long idResposta,
-                                           @RequestParam Long autorId) {
-        respostaService.marcarSolucao(idResposta, autorId, idTopico);
-        return ResponseEntity.ok().build();
-    }
-
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity deletarResposta(@PathVariable Long id, @RequestBody @Valid Usuario usuario) {
