@@ -1,5 +1,8 @@
 package hub.forum.api.controller;
 
+import hub.forum.api.dto.resposta.DadosAtualizacaoResposta;
+import hub.forum.api.dto.resposta.DadosDetalhamentoResposta;
+import hub.forum.api.dto.topico.DadosAtualizacaoTopico;
 import hub.forum.api.dto.topico.DadosDetalhamentoTopico;
 import hub.forum.api.service.RespostaService;
 import hub.forum.api.dto.topico.DadosListagemTopico;
@@ -66,6 +69,15 @@ public class TopicoController {
                                           @RequestBody @Valid DadosValidarResposta dados) {
         topicoService.validarResposta(id, dados.autorId());
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoTopico dados) {
+        var topico = topicoRepository.getReferenceById(dados.id());
+        topico.atualizarResposta(dados);
+
+        return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
     }
 
     //Implementar mecanismo validador para o dono do tópico marcar solução sem precisar de autorId
