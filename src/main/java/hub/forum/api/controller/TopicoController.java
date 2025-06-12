@@ -1,5 +1,6 @@
 package hub.forum.api.controller;
 
+import hub.forum.api.dto.topico.DadosDetalhamentoTopico;
 import hub.forum.api.service.RespostaService;
 import hub.forum.api.dto.topico.DadosListagemTopico;
 import hub.forum.api.service.TopicoService;
@@ -44,6 +45,13 @@ public class TopicoController {
         return ResponseEntity.ok(page);
     }
 
+    @GetMapping ("/{id}")
+    public ResponseEntity listarById(@PathVariable Long id) {
+        var topico = topicoRepository.getReferenceById(id);
+
+        return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
+    }
+
     @PostMapping("/{id}/responder")
     @Transactional
     public ResponseEntity registrarResposta(@PathVariable Long id) {
@@ -60,7 +68,8 @@ public class TopicoController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{idTopico}/resposta/{idResposta}/solucao")
+    //Implementar mecanismo validador para o dono do tópico marcar solução sem precisar de autorId
+    @PutMapping("/{idTopico}/resposta/{idResposta}/solucao}")
     public ResponseEntity<?> marcarRespostaComoSolucao(
             @PathVariable Long idTopico,
             @PathVariable Long idResposta,
