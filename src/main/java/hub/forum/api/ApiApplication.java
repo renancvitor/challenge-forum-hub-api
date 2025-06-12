@@ -9,5 +9,5 @@ public class ApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApiApplication.class, args);
 	}
-// Curso 02, tópico 05, vídeo 03
+// Curso 02, tópico 02, vídeo 02
 }

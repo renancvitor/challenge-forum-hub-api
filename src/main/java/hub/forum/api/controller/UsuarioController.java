@@ -8,6 +8,7 @@ import hub.forum.api.repository.PerfilRepository;
 import hub.forum.api.domain.usuario.*;
 import hub.forum.api.repository.UsuarioRepository;
 import jakarta.validation.Valid;
+import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +33,7 @@ public class UsuarioController {
     public ResponseEntity<DadosDetalhamentoUsuario> cadastrar(@RequestBody @Valid DadosCadastroUsuario dados,
                                                               UriComponentsBuilder uriComponentsBuilder) {
         Perfil perfil = perfilRepository.findById(dados.perfilId())
-                .orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
+                .orElseThrow(() -> new ValidationException("Perfil não encontrado"));
 
         var usuario = new Usuario(dados, perfil);
         usuarioRepository.save(usuario);

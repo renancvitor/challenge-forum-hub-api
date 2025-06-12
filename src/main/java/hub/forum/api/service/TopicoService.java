@@ -5,6 +5,7 @@ import hub.forum.api.dto.topico.DadosCadastroTopico;
 import hub.forum.api.dto.topico.DadosDetalhamentoTopico;
 import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.domain.topico.Topico;
+import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.repository.CursoRepository;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.repository.UsuarioRepository;
@@ -28,9 +29,9 @@ public class TopicoService {
     @Transactional
     public DadosDetalhamentoTopico criar(DadosCadastroTopico dados) {
         Usuario autor = usuarioRepository.findById(dados.autorId())
-                .orElseThrow(() -> new RuntimeException("Autor não encontrado"));
+                .orElseThrow(() -> new ValidacaoException("Autor não encontrado"));
         Curso curso = cursoRepository.findById(dados.cursoId())
-                .orElseThrow(() -> new RuntimeException("Curso não encontrado"));
+                .orElseThrow(() -> new ValidacaoException("Curso não encontrado"));
 
         Topico topico = new Topico(dados, autor, curso);
         topico = topicoRepository.save(topico);
@@ -41,7 +42,7 @@ public class TopicoService {
     @Transactional
     public void receberResposta(Long topicoId) {
         Topico topico = topicoRepository.findById(topicoId)
-                .orElseThrow(() -> new RuntimeException("Tõpico não encontrado"));
+                .orElseThrow(() -> new ValidacaoException("Tõpico não encontrado"));
 
         topico.setStatus(StatusTopico.NAO_SOLUCIONADO);
     }
@@ -49,10 +50,10 @@ public class TopicoService {
     @Transactional
     public void validarResposta(Long topicoId, Long autorId) {
         Topico topico = topicoRepository.findById(topicoId)
-                .orElseThrow(() -> new RuntimeException("Tópico não encontrado"));
+                .orElseThrow(() -> new ValidacaoException("Tópico não encontrado"));
 
         if (!topico.getAutor().getId().equals(autorId)) {
-            throw new RuntimeException("Apenas o autor pode validar a resposta");
+            throw new ValidacaoException("Apenas o autor pode validar a resposta");
         }
 
         topico.setStatus(StatusTopico.SOLUCIONADO);
@@ -62,12 +63,12 @@ public class TopicoService {
     @Transactional
     public void deletarTopico(Long topicoId, Usuario usuario) {
         Topico topico = topicoRepository.findById(topicoId)
-                .orElseThrow(() -> new RuntimeException("Tópico não encontrado"));
+                .orElseThrow(() -> new ValidacaoException("Tópico não encontrado"));
 
         String nomePerfil = usuario.getPerfil().getNome();
 
         if (!nomePerfil.equals("ADMIN") && !nomePerfil.equals("MODERADOR")) {
-            throw new RuntimeException("Apenas ADMIN ou MODERADOR podem deletar um tópico");
+            throw new ValidacaoException("Apenas ADMIN ou MODERADOR podem deletar um tópico");
         }
 
         topico.setAtivo(false);
