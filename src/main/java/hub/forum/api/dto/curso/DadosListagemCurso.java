@@ -9,7 +9,7 @@ public record DadosListagemCurso(Long id,
 
     public DadosListagemCurso(Curso curso) {
         this(
-                curso.getId(), 
+                curso.getId(),
                 curso.getNome(),
                 curso.getCategoria()
         );

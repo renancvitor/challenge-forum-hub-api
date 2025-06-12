@@ -2,6 +2,7 @@ package hub.forum.api.controller;
 
 import hub.forum.api.domain.resposta.*;
 import hub.forum.api.domain.topico.Topico;
+import hub.forum.api.dto.resposta.DadosAtualizacaoResposta;
 import hub.forum.api.dto.resposta.DadosCadastroResposta;
 import hub.forum.api.dto.resposta.DadosDetalhamentoResposta;
 import hub.forum.api.dto.resposta.DadosListagemResposta;
@@ -58,6 +59,15 @@ public class RespostaController {
         var page = respostaRepository.findAll(paginacao)
                 .map(DadosListagemResposta::new);
         return ResponseEntity.ok(page);
+    }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoResposta dados) {
+        var resposta = respostaRepository.getReferenceById(dados.id());
+        resposta.atualizarResposta(dados);
+
+        return ResponseEntity.ok(new DadosDetalhamentoResposta(resposta));
     }
 
     @DeleteMapping("/{id}")

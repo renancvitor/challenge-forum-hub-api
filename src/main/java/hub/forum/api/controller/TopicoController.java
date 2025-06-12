@@ -69,7 +69,7 @@ public class TopicoController {
     }
 
     //Implementar mecanismo validador para o dono do tópico marcar solução sem precisar de autorId
-    @PutMapping("/{idTopico}/resposta/{idResposta}/solucao}")
+    @PutMapping("/{idTopico}/resposta/{idResposta}/solucao")
     public ResponseEntity<?> marcarRespostaComoSolucao(
             @PathVariable Long idTopico,
             @PathVariable Long idResposta,
