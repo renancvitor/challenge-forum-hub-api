@@ -20,6 +20,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.ldap.spi.LdapDnsProvider;
+
 @RestController
 @RequestMapping("topicos")
 public class TopicoController {
@@ -86,9 +88,11 @@ public class TopicoController {
             @PathVariable Long idTopico,
             @PathVariable Long idResposta,
             @RequestParam Long autorId) {
+        var topico = topicoRepository.getReferenceById(idTopico);
 
         respostaService.marcarSolucao(idResposta, autorId, idTopico);
         return ResponseEntity.ok().build();
+        //return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
     }
 
     @DeleteMapping("/{id}")
