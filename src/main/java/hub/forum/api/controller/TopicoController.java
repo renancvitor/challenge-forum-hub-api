@@ -19,6 +19,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.naming.ldap.spi.LdapDnsProvider;
 
@@ -37,9 +38,14 @@ public class TopicoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity criarTopico(@RequestBody @Valid DadosCadastroTopico dados) {
-        var dto = topicoService.criar(dados);
-        return ResponseEntity.ok(dto);
+    public ResponseEntity criarTopico(@RequestBody @Valid DadosCadastroTopico dados,
+                                      UriComponentsBuilder uriComponentsBuilder) {
+        var topico = topicoService.criar(dados);
+
+        var uri = uriComponentsBuilder.path("/topicos/{id}")
+                .buildAndExpand(topico.id())
+                .toUri();
+        return ResponseEntity.created(uri).body(topico);
     }
 
     @GetMapping
