@@ -9,6 +9,6 @@ public class ApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApiApplication.class, args);
 	}
-// Curso 02, tópico 03, vídeo 05
-	//   $10$Y50UaMFOxteibQEYLrwuHeehHYfcoafCopUazP12.rqB41bsolF5.
+// Curso 02, tópico 05, vídeo 03
+	//   $2a$10$Y50UaMFOxteibQEYLrwuHeehHYfcoafCopUazP12.rqB41bsolF5.
 }
