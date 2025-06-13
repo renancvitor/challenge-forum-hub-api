@@ -19,12 +19,11 @@ public class TokenService {
     private String secret;
 
     public String gerarToken(Usuario usuario) {
-        System.out.println("Secret no gerarToken: '" + secret + "'");
         try {
             var algoritimo = Algorithm.HMAC256(secret);
             return JWT.create()
-                    .withIssuer("API Voll.med")
-                    .withSubject(usuario.getLogin())
+                    .withIssuer("API ForumHub")
+                    .withSubject(usuario.getEmail())
                     .withClaim("id", usuario.getId())
                     .withExpiresAt(dataExpiracao())
                     .sign(algoritimo);
@@ -34,11 +33,10 @@ public class TokenService {
     }
 
     public String getSubject(String tokenJWT) {
-        System.out.println("Secret no gerarToken: '" + secret + "'");
         try {
             var algoritimo = Algorithm.HMAC256(secret);
             return JWT.require(algoritimo)
-                    .withIssuer("API Voll.med")
+                    .withIssuer("API ForumHub")
                     .build()
                     .verify(tokenJWT)
                     .getSubject();
