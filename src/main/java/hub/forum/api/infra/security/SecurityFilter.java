@@ -29,7 +29,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
         if ("/login".equals(path)) {
             filterChain.doFilter(request, response);
-            return; // Sai do método aqui para não fazer mais nada
+            return;
         }
 
         var tokenJWT = recuperarToken(request);
