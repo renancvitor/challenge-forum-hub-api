@@ -37,7 +37,7 @@ public class SecurityConfigurations {
 //                )
 //                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
 //                .build();
-//    }
+//    } $2a$10$Y50UaMFOxteibQEYLrwuHeehHYfcoafCopUazP12.rqB41bsolF5.
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
