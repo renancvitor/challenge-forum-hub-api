@@ -11,6 +11,7 @@ import hub.forum.api.dto.topico.DadosCadastroTopico;
 import hub.forum.api.dto.topico.validar.DadosValidarResposta;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.repository.TopicoRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,6 +28,7 @@ import javax.naming.ldap.spi.LdapDnsProvider;
 
 @RestController
 @RequestMapping("topicos")
+@SecurityRequirement(name = "bearer-key")
 public class TopicoController {
 
     @Autowired

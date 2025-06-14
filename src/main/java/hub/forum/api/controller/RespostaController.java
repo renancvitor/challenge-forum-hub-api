@@ -11,6 +11,7 @@ import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.repository.UsuarioRepository;
 import hub.forum.api.repository.RespostaRepository;
 import hub.forum.api.service.RespostaService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +24,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("respostas")
+@SecurityRequirement(name = "bearer-key")
 public class RespostaController {
 
     @Autowired

@@ -7,6 +7,7 @@ import hub.forum.api.dto.usuario.DadosListagemUsuario;
 import hub.forum.api.repository.PerfilRepository;
 import hub.forum.api.domain.usuario.*;
 import hub.forum.api.repository.UsuarioRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/usuarios")
+@SecurityRequirement(name = "bearer-key")
 public class UsuarioController {
 
     @Autowired
