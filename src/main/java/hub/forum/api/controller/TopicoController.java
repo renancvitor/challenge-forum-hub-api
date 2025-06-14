@@ -17,6 +17,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -88,17 +90,15 @@ public class TopicoController {
         return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
     }
 
-    //Implementar mecanismo validador para o dono do tópico marcar solução sem precisar de autorId
     @PutMapping("/{idTopico}/resposta/{idResposta}/solucao")
+    @Transactional
     public ResponseEntity<?> marcarRespostaComoSolucao(
             @PathVariable Long idTopico,
             @PathVariable Long idResposta,
-            @RequestParam Long autorId) {
-        var topico = topicoRepository.getReferenceById(idTopico);
+            @AuthenticationPrincipal Usuario usuarioLogado) {
 
-        respostaService.marcarSolucao(idResposta, autorId, idTopico);
+        respostaService.marcarSolucao(idResposta, idTopico, usuarioLogado.getId());
         return ResponseEntity.ok().build();
-        //return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
     }
 
     @DeleteMapping("/{id}")

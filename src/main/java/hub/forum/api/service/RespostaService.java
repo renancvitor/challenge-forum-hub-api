@@ -20,23 +20,25 @@ public class RespostaService {
     private TopicoService topicoService;
 
     @Transactional
-    public void marcarSolucao(Long idResposta, Long autorId, Long idTopico) {
+    public void marcarSolucao(Long idResposta, Long idTopico, Long idUsuarioLogado) {
         Resposta resposta = respostaRepository.findById(idResposta)
                 .orElseThrow(() -> new ValidacaoException("Resposta não encontrada"));
 
-        if (!resposta.getTopico().getId().equals(idTopico)) {
+        Topico topico = resposta.getTopico();
+
+        if (!topico.getId().equals(idTopico)) {
             throw new ValidacaoException("Resposta não pertence a este tópico");
         }
 
-        Topico topico = resposta.getTopico();
+        if (!topico.getAutor().getId().equals(idUsuarioLogado)) {
+            throw new ValidacaoException("Apenas o autor do tópico pode marcar uma resposta como solução");
+        }
 
-        topicoService.validarResposta(topico.getId(), autorId);
-
-        if (topico.getStatus() == StatusTopico.SOLUCIONADO) {
+        if (topico.getStatus() != StatusTopico.SOLUCIONADO) {
             resposta.marcarComoSolucao();
+            topico.setStatus(StatusTopico.SOLUCIONADO);
         }
     }
-
 
     @Transactional
     public void deletarResposta(Long repostaId, Usuario usuario) {
