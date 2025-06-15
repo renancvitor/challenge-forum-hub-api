@@ -54,18 +54,15 @@ public class RespostaController {
     @GetMapping
     public ResponseEntity<Page<DadosListagemResposta>> listar(@PageableDefault(size = 10,
             sort = ("topico.titulo")) Pageable paginacao) {
-        var page = respostaRepository.findAll(paginacao)
-                .map(DadosListagemResposta::new);
+        var page = respostaService.listar(paginacao);
         return ResponseEntity.ok(page);
     }
 
     @PutMapping
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoResposta dados) {
-        var resposta = respostaRepository.getReferenceById(dados.id());
-        resposta.atualizarResposta(dados);
-
-        return ResponseEntity.ok(new DadosDetalhamentoResposta(resposta));
+        var resposta = respostaService.atualizar(dados);
+        return ResponseEntity.ok(resposta);
     }
 
     @DeleteMapping("/{id}")

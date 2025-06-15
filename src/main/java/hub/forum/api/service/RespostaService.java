@@ -4,13 +4,17 @@ import hub.forum.api.domain.resposta.Resposta;
 import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.domain.topico.Topico;
 import hub.forum.api.domain.usuario.Usuario;
+import hub.forum.api.dto.resposta.DadosAtualizacaoResposta;
 import hub.forum.api.dto.resposta.DadosCadastroResposta;
 import hub.forum.api.dto.resposta.DadosDetalhamentoResposta;
+import hub.forum.api.dto.resposta.DadosListagemResposta;
 import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.repository.RespostaRepository;
 import hub.forum.api.repository.TopicoRepository;
 import hub.forum.api.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +39,16 @@ public class RespostaService {
         Usuario autor = usuarioRepository.getReferenceById(dados.autorId());
         Resposta resposta = new Resposta(dados, topico, autor);
         respostaRepository.save(resposta);
+        return new DadosDetalhamentoResposta(resposta);
+    }
+
+    public Page<DadosListagemResposta> listar(Pageable paginacao) {
+        return respostaRepository.findAll(paginacao).map(DadosListagemResposta::new);
+    }
+
+    public DadosDetalhamentoResposta atualizar(DadosAtualizacaoResposta dados) {
+        var resposta = respostaRepository.getReferenceById(dados.id());
+        resposta.atualizarResposta(dados);
         return new DadosDetalhamentoResposta(resposta);
     }
 
