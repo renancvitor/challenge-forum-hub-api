@@ -42,17 +42,13 @@ public class RespostaController {
     @PostMapping
     public ResponseEntity<DadosDetalhamentoResposta> cadastrar(@RequestBody @Valid DadosCadastroResposta dados,
                                                                UriComponentsBuilder uriComponentsBuilder) {
-        Topico topico = topicoRepository.getReferenceById(dados.topicoId());
-        Usuario autor = usuarioRepository.getReferenceById(dados.autorId());
-
-        var resposta = new Resposta(dados, topico, autor);
-        respostaRepository.save(resposta);
+        var resposta = respostaService.cadastrar(dados);
 
         var uri = uriComponentsBuilder.path("/respostas/{id}")
-                .buildAndExpand(resposta.getId())
+                .buildAndExpand(resposta.id())
                 .toUri();
 
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoResposta(resposta));
+        return ResponseEntity.created(uri).body(resposta);
     }
 
     @GetMapping

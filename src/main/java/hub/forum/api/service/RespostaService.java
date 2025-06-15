@@ -4,8 +4,12 @@ import hub.forum.api.domain.resposta.Resposta;
 import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.domain.topico.Topico;
 import hub.forum.api.domain.usuario.Usuario;
+import hub.forum.api.dto.resposta.DadosCadastroResposta;
+import hub.forum.api.dto.resposta.DadosDetalhamentoResposta;
 import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.repository.RespostaRepository;
+import hub.forum.api.repository.TopicoRepository;
+import hub.forum.api.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +21,22 @@ public class RespostaService {
     private RespostaRepository respostaRepository;
 
     @Autowired
+    private TopicoRepository topicoRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
     private TopicoService topicoService;
+
+    @Transactional
+    public DadosDetalhamentoResposta cadastrar(DadosCadastroResposta dados) {
+        Topico topico = topicoRepository.getReferenceById(dados.topicoId());
+        Usuario autor = usuarioRepository.getReferenceById(dados.autorId());
+        Resposta resposta = new Resposta(dados, topico, autor);
+        respostaRepository.save(resposta);
+        return new DadosDetalhamentoResposta(resposta);
+    }
 
     @Transactional
     public void marcarSolucao(Long idResposta, Long idTopico, Long idUsuarioLogado) {
