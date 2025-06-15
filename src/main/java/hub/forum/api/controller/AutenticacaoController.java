@@ -3,6 +3,7 @@ package hub.forum.api.controller;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.token.DadosTokenJWT;
 import hub.forum.api.dto.usuario.DadosLogin;
+import hub.forum.api.service.AutenticacaoService;
 import hub.forum.api.service.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +23,11 @@ public class AutenticacaoController {
     private AuthenticationManager manager;
 
     @Autowired
-    private TokenService tokenService;
+    private AutenticacaoService autenticacaoService;
 
     @PostMapping
     public ResponseEntity efetuarLogin(@RequestBody @Valid DadosLogin dados) {
-        System.out.println("Tentando login para email: " + dados.email());
-        var token = new UsernamePasswordAuthenticationToken(dados.email(), dados.senha());
-        var autenticacao = manager.authenticate(token);
-        System.out.println("Autenticado: " + autenticacao.isAuthenticated());
-
-        var tokenJWT = tokenService.gerarToken((Usuario) autenticacao.getPrincipal());
-
+        var tokenJWT = autenticacaoService.autenticar(dados, manager);
         return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }
 }
