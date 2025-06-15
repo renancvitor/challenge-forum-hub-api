@@ -7,6 +7,7 @@ import hub.forum.api.dto.usuario.DadosListagemUsuario;
 import hub.forum.api.repository.PerfilRepository;
 import hub.forum.api.domain.usuario.*;
 import hub.forum.api.repository.UsuarioRepository;
+import hub.forum.api.service.UsuarioService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
@@ -30,15 +31,14 @@ public class UsuarioController {
     @Autowired
     private PerfilRepository perfilRepository;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     @PostMapping
     @Transactional
     public ResponseEntity<DadosDetalhamentoUsuario> cadastrar(@RequestBody @Valid DadosCadastroUsuario dados,
                                                               UriComponentsBuilder uriComponentsBuilder) {
-        Perfil perfil = perfilRepository.findById(dados.perfilId())
-                .orElseThrow(() -> new ValidationException("Perfil não encontrado"));
-
-        var usuario = new Usuario(dados, perfil);
-        usuarioRepository.save(usuario);
+        Usuario usuario = usuarioService.cadastrar(dados);
 
         var uri = uriComponentsBuilder.path("/usuarios/{id}")
                 .buildAndExpand(usuario.getId())

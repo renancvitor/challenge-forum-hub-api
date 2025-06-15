@@ -2,12 +2,13 @@ package hub.forum.api.dto.usuario;
 
 import hub.forum.api.domain.perfil.Perfil;
 import hub.forum.api.domain.usuario.Usuario;
+import hub.forum.api.dto.perfil.DadosDetalhamentoPerfil;
 
 public record DadosDetalhamentoUsuario(Long id,
                                        String nome,
                                        String email,
                                        String senha,
-                                       Perfil perfil) {
+                                       String perfilNome) {
 
     public DadosDetalhamentoUsuario(Usuario usuario) {
         this(
@@ -15,7 +16,7 @@ public record DadosDetalhamentoUsuario(Long id,
                 usuario.getNome(),
                 usuario.getEmail(),
                 usuario.getSenha(),
-                usuario.getPerfil()
+                usuario.getPerfil().getNome()
         );
     }
 }
