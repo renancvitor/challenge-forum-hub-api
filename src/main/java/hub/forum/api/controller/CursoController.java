@@ -22,14 +22,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class CursoController {
 
     @Autowired
-    CursoRepository repository;
+    CursoRepository cursoRepository;
 
     @PostMapping
     @Transactional
     public ResponseEntity<DadosDetalhamentoCurso> cadastrar(@RequestBody @Valid DadosCadastroCurso dados,
                                                             UriComponentsBuilder uriComponentsBuilder) {
         var curso = new Curso(dados);
-        repository.save(curso);
+        cursoRepository.save(curso);
 
         var uri = uriComponentsBuilder.path("/curso/{id}")
                 .buildAndExpand(curso.getId())
@@ -41,7 +41,7 @@ public class CursoController {
     @GetMapping
     public ResponseEntity<Page<DadosListagemCurso>> listar(@PageableDefault(size = 10,
             sort = ("nome")) Pageable paginacao) {
-        var page = repository.findAll(paginacao)
+        var page = cursoRepository.findAll(paginacao)
                 .map(DadosListagemCurso::new);
         return ResponseEntity.ok(page);
     }

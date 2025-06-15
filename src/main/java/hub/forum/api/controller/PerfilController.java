@@ -22,14 +22,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class PerfilController {
 
     @Autowired
-    private PerfilRepository repository;
+    private PerfilRepository perfilRepository;
 
     @PostMapping
     @Transactional
     public ResponseEntity<DadosDetalhamentoPerfil> cadastrar(@RequestBody @Valid DadosCadastroPerfil dados,
                                     UriComponentsBuilder uriComponentsBuilder) {
         var perfil = new Perfil(dados);
-        repository.save(perfil);
+        perfilRepository.save(perfil);
 
         var uri = uriComponentsBuilder.path("/perfis/{id}")
                 .buildAndExpand(perfil.getId())
@@ -41,7 +41,7 @@ public class PerfilController {
     @GetMapping
     public ResponseEntity<Page<DadosListagemPerfil>> listar(@PageableDefault(size = 10,
             sort = ("nome")) Pageable paginacao) {
-        var page = repository.findAll(paginacao)
+        var page = perfilRepository.findAll(paginacao)
                 .map(DadosListagemPerfil::new);
         return ResponseEntity.ok(page);
     }

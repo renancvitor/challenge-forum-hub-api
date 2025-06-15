@@ -1,16 +1,14 @@
 package hub.forum.api.controller;
 
-import hub.forum.api.dto.resposta.DadosAtualizacaoResposta;
-import hub.forum.api.dto.resposta.DadosDetalhamentoResposta;
-import hub.forum.api.dto.topico.DadosAtualizacaoTopico;
-import hub.forum.api.dto.topico.DadosDetalhamentoTopico;
-import hub.forum.api.service.RespostaService;
-import hub.forum.api.dto.topico.DadosListagemTopico;
-import hub.forum.api.service.TopicoService;
-import hub.forum.api.dto.topico.DadosCadastroTopico;
-import hub.forum.api.dto.topico.validar.DadosValidarResposta;
 import hub.forum.api.domain.usuario.Usuario;
+import hub.forum.api.dto.topico.DadosAtualizacaoTopico;
+import hub.forum.api.dto.topico.DadosCadastroTopico;
+import hub.forum.api.dto.topico.DadosDetalhamentoTopico;
+import hub.forum.api.dto.topico.DadosListagemTopico;
+import hub.forum.api.dto.topico.validar.DadosValidarResposta;
 import hub.forum.api.repository.TopicoRepository;
+import hub.forum.api.service.RespostaService;
+import hub.forum.api.service.TopicoService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import javax.naming.ldap.spi.LdapDnsProvider;
 
 @RestController
 @RequestMapping("topicos")

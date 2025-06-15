@@ -15,14 +15,14 @@ import org.springframework.stereotype.Service;
 public class AutenticacaoService implements UserDetailsService {
 
     @Autowired
-    private UsuarioRepository repository;
+    private UsuarioRepository usuarioRepositor;
 
     @Autowired
     private TokenService tokenService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByEmail(username);
+        return usuarioRepositor.findByEmail(username);
     }
 
     public String autenticar(DadosLogin dados, AuthenticationManager manager) {
