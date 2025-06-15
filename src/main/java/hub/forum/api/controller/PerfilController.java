@@ -5,6 +5,7 @@ import hub.forum.api.dto.perfil.DadosCadastroPerfil;
 import hub.forum.api.domain.perfil.Perfil;
 import hub.forum.api.dto.perfil.DadosListagemPerfil;
 import hub.forum.api.repository.PerfilRepository;
+import hub.forum.api.service.PerfilService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,27 +23,24 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class PerfilController {
 
     @Autowired
-    private PerfilRepository perfilRepository;
+    private PerfilService perfilService;
 
     @PostMapping
-    @Transactional
     public ResponseEntity<DadosDetalhamentoPerfil> cadastrar(@RequestBody @Valid DadosCadastroPerfil dados,
                                     UriComponentsBuilder uriComponentsBuilder) {
-        var perfil = new Perfil(dados);
-        perfilRepository.save(perfil);
+        var perfil = perfilService.cadastrar(dados);
 
         var uri = uriComponentsBuilder.path("/perfis/{id}")
-                .buildAndExpand(perfil.getId())
+                .buildAndExpand(perfil.id())
                 .toUri();
 
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoPerfil(perfil));
+        return ResponseEntity.created(uri).body(perfil);
     }
 
     @GetMapping
     public ResponseEntity<Page<DadosListagemPerfil>> listar(@PageableDefault(size = 10,
             sort = ("nome")) Pageable paginacao) {
-        var page = perfilRepository.findAll(paginacao)
-                .map(DadosListagemPerfil::new);
+        var page = perfilService.listar(paginacao);
         return ResponseEntity.ok(page);
     }
 }

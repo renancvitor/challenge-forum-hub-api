@@ -33,7 +33,6 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping
-    @Transactional
     public ResponseEntity<DadosDetalhamentoUsuario> cadastrar(@RequestBody @Valid DadosCadastroUsuario dados,
                                                               UriComponentsBuilder uriComponentsBuilder) {
         Usuario usuario = usuarioService.cadastrar(dados);

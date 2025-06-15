@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CursoService {
@@ -16,6 +17,7 @@ public class CursoService {
     @Autowired
     CursoRepository cursoRepository;
 
+    @Transactional
     public DadosDetalhamentoCurso cadastrar(DadosCadastroCurso dados) {
         var curso = new Curso(dados);
         cursoRepository.save(curso);

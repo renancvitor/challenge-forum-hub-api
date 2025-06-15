@@ -46,6 +46,7 @@ public class RespostaService {
         return respostaRepository.findAll(paginacao).map(DadosListagemResposta::new);
     }
 
+    @Transactional
     public DadosDetalhamentoResposta atualizar(DadosAtualizacaoResposta dados) {
         var resposta = respostaRepository.getReferenceById(dados.id());
         resposta.atualizarResposta(dados);

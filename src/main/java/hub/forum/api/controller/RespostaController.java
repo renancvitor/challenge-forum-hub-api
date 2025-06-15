@@ -1,15 +1,13 @@
 package hub.forum.api.controller;
 
-import hub.forum.api.domain.resposta.*;
-import hub.forum.api.domain.topico.Topico;
+import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.resposta.DadosAtualizacaoResposta;
 import hub.forum.api.dto.resposta.DadosCadastroResposta;
 import hub.forum.api.dto.resposta.DadosDetalhamentoResposta;
 import hub.forum.api.dto.resposta.DadosListagemResposta;
-import hub.forum.api.repository.TopicoRepository;
-import hub.forum.api.domain.usuario.Usuario;
-import hub.forum.api.repository.UsuarioRepository;
 import hub.forum.api.repository.RespostaRepository;
+import hub.forum.api.repository.TopicoRepository;
+import hub.forum.api.repository.UsuarioRepository;
 import hub.forum.api.service.RespostaService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -18,7 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -59,14 +56,12 @@ public class RespostaController {
     }
 
     @PutMapping
-    @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoResposta dados) {
         var resposta = respostaService.atualizar(dados);
         return ResponseEntity.ok(resposta);
     }
 
     @DeleteMapping("/{id}")
-    @Transactional
     public ResponseEntity deletarResposta(@PathVariable Long id, @RequestBody @Valid Usuario usuario) {
         respostaService.deletarResposta(id, usuario);
         return ResponseEntity.noContent()
