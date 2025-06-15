@@ -32,15 +32,10 @@ public class TopicoController {
     @Autowired
     private RespostaService respostaService;
 
-    @Autowired
-    private TopicoRepository topicoRepository;
-
     @PostMapping
-    @Transactional
-    public ResponseEntity criarTopico(@RequestBody @Valid DadosCadastroTopico dados,
+    public ResponseEntity criar(@RequestBody @Valid DadosCadastroTopico dados,
                                       UriComponentsBuilder uriComponentsBuilder) {
         var topico = topicoService.criar(dados);
-
         var uri = uriComponentsBuilder.path("/topicos/{id}")
                 .buildAndExpand(topico.id())
                 .toUri();
@@ -50,28 +45,23 @@ public class TopicoController {
     @GetMapping
     public ResponseEntity<Page<DadosListagemTopico>> listar(@PageableDefault(size = 10,
             sort = ("titulo")) Pageable paginacao) {
-        var page = topicoRepository.findAllAtivos(paginacao)
-                .map(DadosListagemTopico::new);
+        var page = topicoService.listar(paginacao);
         return ResponseEntity.ok(page);
     }
 
     @GetMapping ("/{id}")
     public ResponseEntity listarById(@PathVariable Long id) {
-        var topico = topicoRepository.getReferenceById(id);
-
-        return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
+        var topico = topicoService.listarById(id);
+        return ResponseEntity.ok(topico);
     }
 
     @PostMapping("/{id}/responder")
-    @Transactional
-    public ResponseEntity registrarResposta(@PathVariable Long id) {
+    public ResponseEntity receberResposta(@PathVariable Long id) {
         topicoService.receberResposta(id);
-        return ResponseEntity.ok()
-                .build();
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{id}/validar")
-    @Transactional
     public ResponseEntity validarResposta(@PathVariable Long id,
                                           @RequestBody @Valid DadosValidarResposta dados) {
         topicoService.validarResposta(id, dados.autorId());
@@ -79,16 +69,12 @@ public class TopicoController {
     }
 
     @PutMapping
-    @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoTopico dados) {
-        var topico = topicoRepository.getReferenceById(dados.id());
-        topico.atualizarResposta(dados);
-
-        return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
+        var topico = topicoService.atualizar(dados);
+        return ResponseEntity.ok(topico);
     }
 
     @PutMapping("/{idTopico}/resposta/{idResposta}/solucao")
-    @Transactional
     public ResponseEntity<?> marcarRespostaComoSolucao(
             @PathVariable Long idTopico,
             @PathVariable Long idResposta,
@@ -99,11 +85,9 @@ public class TopicoController {
     }
 
     @DeleteMapping("/{id}")
-    @Transactional
     public ResponseEntity deletarTopico(@PathVariable Long id,
                                         @RequestBody @Valid Usuario usuario) {
         topicoService.deletarTopico(id, usuario);
-        return ResponseEntity.noContent()
-                .build();
+        return ResponseEntity.noContent().build();
     }
 }
