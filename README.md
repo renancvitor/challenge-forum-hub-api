@@ -5,7 +5,6 @@
 │   ├── controller
 │   │    └── AutenticacaoController.java
 │   │    ├── CursoController.java
-│   │    ├── HelloController.java
 │   │    ├── PerfilController.java
 │   │    ├── RespostaController.java
 │   │    ├── TopicoController.java
@@ -45,6 +44,7 @@
 │   │    │    │    └── DadosValidarResposta.java
 │   │    │    ├── DadosAtualizacaoTopico.java
 │   │    │    ├── DadosCadastroTopico.java
+│   │    │    ├── DadosDetalhamentoResumidoTopico.java
 │   │    │    ├── DadosDetalhamentoTopico.java
 │   │    │    ├── DadosListagemTotalTopico.java
 │   │    │    └── DadosListagemUnicoTopico.java
@@ -75,6 +75,7 @@
 │   │    ├── RespostaService.java
 │   │    ├── TokenService.java
 │   │    ├── TopicoService.java 
+│   │    ├── UsuarioLogadoService.java 
 │   │    └── UsuarioService.java
 │   └── ApiApplication.java
 └── README.md
