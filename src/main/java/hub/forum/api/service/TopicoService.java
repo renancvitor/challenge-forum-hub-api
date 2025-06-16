@@ -4,10 +4,7 @@ import hub.forum.api.domain.curso.Curso;
 import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.domain.topico.Topico;
 import hub.forum.api.domain.usuario.Usuario;
-import hub.forum.api.dto.topico.DadosAtualizacaoTopico;
-import hub.forum.api.dto.topico.DadosCadastroTopico;
-import hub.forum.api.dto.topico.DadosDetalhamentoTopico;
-import hub.forum.api.dto.topico.DadosListagemTopico;
+import hub.forum.api.dto.topico.*;
 import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.repository.CursoRepository;
 import hub.forum.api.repository.TopicoRepository;
@@ -43,14 +40,14 @@ public class TopicoService {
         return new DadosDetalhamentoTopico(topico);
     }
 
-    public Page<DadosListagemTopico> listar(Pageable paginacao) {
-        return topicoRepository.findAllAtivos(paginacao).map(DadosListagemTopico::new);
+    public Page<DadosListagemTotalTopico> listar(Pageable paginacao) {
+        return topicoRepository.findAllAtivos(paginacao).map(DadosListagemTotalTopico::new);
     }
 
-    public DadosDetalhamentoTopico listarById(Long id) {
+    public DadosListagemUnicoTopico listarById(Long id) {
         var topico = topicoRepository.findById(id)
                 .orElseThrow(() -> new ValidacaoException("Tópico não encontrado"));
-        return new DadosDetalhamentoTopico(topico);
+        return new DadosListagemUnicoTopico(topico);
     }
 
     @Transactional

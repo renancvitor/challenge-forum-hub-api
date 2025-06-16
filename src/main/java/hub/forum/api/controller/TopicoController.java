@@ -3,7 +3,8 @@ package hub.forum.api.controller;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.topico.DadosAtualizacaoTopico;
 import hub.forum.api.dto.topico.DadosCadastroTopico;
-import hub.forum.api.dto.topico.DadosListagemTopico;
+import hub.forum.api.dto.topico.DadosListagemTotalTopico;
+import hub.forum.api.dto.topico.DadosListagemUnicoTopico;
 import hub.forum.api.dto.topico.validar.DadosValidarResposta;
 import hub.forum.api.service.RespostaService;
 import hub.forum.api.service.TopicoService;
@@ -40,7 +41,7 @@ public class TopicoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DadosListagemTopico>> listar(@PageableDefault(size = 10,
+    public ResponseEntity<Page<DadosListagemTotalTopico>> listar(@PageableDefault(size = 10,
             sort = ("titulo")) Pageable paginacao) {
         var page = topicoService.listar(paginacao);
         return ResponseEntity.ok(page);

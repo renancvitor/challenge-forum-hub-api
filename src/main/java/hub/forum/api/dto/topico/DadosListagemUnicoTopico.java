@@ -8,16 +8,16 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public record DadosListagemTopico(Long id,
-                                  String titulo,
-                                  String mensagem,
-                                  LocalDateTime dataCriacao,
-                                  StatusTopico status,
-                                  String nomeAutor,
-                                  String nomeCurso,
-                                  List<DadosListagemResposta> respostas) {
+public record DadosListagemUnicoTopico(Long id,
+                                       String titulo,
+                                       String mensagem,
+                                       LocalDateTime dataCriacao,
+                                       StatusTopico status,
+                                       String nomeAutor,
+                                       String nomeCurso,
+                                       List<DadosListagemResposta> respostas) {
 
-    public DadosListagemTopico(Topico topico) {
+    public DadosListagemUnicoTopico(Topico topico) {
         this(
                 topico.getId(),
                 topico.getTitulo(),
