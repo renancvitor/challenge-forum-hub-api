@@ -46,7 +46,8 @@
 │   │    │    ├── DadosAtualizacaoTopico.java
 │   │    │    ├── DadosCadastroTopico.java
 │   │    │    ├── DadosDetalhamentoTopico.java
-│   │    │    └── DadosListagemTopico.java
+│   │    │    ├── DadosListagemTotalTopico.java
+│   │    │    └── DadosListagemUnicoTopico.java
 │   │    └── usuario
 │   │    │    └── DadosAtualizacaoUsuario.java
 │   │    │    ├── DadosCadastroUsuario.java
