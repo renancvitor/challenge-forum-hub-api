@@ -27,11 +27,13 @@ public class TopicoService {
     @Autowired
     private CursoRepository cursoRepository;
 
+    @Autowired
+    private UsuarioLogadoService usuarioLogadoService;
+
     @Transactional
     public DadosDetalhamentoTopico criar(DadosCadastroTopico dados) {
-        Usuario autor = usuarioRepository.findById(dados.autorId())
-                .orElseThrow(() -> new ValidacaoException("Autor não encontrado"));
-        Curso curso = cursoRepository.findById(dados.cursoId())
+        Usuario autor = usuarioLogadoService.getUsuario();
+        Curso curso = cursoRepository.findByNome(dados.cursoNome())
                 .orElseThrow(() -> new ValidacaoException("Curso não encontrado"));
 
         Topico topico = new Topico(dados, autor, curso);

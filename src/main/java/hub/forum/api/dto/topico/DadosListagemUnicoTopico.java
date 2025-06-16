@@ -14,7 +14,6 @@ public record DadosListagemUnicoTopico(Long id,
                                        LocalDateTime dataCriacao,
                                        StatusTopico status,
                                        String nomeAutor,
-                                       String nomeCurso,
                                        List<DadosListagemResposta> respostas) {
 
     public DadosListagemUnicoTopico(Topico topico) {
@@ -25,7 +24,6 @@ public record DadosListagemUnicoTopico(Long id,
                 topico.getDataCriacao(),
                 topico.getStatus(),
                 topico.getAutor().getNome(),
-                topico.getCurso().getNome(),
                 topico.getRespostas().stream()
                         .map(DadosListagemResposta::new)
                         .collect(Collectors.toList())
