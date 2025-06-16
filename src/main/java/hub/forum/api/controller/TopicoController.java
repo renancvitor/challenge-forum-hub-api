@@ -66,9 +66,9 @@ public class TopicoController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping
-    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoTopico dados) {
-        var topico = topicoService.atualizar(dados);
+    @PutMapping("/{id}")
+    public ResponseEntity atualizar(@PathVariable Long id, @RequestBody @Valid DadosAtualizacaoTopico dados) {
+        var topico = topicoService.atualizar(id, dados);
         return ResponseEntity.ok(topico);
     }
 

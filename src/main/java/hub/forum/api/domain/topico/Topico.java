@@ -55,8 +55,9 @@ public class Topico {
         this.curso = curso;
     }
 
-    public void atualizarResposta(DadosAtualizacaoTopico dados) {
-        if (dados.mensagem() != null) {
+    public void atualizarTopico(DadosAtualizacaoTopico dados) {
+        if(dados.titulo() != null && dados.mensagem() != null) {
+            this.titulo = dados.titulo();
             this.mensagem = dados.mensagem();
         }
     }

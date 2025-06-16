@@ -31,7 +31,7 @@ public class TopicoService {
     private UsuarioLogadoService usuarioLogadoService;
 
     @Transactional
-    public DadosDetalhamentoTopico criar(DadosCadastroTopico dados) {
+    public DadosDetalhamentoResumidoTopico criar(DadosCadastroTopico dados) {
         Usuario autor = usuarioLogadoService.getUsuario();
         Curso curso = cursoRepository.findByNome(dados.cursoNome())
                 .orElseThrow(() -> new ValidacaoException("Curso não encontrado"));
@@ -39,7 +39,7 @@ public class TopicoService {
         Topico topico = new Topico(dados, autor, curso);
         topico = topicoRepository.save(topico);
 
-        return new DadosDetalhamentoTopico(topico);
+        return new DadosDetalhamentoResumidoTopico(topico);
     }
 
     public Page<DadosListagemTotalTopico> listar(Pageable paginacao) {
@@ -74,11 +74,11 @@ public class TopicoService {
     }
 
     @Transactional
-    public DadosDetalhamentoTopico atualizar(DadosAtualizacaoTopico dados) {
-        var topico = topicoRepository.findById(dados.id())
-                .orElseThrow(() -> new ValidacaoException("Tópico com ID " + dados.id() + " não encontrado"));
-        topico.atualizarResposta(dados);
-        return new DadosDetalhamentoTopico(topico);
+    public DadosDetalhamentoResumidoTopico atualizar(Long id, DadosAtualizacaoTopico dados) {
+        var topico = topicoRepository.findById(id)
+                .orElseThrow(() -> new ValidacaoException("Tópico com ID " + id + " não encontrado"));
+        topico.atualizarTopico(dados);
+        return new DadosDetalhamentoResumidoTopico(topico);
     }
 
     @Transactional
