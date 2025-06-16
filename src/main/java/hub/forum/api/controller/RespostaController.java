@@ -5,10 +5,8 @@ import hub.forum.api.dto.resposta.DadosAtualizacaoResposta;
 import hub.forum.api.dto.resposta.DadosCadastroResposta;
 import hub.forum.api.dto.resposta.DadosDetalhamentoResposta;
 import hub.forum.api.dto.resposta.DadosListagemResposta;
-import hub.forum.api.repository.RespostaRepository;
-import hub.forum.api.repository.TopicoRepository;
-import hub.forum.api.repository.UsuarioRepository;
 import hub.forum.api.service.RespostaService;
+import hub.forum.api.service.UsuarioLogadoService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +23,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class RespostaController {
 
     @Autowired
-    private RespostaRepository respostaRepository;
-
-    @Autowired
-    private TopicoRepository topicoRepository;
-
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-
-    @Autowired
     private RespostaService respostaService;
+
+    @Autowired
+    private UsuarioLogadoService usuarioLogadoService;
 
     @PostMapping
     public ResponseEntity<DadosDetalhamentoResposta> cadastrar(@RequestBody @Valid DadosCadastroResposta dados,
@@ -62,7 +54,8 @@ public class RespostaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deletarResposta(@PathVariable Long id, @RequestBody @Valid Usuario usuario) {
+    public ResponseEntity deletarResposta(@PathVariable Long id) {
+        Usuario usuario = usuarioLogadoService.getUsuario();
         respostaService.deletarResposta(id, usuario);
         return ResponseEntity.noContent()
                 .build();
