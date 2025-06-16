@@ -3,7 +3,6 @@ package hub.forum.api.controller;
 import hub.forum.api.dto.curso.DadosCadastroCurso;
 import hub.forum.api.dto.curso.DadosDetalhamentoCurso;
 import hub.forum.api.dto.curso.DadosListagemCurso;
-import hub.forum.api.repository.CursoRepository;
 import hub.forum.api.service.CursoService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;

@@ -1,21 +1,20 @@
 package hub.forum.api.service;
 
 import hub.forum.api.domain.curso.Curso;
+import hub.forum.api.domain.topico.StatusTopico;
+import hub.forum.api.domain.topico.Topico;
+import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.topico.DadosAtualizacaoTopico;
 import hub.forum.api.dto.topico.DadosCadastroTopico;
 import hub.forum.api.dto.topico.DadosDetalhamentoTopico;
-import hub.forum.api.domain.topico.StatusTopico;
-import hub.forum.api.domain.topico.Topico;
 import hub.forum.api.dto.topico.DadosListagemTopico;
 import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.repository.CursoRepository;
-import hub.forum.api.domain.usuario.Usuario;
-import hub.forum.api.repository.UsuarioRepository;
 import hub.forum.api.repository.TopicoRepository;
+import hub.forum.api.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

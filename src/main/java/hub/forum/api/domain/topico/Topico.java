@@ -2,9 +2,8 @@ package hub.forum.api.domain.topico;
 
 
 import hub.forum.api.domain.curso.Curso;
-import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.domain.resposta.Resposta;
-import hub.forum.api.dto.resposta.DadosAtualizacaoResposta;
+import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.topico.DadosAtualizacaoTopico;
 import hub.forum.api.dto.topico.DadosCadastroTopico;
 import jakarta.persistence.*;

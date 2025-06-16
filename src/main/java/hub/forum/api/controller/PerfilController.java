@@ -1,10 +1,8 @@
 package hub.forum.api.controller;
 
-import hub.forum.api.dto.perfil.DadosDetalhamentoPerfil;
 import hub.forum.api.dto.perfil.DadosCadastroPerfil;
-import hub.forum.api.domain.perfil.Perfil;
+import hub.forum.api.dto.perfil.DadosDetalhamentoPerfil;
 import hub.forum.api.dto.perfil.DadosListagemPerfil;
-import hub.forum.api.repository.PerfilRepository;
 import hub.forum.api.service.PerfilService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -13,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
