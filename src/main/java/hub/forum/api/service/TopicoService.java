@@ -9,6 +9,7 @@ import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.repository.CursoRepository;
 import hub.forum.api.repository.TopicoRepository;
 import hub.forum.api.repository.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +35,7 @@ public class TopicoService {
     public DadosDetalhamentoResumidoTopico criar(DadosCadastroTopico dados) {
         Usuario autor = usuarioLogadoService.getUsuario();
         Curso curso = cursoRepository.findByNome(dados.cursoNome())
-                .orElseThrow(() -> new ValidacaoException("Curso não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Curso não encontrado"));
 
         Topico topico = new Topico(dados, autor, curso);
         topico = topicoRepository.save(topico);
@@ -48,14 +49,14 @@ public class TopicoService {
 
     public DadosListagemUnicoTopico listarById(Long id) {
         var topico = topicoRepository.findById(id)
-                .orElseThrow(() -> new ValidacaoException("Tópico não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Tópico não encontrado"));
         return new DadosListagemUnicoTopico(topico);
     }
 
     @Transactional
     public void receberResposta(Long topicoId) {
         Topico topico = topicoRepository.findById(topicoId)
-                .orElseThrow(() -> new ValidacaoException("Tõpico não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Tõpico não encontrado"));
 
         topico.setStatus(StatusTopico.NAO_SOLUCIONADO);
     }
@@ -63,7 +64,7 @@ public class TopicoService {
     @Transactional
     public void validarResposta(Long topicoId, Long autorId) {
         Topico topico = topicoRepository.findById(topicoId)
-                .orElseThrow(() -> new ValidacaoException("Tópico não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Tópico não encontrado"));
 
         if (!topico.getAutor().getId().equals(autorId)) {
             throw new ValidacaoException("Apenas o autor pode validar a resposta");
@@ -76,7 +77,7 @@ public class TopicoService {
     @Transactional
     public DadosDetalhamentoResumidoTopico atualizar(Long id, DadosAtualizacaoTopico dados) {
         var topico = topicoRepository.findById(id)
-                .orElseThrow(() -> new ValidacaoException("Tópico com ID " + id + " não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Tópico com ID " + id + " não encontrado"));
 
         if ((dados.titulo() == null || dados.titulo().isBlank()) &&
                 (dados.mensagem() == null || dados.mensagem().isBlank())) {
@@ -90,7 +91,7 @@ public class TopicoService {
     @Transactional
     public void deletarTopico(Long topicoId, Usuario usuario) {
         Topico topico = topicoRepository.findById(topicoId)
-                .orElseThrow(() -> new ValidacaoException("Tópico não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Tópico não encontrado"));
 
         String nomePerfil = usuario.getPerfil().getNome();
 
