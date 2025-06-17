@@ -48,11 +48,11 @@ public class RespostaService {
     }
 
     @Transactional
-    public DadosDetalhamentoResumidoResposta atualizar(Long id, DadosAtualizacaoResposta dados) {
+    public DadosDetalhamentoResposta atualizar(Long id, DadosAtualizacaoResposta dados) {
         var resposta = respostaRepository.findById(id)
                         .orElseThrow(() -> new ValidacaoException("Resposta com ID " + id + " não encontrado"));
         resposta.atualizarResposta(dados);
-        return new DadosDetalhamentoResumidoResposta(resposta);
+        return new DadosDetalhamentoResposta(resposta);
     }
 
     @Transactional
