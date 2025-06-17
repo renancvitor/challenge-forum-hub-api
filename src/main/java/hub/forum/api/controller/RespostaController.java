@@ -47,9 +47,9 @@ public class RespostaController {
         return ResponseEntity.ok(page);
     }
 
-    @PutMapping
-    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoResposta dados) {
-        var resposta = respostaService.atualizar(dados);
+    @PutMapping("/{id}")
+    public ResponseEntity atualizar(@PathVariable Long id, @RequestBody @Valid DadosAtualizacaoResposta dados) {
+        var resposta = respostaService.atualizar(id, dados);
         return ResponseEntity.ok(resposta);
     }
 

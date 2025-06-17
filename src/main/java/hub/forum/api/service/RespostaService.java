@@ -4,10 +4,7 @@ import hub.forum.api.domain.resposta.Resposta;
 import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.domain.topico.Topico;
 import hub.forum.api.domain.usuario.Usuario;
-import hub.forum.api.dto.resposta.DadosAtualizacaoResposta;
-import hub.forum.api.dto.resposta.DadosCadastroResposta;
-import hub.forum.api.dto.resposta.DadosDetalhamentoResposta;
-import hub.forum.api.dto.resposta.DadosListagemResposta;
+import hub.forum.api.dto.resposta.*;
 import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.repository.RespostaRepository;
 import hub.forum.api.repository.TopicoRepository;
@@ -47,10 +44,11 @@ public class RespostaService {
     }
 
     @Transactional
-    public DadosDetalhamentoResposta atualizar(DadosAtualizacaoResposta dados) {
-        var resposta = respostaRepository.getReferenceById(dados.id());
+    public DadosDetalhamentoResumidoResposta atualizar(Long id, DadosAtualizacaoResposta dados) {
+        var resposta = respostaRepository.findById(id)
+                        .orElseThrow(() -> new ValidacaoException("Resposta com ID " + id + " não encontrado"));
         resposta.atualizarResposta(dados);
-        return new DadosDetalhamentoResposta(resposta);
+        return new DadosDetalhamentoResumidoResposta(resposta);
     }
 
     @Transactional
