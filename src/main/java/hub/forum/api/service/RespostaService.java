@@ -30,10 +30,14 @@ public class RespostaService {
     @Autowired
     private TopicoService topicoService;
 
+    @Autowired
+    private UsuarioLogadoService usuarioLogadoService;
+
     @Transactional
     public DadosDetalhamentoResposta cadastrar(DadosCadastroResposta dados) {
+        Usuario autor = usuarioLogadoService.getUsuario();
         Topico topico = topicoRepository.getReferenceById(dados.topicoId());
-        Usuario autor = usuarioRepository.getReferenceById(dados.autorId());
+
         Resposta resposta = new Resposta(dados, topico, autor);
         respostaRepository.save(resposta);
         return new DadosDetalhamentoResposta(resposta);

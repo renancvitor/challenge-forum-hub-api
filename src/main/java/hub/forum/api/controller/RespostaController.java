@@ -28,9 +28,11 @@ public class RespostaController {
     @Autowired
     private UsuarioLogadoService usuarioLogadoService;
 
-    @PostMapping
-    public ResponseEntity<DadosDetalhamentoResposta> cadastrar(@RequestBody @Valid DadosCadastroResposta dados,
+    @PostMapping("/topicos/{topicoId}/respostas")
+    public ResponseEntity<DadosDetalhamentoResposta> cadastrar(@PathVariable Long topicoId,
+                                                               @RequestBody @Valid DadosCadastroResposta dadosResposta,
                                                                UriComponentsBuilder uriComponentsBuilder) {
+        var dados = new DadosCadastroResposta(topicoId, dadosResposta.mensagem());
         var resposta = respostaService.cadastrar(dados);
 
         var uri = uriComponentsBuilder.path("/respostas/{id}")
