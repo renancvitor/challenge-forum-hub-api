@@ -32,8 +32,8 @@ public class RespostaController {
     public ResponseEntity<DadosDetalhamentoResposta> cadastrar(@PathVariable Long topicoId,
                                                                @RequestBody @Valid DadosCadastroResposta dadosResposta,
                                                                UriComponentsBuilder uriComponentsBuilder) {
-        var dados = new DadosCadastroResposta(topicoId, dadosResposta.mensagem());
-        var resposta = respostaService.cadastrar(dados);
+
+        var resposta = respostaService.cadastrar(topicoId, dadosResposta.mensagem());
 
         var uri = uriComponentsBuilder.path("/respostas/{id}")
                 .buildAndExpand(resposta.id())

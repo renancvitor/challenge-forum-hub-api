@@ -34,11 +34,11 @@ public class RespostaService {
     private UsuarioLogadoService usuarioLogadoService;
 
     @Transactional
-    public DadosDetalhamentoResposta cadastrar(DadosCadastroResposta dados) {
+    public DadosDetalhamentoResposta cadastrar(Long topicoId, String mensagem) {
         Usuario autor = usuarioLogadoService.getUsuario();
-        Topico topico = topicoRepository.getReferenceById(dados.topicoId());
+        Topico topico = topicoRepository.getReferenceById(topicoId);
 
-        Resposta resposta = new Resposta(dados, topico, autor);
+        Resposta resposta = new Resposta(mensagem, topico, autor); // você pode ajustar o construtor
         respostaRepository.save(resposta);
         return new DadosDetalhamentoResposta(resposta);
     }

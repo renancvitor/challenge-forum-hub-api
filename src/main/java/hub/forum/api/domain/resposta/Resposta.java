@@ -44,6 +44,14 @@ public class Resposta {
         this.solucao = false;
     }
 
+    public Resposta(String mensagem, Topico topico, Usuario autor) {
+        this.mensagem = mensagem;
+        this.topico = topico;
+        this.dataCriacao = LocalDateTime.now();
+        this.autor = autor;
+        this.solucao = false;
+    }
+
     public void marcarComoSolucao() {
         this.solucao = true;
     }
