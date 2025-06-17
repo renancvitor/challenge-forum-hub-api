@@ -36,7 +36,9 @@
 │   │    │    └── DadosAtualizacaoResposta.java
 │   │    │    ├── DadosCadastroResposta.java
 │   │    │    ├── DadosDetalhamentoResposta.java
-│   │    │    └── DadosListagemResposta.java
+│   │    │    ├── DadosDetalhamentoResumidoResposta.java  ## Comentado - provável exclusão
+│   │    │    ├── DadosListagemTotalResposta.java
+│   │    │    └── DadosListagemUnicoResposta.java  ## Comentado - provável exclusão
 │   │    ├── token
 │   │    │    └── DadosTokenJWT.java
 │   │    ├── topico
@@ -45,7 +47,7 @@
 │   │    │    ├── DadosAtualizacaoTopico.java
 │   │    │    ├── DadosCadastroTopico.java
 │   │    │    ├── DadosDetalhamentoResumidoTopico.java
-│   │    │    ├── DadosDetalhamentoTopico.java
+│   │    │    ├── DadosDetalhamentoTopico.java  ## Comentado - provável exclusão
 │   │    │    ├── DadosListagemTotalTopico.java
 │   │    │    └── DadosListagemUnicoTopico.java
 │   │    └── usuario
