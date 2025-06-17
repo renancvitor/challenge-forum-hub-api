@@ -39,8 +39,8 @@ public class RespostaService {
         return new DadosDetalhamentoResposta(resposta);
     }
 
-    public Page<DadosListagemResposta> listar(Pageable paginacao) {
-        return respostaRepository.findAll(paginacao).map(DadosListagemResposta::new);
+    public Page<DadosListagemTotalResposta> listar(Pageable paginacao) {
+        return respostaRepository.findAll(paginacao).map(DadosListagemTotalResposta::new);
     }
 
     @Transactional

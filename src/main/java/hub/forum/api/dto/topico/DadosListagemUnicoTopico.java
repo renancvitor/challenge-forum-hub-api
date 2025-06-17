@@ -2,7 +2,7 @@ package hub.forum.api.dto.topico;
 
 import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.domain.topico.Topico;
-import hub.forum.api.dto.resposta.DadosListagemResposta;
+import hub.forum.api.dto.resposta.DadosListagemTotalResposta;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,7 +14,7 @@ public record DadosListagemUnicoTopico(Long id,
                                        LocalDateTime dataCriacao,
                                        StatusTopico status,
                                        String nomeAutor,
-                                       List<DadosListagemResposta> respostas) {
+                                       List<DadosListagemTotalResposta> respostas) {
 
     public DadosListagemUnicoTopico(Topico topico) {
         this(
@@ -25,7 +25,7 @@ public record DadosListagemUnicoTopico(Long id,
                 topico.getStatus(),
                 topico.getAutor().getNome(),
                 topico.getRespostas().stream()
-                        .map(DadosListagemResposta::new)
+                        .map(DadosListagemTotalResposta::new)
                         .collect(Collectors.toList())
         );
     }

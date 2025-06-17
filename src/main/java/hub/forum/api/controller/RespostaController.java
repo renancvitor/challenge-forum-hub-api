@@ -4,7 +4,7 @@ import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.resposta.DadosAtualizacaoResposta;
 import hub.forum.api.dto.resposta.DadosCadastroResposta;
 import hub.forum.api.dto.resposta.DadosDetalhamentoResposta;
-import hub.forum.api.dto.resposta.DadosListagemResposta;
+import hub.forum.api.dto.resposta.DadosListagemTotalResposta;
 import hub.forum.api.service.RespostaService;
 import hub.forum.api.service.UsuarioLogadoService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -41,7 +41,7 @@ public class RespostaController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DadosListagemResposta>> listar(@PageableDefault(size = 10,
+    public ResponseEntity<Page<DadosListagemTotalResposta>> listar(@PageableDefault(size = 10,
             sort = ("topico.titulo")) Pageable paginacao) {
         var page = respostaService.listar(paginacao);
         return ResponseEntity.ok(page);
