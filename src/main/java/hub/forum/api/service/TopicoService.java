@@ -77,6 +77,12 @@ public class TopicoService {
     public DadosDetalhamentoResumidoTopico atualizar(Long id, DadosAtualizacaoTopico dados) {
         var topico = topicoRepository.findById(id)
                 .orElseThrow(() -> new ValidacaoException("Tópico com ID " + id + " não encontrado"));
+
+        if ((dados.titulo() == null || dados.titulo().isBlank()) &&
+                (dados.mensagem() == null || dados.mensagem().isBlank())) {
+            throw new ValidacaoException("É necessário alterar o título ou a mensagem");
+        }
+
         topico.atualizarTopico(dados);
         return new DadosDetalhamentoResumidoTopico(topico);
     }

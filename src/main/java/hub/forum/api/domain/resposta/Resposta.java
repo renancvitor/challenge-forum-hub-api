@@ -36,13 +36,13 @@ public class Resposta {
     @Column(nullable = false)
     private Boolean ativo = true;
 
-    public Resposta(DadosCadastroResposta dados, Topico topico, Usuario autor) {
-        this.mensagem = dados.mensagem();
-        this.topico = topico;
-        this.dataCriacao = LocalDateTime.now();
-        this.autor = autor;
-        this.solucao = false;
-    }
+//    public Resposta(DadosCadastroResposta dados, Topico topico, Usuario autor) {
+//        this.mensagem = dados.mensagem();
+//        this.topico = topico;
+//        this.dataCriacao = LocalDateTime.now();
+//        this.autor = autor;
+//        this.solucao = false;
+//    }
 
     public Resposta(String mensagem, Topico topico, Usuario autor) {
         this.mensagem = mensagem;
