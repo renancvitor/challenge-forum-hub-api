@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class TratadorDeErros {
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity tratarErro404() {
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<?> tratarErro404(EntityNotFoundException ex) {
+        return ResponseEntity.status(404).body(ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -23,8 +23,13 @@ public class TratadorDeErros {
     }
 
     @ExceptionHandler(ValidacaoException.class)
-    public ResponseEntity tratarErro400RegraDeNegocio(ValidacaoException ex) {
+    public ResponseEntity<?> tratarErro400RegraDeNegocio(ValidacaoException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> tratarErro500(Exception ex) {
+        return ResponseEntity.status(500).body("Erro interno no servidor. Tente novamente mais tarde.");
     }
 
     private record DadosErroValidacao(String campo, String mensagem) {
