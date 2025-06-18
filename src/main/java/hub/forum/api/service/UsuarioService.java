@@ -7,6 +7,7 @@ import hub.forum.api.dto.usuario.DadosListagemUsuario;
 import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.repository.PerfilRepository;
 import hub.forum.api.repository.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,7 +31,7 @@ public class UsuarioService {
     public Usuario cadastrar(DadosCadastroUsuario dados) {
         var senhaCriptografada = passwordEncoder.encode(dados.senha());
         Perfil perfil = perfilRepository.findByNome(dados.perfilNome())
-                .orElseThrow(() -> new ValidacaoException("Perfil não encontrado."));
+                .orElseThrow(() -> new EntityNotFoundException("Perfil não encontrado."));
 
         var dadosComSenhaCriptografada = new DadosCadastroUsuario(
                 dados.nome(),
