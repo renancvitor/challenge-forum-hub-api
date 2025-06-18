@@ -9,6 +9,7 @@ import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.repository.RespostaRepository;
 import hub.forum.api.repository.TopicoRepository;
 import hub.forum.api.repository.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,7 +39,7 @@ public class RespostaService {
         Usuario autor = usuarioLogadoService.getUsuario();
         Topico topico = topicoRepository.getReferenceById(topicoId);
 
-        Resposta resposta = new Resposta(mensagem, topico, autor); // você pode ajustar o construtor
+        Resposta resposta = new Resposta(mensagem, topico, autor);
         respostaRepository.save(resposta);
         return new DadosDetalhamentoResposta(resposta);
     }
@@ -50,7 +51,7 @@ public class RespostaService {
     @Transactional
     public DadosDetalhamentoResposta atualizar(Long id, DadosAtualizacaoResposta dados) {
         var resposta = respostaRepository.findById(id)
-                        .orElseThrow(() -> new ValidacaoException("Resposta com ID " + id + " não encontrado"));
+                        .orElseThrow(() -> new EntityNotFoundException("Resposta com ID " + id + " não encontrado"));
         resposta.atualizarResposta(dados);
         return new DadosDetalhamentoResposta(resposta);
     }
@@ -58,7 +59,7 @@ public class RespostaService {
     @Transactional
     public void marcarSolucao(Long idResposta, Long idTopico, Long idUsuarioLogado) {
         Resposta resposta = respostaRepository.findById(idResposta)
-                .orElseThrow(() -> new ValidacaoException("Resposta não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Resposta não encontrada"));
 
         Topico topico = resposta.getTopico();
 
@@ -79,7 +80,7 @@ public class RespostaService {
     @Transactional
     public void deletarResposta(Long repostaId, Usuario usuario) {
         Resposta resposta = respostaRepository.findById(repostaId)
-                .orElseThrow(() -> new ValidacaoException("Resposta não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Resposta não encontrado"));
 
         String nomePerfil = usuario.getPerfil().getNome();
 
