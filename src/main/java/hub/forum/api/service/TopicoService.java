@@ -31,9 +31,13 @@ public class TopicoService {
     @Autowired
     private UsuarioLogadoService usuarioLogadoService;
 
+    private Usuario getUsuarioLogado() {
+        return usuarioLogadoService.getUsuario();
+    }
+
     @Transactional
     public DadosDetalhamentoResumidoTopico criar(DadosCadastroTopico dados) {
-        Usuario autor = usuarioLogadoService.getUsuario();
+        Usuario autor = getUsuarioLogado();
         Curso curso = cursoRepository.findByNome(dados.cursoNome())
                 .orElseThrow(() -> new EntityNotFoundException("Curso não encontrado"));
 
@@ -89,11 +93,12 @@ public class TopicoService {
     }
 
     @Transactional
-    public void deletarTopico(Long topicoId, Usuario usuario) {
+    public void deletarTopico(Long topicoId) {
+        Usuario autor = getUsuarioLogado();
         Topico topico = topicoRepository.findById(topicoId)
                 .orElseThrow(() -> new EntityNotFoundException("Tópico não encontrado"));
 
-        String nomePerfil = usuario.getPerfil().getNome();
+        String nomePerfil = autor.getPerfil().getNome();
 
         if (!nomePerfil.equals("ADMIN") && !nomePerfil.equals("MODERADOR")) {
             throw new ValidacaoException("Apenas ADMIN ou MODERADOR podem deletar um tópico");

@@ -87,8 +87,7 @@ public class TopicoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarTopico(@PathVariable Long id) {
-        Usuario usuario = usuarioLogadoService.getUsuario();
-        topicoService.deletarTopico(id, usuario);
+        topicoService.deletarTopico(id);
         return ResponseEntity.noContent().build();
     }
 }
