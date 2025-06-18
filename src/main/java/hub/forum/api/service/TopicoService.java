@@ -28,16 +28,8 @@ public class TopicoService {
     @Autowired
     private CursoRepository cursoRepository;
 
-    @Autowired
-    private UsuarioLogadoService usuarioLogadoService;
-
-    private Usuario getUsuarioLogado() {
-        return usuarioLogadoService.getUsuario();
-    }
-
     @Transactional
-    public DadosDetalhamentoResumidoTopico criar(DadosCadastroTopico dados) {
-        Usuario autor = getUsuarioLogado();
+    public DadosDetalhamentoResumidoTopico criar(DadosCadastroTopico dados, Usuario autor) {
         Curso curso = cursoRepository.findByNome(dados.cursoNome())
                 .orElseThrow(() -> new EntityNotFoundException("Curso não encontrado"));
 
@@ -79,9 +71,14 @@ public class TopicoService {
     }
 
     @Transactional
-    public DadosDetalhamentoResumidoTopico atualizar(Long id, DadosAtualizacaoTopico dados) {
+    public DadosDetalhamentoResumidoTopico atualizar(Long id, DadosAtualizacaoTopico dados,
+                                                     Usuario usuario) {
         var topico = topicoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Tópico com ID " + id + " não encontrado"));
+
+        if (!topico.getAutor().getId().equals(usuario.getId())) {
+            throw new ValidacaoException("Apenas o autor pode atualizar o tópico");
+        }
 
         if ((dados.titulo() == null || dados.titulo().isBlank()) &&
                 (dados.mensagem() == null || dados.mensagem().isBlank())) {
@@ -93,8 +90,7 @@ public class TopicoService {
     }
 
     @Transactional
-    public void deletarTopico(Long topicoId) {
-        Usuario autor = getUsuarioLogado();
+    public void deletarTopico(Long topicoId, Usuario autor) {
         Topico topico = topicoRepository.findById(topicoId)
                 .orElseThrow(() -> new EntityNotFoundException("Tópico não encontrado"));
 

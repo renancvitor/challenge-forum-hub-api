@@ -35,8 +35,9 @@ public class TopicoController {
 
     @PostMapping
     public ResponseEntity criar(@RequestBody @Valid DadosCadastroTopico dados,
+                                      @AuthenticationPrincipal Usuario usuarioLogado,
                                       UriComponentsBuilder uriComponentsBuilder) {
-        var topico = topicoService.criar(dados);
+        var topico = topicoService.criar(dados, usuarioLogado);
         var uri = uriComponentsBuilder.path("/topicos/{id}")
                 .buildAndExpand(topico.id())
                 .toUri();
@@ -64,14 +65,15 @@ public class TopicoController {
 
     @PostMapping("/{id}/validar")
     public ResponseEntity validarResposta(@PathVariable Long id,
-                                          @RequestBody @Valid DadosValidarResposta dados) {
-        topicoService.validarResposta(id, dados.autorId());
+                                          @AuthenticationPrincipal Usuario usuarioLogado) {
+        topicoService.validarResposta(id, usuarioLogado.getId());
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity atualizar(@PathVariable Long id, @RequestBody @Valid DadosAtualizacaoTopico dados) {
-        var topico = topicoService.atualizar(id, dados);
+    public ResponseEntity atualizar(@PathVariable Long id, @RequestBody @Valid DadosAtualizacaoTopico dados,
+                                    @AuthenticationPrincipal Usuario usuarioLogado) {
+        var topico = topicoService.atualizar(id, dados, usuarioLogado);
         return ResponseEntity.ok(topico);
     }
 
@@ -86,8 +88,9 @@ public class TopicoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarTopico(@PathVariable Long id) {
-        topicoService.deletarTopico(id);
+    public ResponseEntity<Void> deletarTopico(@PathVariable Long id,
+                                              @AuthenticationPrincipal Usuario usuarioLogado) {
+        topicoService.deletarTopico(id, usuarioLogado);
         return ResponseEntity.noContent().build();
     }
 }

@@ -70,7 +70,7 @@ class CadastroCompletoTest {
 
         var dadosTopico = new DadosCadastroTopico("Teste JUnit", "Testes automatizados Junit",
                 StatusTopico.NAO_RESPONDIDO, curso.nome());
-        var topico = topicoService.criar(dadosTopico);
+        var topico = topicoService.criar(dadosTopico, usuario);
 
         var resposta = respostaService.cadastrar(topico.id(),
                 "Mensagem sobre o tópico");
