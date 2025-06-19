@@ -1,8 +1,10 @@
 package hub.forum.api.controller;
 
+import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.curso.DadosCadastroCurso;
 import hub.forum.api.dto.curso.DadosDetalhamentoCurso;
 import hub.forum.api.dto.curso.DadosListagemCurso;
+import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.service.CursoService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -24,8 +27,10 @@ public class CursoController {
 
     @PostMapping
     public ResponseEntity<DadosDetalhamentoCurso> cadastrar(@RequestBody @Valid DadosCadastroCurso dados,
+                                                            @AuthenticationPrincipal Usuario usuarioLogado,
                                                             UriComponentsBuilder uriComponentsBuilder) {
-        var curso = cursoService.cadastrar(dados);
+
+        var curso = cursoService.cadastrar(dados, usuarioLogado);
         var uri = uriComponentsBuilder.path("/curso/{id}")
                 .buildAndExpand(curso.id())
                 .toUri();

@@ -58,15 +58,15 @@ class CadastroCompletoTest {
         Mockito.when(usuarioLogadoService.getUsuario())
                 .thenReturn(usuarioFake);
 
-        var dadosCurso = new DadosCadastroCurso("Java", Categoria.TECNOLOGIA);
-        var curso = cursoService.cadastrar(dadosCurso);
-
-        var dadosPerfil = new DadosCadastroPerfil("ADMIN-01");
-        var perfil = perfilService.cadastrar(dadosPerfil);
-
         var dadosUsuario = new DadosCadastroUsuario("Renan", "renan@example.com", "123456",
                 "ADMIN-01");
         var usuario = usuarioService.cadastrar(dadosUsuario);
+
+        var dadosCurso = new DadosCadastroCurso("Java", Categoria.TECNOLOGIA);
+        var curso = cursoService.cadastrar(dadosCurso, usuario);
+
+        var dadosPerfil = new DadosCadastroPerfil("ADMIN-01");
+        var perfil = perfilService.cadastrar(dadosPerfil);
 
         var dadosTopico = new DadosCadastroTopico("Teste JUnit", "Testes automatizados Junit",
                 StatusTopico.NAO_RESPONDIDO, curso.nome());
