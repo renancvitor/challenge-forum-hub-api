@@ -29,14 +29,14 @@ public class UsuarioService {
     @Transactional
     public Usuario cadastrar(DadosCadastroUsuario dados) {
         var senhaCriptografada = passwordEncoder.encode(dados.senha());
-        Perfil perfil = perfilRepository.findByNome(dados.perfilNome())
-                .orElseThrow(() -> new EntityNotFoundException("Perfil não encontrado."));
+        Perfil perfil = perfilRepository.findByNome("COMUM")
+                .orElseThrow(() -> new EntityNotFoundException("Perfil padrão não encontrado."));
 
         var dadosComSenhaCriptografada = new DadosCadastroUsuario(
                 dados.nome(),
                 dados.email(),
                 senhaCriptografada,
-                dados.perfilNome()
+                "COMUM"
         );
 
         Usuario usuario = new Usuario(dadosComSenhaCriptografada, perfil);

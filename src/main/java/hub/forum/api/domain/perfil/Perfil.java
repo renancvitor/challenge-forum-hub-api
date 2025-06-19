@@ -25,4 +25,8 @@ public class Perfil {
     public Perfil(DadosCadastroPerfil dados) {
         this.nome = dados.nome();
     }
+
+    public Perfil(String nome) {
+        this.nome = nome;
+    }
 }
