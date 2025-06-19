@@ -3,14 +3,12 @@ package hub.forum.api.domain.curso;
 import hub.forum.api.domain.categoria.Categoria;
 import hub.forum.api.dto.curso.DadosCadastroCurso;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Table(name = "cursos")
 @Entity(name = "Curso")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
