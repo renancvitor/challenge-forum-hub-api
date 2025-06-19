@@ -3,7 +3,6 @@ package hub.forum.api.domain.resposta;
 import hub.forum.api.domain.topico.Topico;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.resposta.DadosAtualizacaoResposta;
-import hub.forum.api.dto.resposta.DadosCadastroResposta;
 import jakarta.persistence.*;
 import lombok.*;
 

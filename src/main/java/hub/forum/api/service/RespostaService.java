@@ -4,7 +4,9 @@ import hub.forum.api.domain.resposta.Resposta;
 import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.domain.topico.Topico;
 import hub.forum.api.domain.usuario.Usuario;
-import hub.forum.api.dto.resposta.*;
+import hub.forum.api.dto.resposta.DadosAtualizacaoResposta;
+import hub.forum.api.dto.resposta.DadosDetalhamentoResposta;
+import hub.forum.api.dto.resposta.DadosListagemTotalResposta;
 import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.repository.RespostaRepository;
 import hub.forum.api.repository.TopicoRepository;
@@ -30,9 +32,6 @@ public class RespostaService {
 
     @Autowired
     private TopicoService topicoService;
-
-    @Autowired
-    private UsuarioLogadoService usuarioLogadoService;
 
     @Transactional
     public DadosDetalhamentoResposta cadastrar(Long topicoId, String mensagem, Usuario autor) {

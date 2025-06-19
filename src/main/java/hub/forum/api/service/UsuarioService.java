@@ -4,7 +4,6 @@ import hub.forum.api.domain.perfil.Perfil;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.usuario.DadosCadastroUsuario;
 import hub.forum.api.dto.usuario.DadosListagemUsuario;
-import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.repository.PerfilRepository;
 import hub.forum.api.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;

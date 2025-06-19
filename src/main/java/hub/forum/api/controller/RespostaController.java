@@ -6,7 +6,6 @@ import hub.forum.api.dto.resposta.DadosCadastroResposta;
 import hub.forum.api.dto.resposta.DadosDetalhamentoResposta;
 import hub.forum.api.dto.resposta.DadosListagemTotalResposta;
 import hub.forum.api.service.RespostaService;
-import hub.forum.api.service.UsuarioLogadoService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +24,6 @@ public class RespostaController {
 
     @Autowired
     private RespostaService respostaService;
-
-    @Autowired
-    private UsuarioLogadoService usuarioLogadoService;
 
     @PostMapping("/topicos/{topicoId}/respostas")
     public ResponseEntity<DadosDetalhamentoResposta> cadastrar(@PathVariable Long topicoId,

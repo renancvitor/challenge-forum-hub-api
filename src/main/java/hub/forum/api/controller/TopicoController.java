@@ -4,10 +4,8 @@ import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.topico.DadosAtualizacaoTopico;
 import hub.forum.api.dto.topico.DadosCadastroTopico;
 import hub.forum.api.dto.topico.DadosListagemTotalTopico;
-import hub.forum.api.dto.topico.validar.DadosValidarResposta;
 import hub.forum.api.service.RespostaService;
 import hub.forum.api.service.TopicoService;
-import hub.forum.api.service.UsuarioLogadoService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +27,6 @@ public class TopicoController {
 
     @Autowired
     private RespostaService respostaService;
-
-    @Autowired
-    private UsuarioLogadoService usuarioLogadoService;
 
     @PostMapping
     public ResponseEntity criar(@RequestBody @Valid DadosCadastroTopico dados,
