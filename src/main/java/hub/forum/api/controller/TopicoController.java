@@ -57,13 +57,6 @@ public class TopicoController {
         return ResponseEntity.ok(topico);
     }
 
-    @PostMapping("/{id}/validar")
-    public ResponseEntity validarResposta(@PathVariable Long id,
-                                          @AuthenticationPrincipal Usuario usuarioLogado) {
-        topicoService.validarResposta(id, usuarioLogado.getId());
-        return ResponseEntity.ok().build();
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity atualizar(@PathVariable Long id, @RequestBody @Valid DadosAtualizacaoTopico dados,
                                     @AuthenticationPrincipal Usuario usuarioLogado) {

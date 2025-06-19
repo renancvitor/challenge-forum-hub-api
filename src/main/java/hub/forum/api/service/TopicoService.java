@@ -50,19 +50,6 @@ public class TopicoService {
     }
 
     @Transactional
-    public void validarResposta(Long topicoId, Long autorId) {
-        Topico topico = topicoRepository.findById(topicoId)
-                .orElseThrow(() -> new EntityNotFoundException("Tópico não encontrado"));
-
-        if (!topico.getAutor().getId().equals(autorId)) {
-            throw new ValidacaoException("Apenas o autor pode validar a resposta");
-        }
-
-        topico.setStatus(StatusTopico.SOLUCIONADO);
-        topicoRepository.save(topico);
-    }
-
-    @Transactional
     public DadosDetalhamentoResumidoTopico atualizar(Long id, DadosAtualizacaoTopico dados,
                                                      Usuario usuario) {
         var topico = topicoRepository.findById(id)
