@@ -36,9 +36,7 @@
 │   │    │    └── DadosAtualizacaoResposta.java
 │   │    │    ├── DadosCadastroResposta.java
 │   │    │    ├── DadosDetalhamentoResposta.java
-│   │    │    ├── DadosDetalhamentoResumidoResposta.java  ## Comentado - provável exclusão
-│   │    │    ├── DadosListagemTotalResposta.java
-│   │    │    └── DadosListagemUnicoResposta.java  ## Comentado - provável exclusão
+│   │    │    └── DadosListagemTotalResposta.java
 │   │    ├── token
 │   │    │    └── DadosTokenJWT.java
 │   │    ├── topico
@@ -47,14 +45,13 @@
 │   │    │    ├── DadosAtualizacaoTopico.java
 │   │    │    ├── DadosCadastroTopico.java
 │   │    │    ├── DadosDetalhamentoResumidoTopico.java
-│   │    │    ├── DadosDetalhamentoTopico.java  ## Comentado - provável exclusão
 │   │    │    ├── DadosListagemTotalTopico.java
 │   │    │    └── DadosListagemUnicoTopico.java
 │   │    └── usuario
-│   │    │    └── DadosAtualizacaoUsuario.java
-│   │    │    ├── DadosCadastroUsuario.java
+│   │    │    └── DadosCadastroUsuario.java
 │   │    │    ├── DadosDetalhamentoUsuario.java
-│   │    │    └── DadosListagemUsuario.java 
+│   │    │    ├── DadosListagemUsuario.java
+│   │    │    └── DadosLogin.java 
 │   ├── infra 
 │   │    └── exception
 │   │    │    └── TratadorDeErros.java
@@ -77,7 +74,6 @@
 │   │    ├── RespostaService.java
 │   │    ├── TokenService.java
 │   │    ├── TopicoService.java 
-│   │    ├── UsuarioLogadoService.java 
 │   │    └── UsuarioService.java
 │   └── ApiApplication.java
 └── README.md
