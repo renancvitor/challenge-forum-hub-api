@@ -73,6 +73,6 @@ class CadastroCompletoTest {
         var topico = topicoService.criar(dadosTopico, usuario);
 
         var resposta = respostaService.cadastrar(topico.id(),
-                "Mensagem sobre o tópico");
+                "Mensagem sobre o tópico", usuario);
     }
 }

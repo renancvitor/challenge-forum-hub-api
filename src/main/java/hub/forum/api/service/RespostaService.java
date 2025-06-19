@@ -35,8 +35,7 @@ public class RespostaService {
     private UsuarioLogadoService usuarioLogadoService;
 
     @Transactional
-    public DadosDetalhamentoResposta cadastrar(Long topicoId, String mensagem) {
-        Usuario autor = usuarioLogadoService.getUsuario();
+    public DadosDetalhamentoResposta cadastrar(Long topicoId, String mensagem, Usuario autor) {
         Topico topico = topicoRepository.getReferenceById(topicoId);
 
         Resposta resposta = new Resposta(mensagem, topico, autor);
@@ -49,9 +48,16 @@ public class RespostaService {
     }
 
     @Transactional
-    public DadosDetalhamentoResposta atualizar(Long id, DadosAtualizacaoResposta dados) {
+    public DadosDetalhamentoResposta atualizar(Long id, DadosAtualizacaoResposta dados,
+                                               Usuario usuario) {
         var resposta = respostaRepository.findById(id)
-                        .orElseThrow(() -> new EntityNotFoundException("Resposta com ID " + id + " não encontrado"));
+                        .orElseThrow(() -> new EntityNotFoundException(
+                                "Resposta com ID " + id + " não encontrado"));
+
+        if (!resposta.getAutor().getId().equals(usuario.getId())) {
+            throw new ValidacaoException("Apenas o autor pode atualizar a resposta");
+        }
+
         resposta.atualizarResposta(dados);
         return new DadosDetalhamentoResposta(resposta);
     }
@@ -78,8 +84,8 @@ public class RespostaService {
     }
 
     @Transactional
-    public void deletarResposta(Long repostaId, Usuario usuario) {
-        Resposta resposta = respostaRepository.findById(repostaId)
+    public void deletarResposta(Long respostaId, Usuario usuario) {
+        Resposta resposta = respostaRepository.findById(respostaId)
                 .orElseThrow(() -> new EntityNotFoundException("Resposta não encontrado"));
 
         String nomePerfil = usuario.getPerfil().getNome();

@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -31,9 +32,11 @@ public class RespostaController {
     @PostMapping("/topicos/{topicoId}/respostas")
     public ResponseEntity<DadosDetalhamentoResposta> cadastrar(@PathVariable Long topicoId,
                                                                @RequestBody @Valid DadosCadastroResposta dadosResposta,
+                                                               @AuthenticationPrincipal Usuario usuarioLogado,
                                                                UriComponentsBuilder uriComponentsBuilder) {
 
-        var resposta = respostaService.cadastrar(topicoId, dadosResposta.mensagem());
+        var resposta = respostaService.cadastrar(topicoId, dadosResposta.mensagem(),
+                usuarioLogado);
 
         var uri = uriComponentsBuilder.path("/respostas/{id}")
                 .buildAndExpand(resposta.id())
@@ -50,15 +53,16 @@ public class RespostaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity atualizar(@PathVariable Long id, @RequestBody @Valid DadosAtualizacaoResposta dados) {
-        var resposta = respostaService.atualizar(id, dados);
+    public ResponseEntity atualizar(@PathVariable Long id, @RequestBody @Valid DadosAtualizacaoResposta dados,
+                                    @AuthenticationPrincipal Usuario usuarioLogado) {
+        var resposta = respostaService.atualizar(id, dados, usuarioLogado);
         return ResponseEntity.ok(resposta);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deletarResposta(@PathVariable Long id) {
-        Usuario usuario = usuarioLogadoService.getUsuario();
-        respostaService.deletarResposta(id, usuario);
+    public ResponseEntity deletarResposta(@PathVariable Long id,
+                                          @AuthenticationPrincipal Usuario usuarioLogado) {
+        respostaService.deletarResposta(id, usuarioLogado);
         return ResponseEntity.noContent()
                 .build();
     }
