@@ -1,4 +1,4 @@
-package hub.forum.api.service;
+package hub.forum.api.service.topico;
 
 import hub.forum.api.domain.categoria.Categoria;
 import hub.forum.api.domain.curso.Curso;
@@ -11,6 +11,7 @@ import hub.forum.api.repository.CursoRepository;
 import hub.forum.api.repository.PerfilRepository;
 import hub.forum.api.repository.TopicoRepository;
 import hub.forum.api.repository.UsuarioRepository;
+import hub.forum.api.service.TopicoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

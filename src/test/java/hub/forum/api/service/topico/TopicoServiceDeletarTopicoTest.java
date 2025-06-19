@@ -1,4 +1,4 @@
-package hub.forum.api.service;
+package hub.forum.api.service.topico;
 
 import hub.forum.api.domain.categoria.Categoria;
 import hub.forum.api.domain.curso.Curso;
@@ -10,6 +10,7 @@ import hub.forum.api.repository.CursoRepository;
 import hub.forum.api.repository.PerfilRepository;
 import hub.forum.api.repository.TopicoRepository;
 import hub.forum.api.repository.UsuarioRepository;
+import hub.forum.api.service.TopicoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -20,13 +21,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
-class TopicoServiceListarByIdTest {
+class TopicoServiceDeletarTopicoTest {
 
     @Autowired
     TopicoRepository topicoRepository;
@@ -45,24 +45,24 @@ class TopicoServiceListarByIdTest {
 
     @Test
     @Transactional
-    void listarById() {
-        var perfil = perfilRepository.save(new Perfil("TUTOR"));
+    void deletarTopico() {
+        var perfil = perfilRepository.save(new Perfil("ADMIN"));
 
         var usuario = new Usuario();
-        usuario.setNome("Tutor");
-        usuario.setEmail("tutor@example.com");
+        usuario.setNome("Deletado");
+        usuario.setEmail("deletado@example.com");
         usuario.setSenha("123456");
         usuario.setPerfil(perfil);
         usuario = usuarioRepository.save(usuario);
 
         var curso = new Curso();
-        curso.setNome("Spring Boot 3.0");
+        curso.setNome("Spring Boot 3.0 deleta");
         curso.setCategoria(Categoria.TECNOLOGIA);
         curso = cursoRepository.save(curso);
 
         var topico = new Topico();
-        topico.setTitulo("Teste");
-        topico.setMensagem("Mensagem");
+        topico.setTitulo("Teste deleta");
+        topico.setMensagem("Mensagem deleta");
         topico.setDataCriacao(LocalDateTime.now());
         topico.setStatus(StatusTopico.NAO_RESPONDIDO);
         topico.setAutor(usuario);
@@ -70,9 +70,10 @@ class TopicoServiceListarByIdTest {
         topico.setAtivo(true);
         topicoRepository.save(topico);
 
-        var resultado = topicoService.listarById(topico.getId());
+        topicoService.deletarTopico(topico.getId(), usuario);
 
-        assertNotNull(resultado);
-        assertEquals("Teste", resultado.titulo());
+        var topicoDeletado = topicoRepository.findById(topico.getId()).orElseThrow();
+
+        assertFalse(topicoDeletado.getAtivo());
     }
 }
