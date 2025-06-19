@@ -47,8 +47,12 @@ class CadastroCompletoTest {
 
     @Test
     void deveCadastrarTodosOsDadosParaTeste() {
+        var dadosUsuario = new DadosCadastroUsuario("Renan", "renan@example.com", "123456",
+                "ADMIN-01");
+        var usuario = usuarioService.cadastrar(dadosUsuario);
+
         var dadosPerfilFake = new DadosCadastroPerfil("TESTER-01");
-        perfilService.cadastrar(dadosPerfilFake);
+        perfilService.cadastrar(dadosPerfilFake, usuario);
         var perfilFake = perfilRepository.findByNome("TESTER-01")
                 .orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
 
@@ -58,15 +62,11 @@ class CadastroCompletoTest {
         Mockito.when(usuarioLogadoService.getUsuario())
                 .thenReturn(usuarioFake);
 
-        var dadosUsuario = new DadosCadastroUsuario("Renan", "renan@example.com", "123456",
-                "ADMIN-01");
-        var usuario = usuarioService.cadastrar(dadosUsuario);
-
         var dadosCurso = new DadosCadastroCurso("Java", Categoria.TECNOLOGIA);
         var curso = cursoService.cadastrar(dadosCurso, usuario);
 
         var dadosPerfil = new DadosCadastroPerfil("ADMIN-01");
-        var perfil = perfilService.cadastrar(dadosPerfil);
+        var perfil = perfilService.cadastrar(dadosPerfil, usuario);
 
         var dadosTopico = new DadosCadastroTopico("Teste JUnit", "Testes automatizados Junit",
                 StatusTopico.NAO_RESPONDIDO, curso.nome());

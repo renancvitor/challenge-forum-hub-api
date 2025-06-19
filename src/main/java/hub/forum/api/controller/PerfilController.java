@@ -1,5 +1,6 @@
 package hub.forum.api.controller;
 
+import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.perfil.DadosCadastroPerfil;
 import hub.forum.api.dto.perfil.DadosDetalhamentoPerfil;
 import hub.forum.api.dto.perfil.DadosListagemPerfil;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -24,8 +26,9 @@ public class PerfilController {
 
     @PostMapping
     public ResponseEntity<DadosDetalhamentoPerfil> cadastrar(@RequestBody @Valid DadosCadastroPerfil dados,
-                                    UriComponentsBuilder uriComponentsBuilder) {
-        var perfil = perfilService.cadastrar(dados);
+                                                             @AuthenticationPrincipal Usuario usuarioLogado,
+                                                             UriComponentsBuilder uriComponentsBuilder) {
+        var perfil = perfilService.cadastrar(dados, usuarioLogado);
 
         var uri = uriComponentsBuilder.path("/perfis/{id}")
                 .buildAndExpand(perfil.id())
