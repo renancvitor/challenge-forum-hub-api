@@ -50,14 +50,6 @@ public class TopicoService {
     }
 
     @Transactional
-    public void receberResposta(Long topicoId) {
-        Topico topico = topicoRepository.findById(topicoId)
-                .orElseThrow(() -> new EntityNotFoundException("Tõpico não encontrado"));
-
-        topico.setStatus(StatusTopico.NAO_SOLUCIONADO);
-    }
-
-    @Transactional
     public void validarResposta(Long topicoId, Long autorId) {
         Topico topico = topicoRepository.findById(topicoId)
                 .orElseThrow(() -> new EntityNotFoundException("Tópico não encontrado"));

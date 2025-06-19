@@ -36,10 +36,17 @@ public class RespostaService {
 
     @Transactional
     public DadosDetalhamentoResposta cadastrar(Long topicoId, String mensagem, Usuario autor) {
-        Topico topico = topicoRepository.getReferenceById(topicoId);
+        Topico topico = topicoRepository.findById(topicoId)
+                .orElseThrow(() -> new EntityNotFoundException("Topico não encontrado."));
 
         Resposta resposta = new Resposta(mensagem, topico, autor);
         respostaRepository.save(resposta);
+
+        if (topico.getStatus() == StatusTopico.NAO_RESPONDIDO) {
+            topico.setStatus(StatusTopico.NAO_SOLUCIONADO);
+            topicoRepository.save(topico);
+        }
+
         return new DadosDetalhamentoResposta(resposta);
     }
 
