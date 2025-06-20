@@ -1,15 +1,14 @@
-package hub.forum.api.service.topico;
+package hub.forum.api.service.resposta;
 
 import hub.forum.api.domain.categoria.Categoria;
 import hub.forum.api.domain.curso.Curso;
 import hub.forum.api.domain.perfil.Perfil;
+import hub.forum.api.domain.resposta.Resposta;
 import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.domain.topico.Topico;
 import hub.forum.api.domain.usuario.Usuario;
-import hub.forum.api.repository.CursoRepository;
-import hub.forum.api.repository.PerfilRepository;
-import hub.forum.api.repository.TopicoRepository;
-import hub.forum.api.repository.UsuarioRepository;
+import hub.forum.api.repository.*;
+import hub.forum.api.service.RespostaService;
 import hub.forum.api.service.TopicoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,13 +25,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
-class TopicoServiceDeletarTopicoTest {
+class RespostaServiceDeletarRespostaTest {
 
     @Autowired
     TopicoRepository topicoRepository;
-
-    @Autowired
-    TopicoService topicoService;
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -43,38 +39,54 @@ class TopicoServiceDeletarTopicoTest {
     @Autowired
     PerfilRepository perfilRepository;
 
+    @Autowired
+    RespostaRepository respostaRepository;
+
+    @Autowired
+    RespostaService respostaService;
+
     @Test
     @Transactional
-    void deletarTopico() {
+    void deletarResposta() {
         var perfil = perfilRepository.save(new Perfil("ADMIN"));
 
         var usuario = new Usuario();
-        usuario.setNome("Deletado");
-        usuario.setEmail("deletado@example.com");
+        usuario.setNome("Usuario");
+        usuario.setEmail("usuario@example.com");
         usuario.setSenha("123456");
         usuario.setPerfil(perfil);
         usuario = usuarioRepository.save(usuario);
 
         var curso = new Curso();
-        curso.setNome("Spring Boot 3.0 deleta");
+        curso.setNome("Spring Boot 3.0 atualiza");
         curso.setCategoria(Categoria.TECNOLOGIA);
         curso = cursoRepository.save(curso);
 
         var topico = new Topico();
-        topico.setTitulo("Teste deleta");
-        topico.setMensagem("Mensagem deleta");
+        topico.setTitulo("Teste atualiza");
+        topico.setMensagem("Mensagem atualiza");
         topico.setDataCriacao(LocalDateTime.now());
         topico.setStatus(StatusTopico.NAO_RESPONDIDO);
         topico.setAutor(usuario);
         topico.setCurso(curso);
         topico.setAtivo(true);
         topicoRepository.save(topico);
-        assertTrue(topico.getAtivo());
 
-        topicoService.deletarTopico(topico.getId(), usuario);
+        var resposta = new Resposta();
+        resposta.setTopico(topico);
+        resposta.setMensagem("Mensagem atualiza");
+        resposta.setDataCriacao(LocalDateTime.now());
+        resposta.setAutor(usuario);
+        resposta.setAtivo(true);
+        resposta.setSolucao(false);
+        respostaRepository.save(resposta);
+        assertTrue(resposta.getAtivo());
 
-        var topicoDeletado = topicoRepository.findById(topico.getId()).orElseThrow();
+        respostaService.deletarResposta(resposta.getId(), usuario);
 
-        assertFalse(topicoDeletado.getAtivo());
+        var respostaDeletada = respostaRepository.findById(resposta.getId())
+                .orElseThrow();
+
+        assertFalse(respostaDeletada.getAtivo());
     }
 }
