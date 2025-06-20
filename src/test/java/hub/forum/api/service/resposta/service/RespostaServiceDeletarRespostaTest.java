@@ -1,4 +1,4 @@
-package hub.forum.api.service.resposta;
+package hub.forum.api.service.resposta.service;
 
 import hub.forum.api.domain.categoria.Categoria;
 import hub.forum.api.domain.curso.Curso;
@@ -7,7 +7,6 @@ import hub.forum.api.domain.resposta.Resposta;
 import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.domain.topico.Topico;
 import hub.forum.api.domain.usuario.Usuario;
-import hub.forum.api.dto.resposta.DadosAtualizacaoResposta;
 import hub.forum.api.repository.*;
 import hub.forum.api.service.RespostaService;
 import org.junit.jupiter.api.Test;
@@ -25,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
-class RespostaServiceAtualizarTest {
+class RespostaServiceDeletarRespostaTest {
 
     @Autowired
     TopicoRepository topicoRepository;
@@ -47,8 +46,8 @@ class RespostaServiceAtualizarTest {
 
     @Test
     @Transactional
-    void atualizar() {
-        var perfil = perfilRepository.save(new Perfil("USUARIO"));
+    void deletarResposta() {
+        var perfil = perfilRepository.save(new Perfil("ADMIN"));
 
         var usuario = new Usuario();
         usuario.setNome("Usuario");
@@ -80,15 +79,13 @@ class RespostaServiceAtualizarTest {
         resposta.setAtivo(true);
         resposta.setSolucao(false);
         respostaRepository.save(resposta);
+        assertTrue(resposta.getAtivo());
 
-        var dadosAtualiza = new DadosAtualizacaoResposta("Mensagem atualizada");
-        var resultado = respostaService.atualizar(
-                resposta.getId(),
-                dadosAtualiza,
-                usuario
-        );
+        respostaService.deletarResposta(resposta.getId(), usuario);
 
-        assertNotNull(resultado);
-        assertEquals("Mensagem atualizada", resultado.mensagem());
+        var respostaDeletada = respostaRepository.findById(resposta.getId())
+                .orElseThrow();
+
+        assertFalse(respostaDeletada.getAtivo());
     }
 }

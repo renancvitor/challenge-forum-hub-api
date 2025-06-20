@@ -1,14 +1,16 @@
-package hub.forum.api.service.resposta;
+package hub.forum.api.service.topico.service;
 
 import hub.forum.api.domain.categoria.Categoria;
 import hub.forum.api.domain.curso.Curso;
 import hub.forum.api.domain.perfil.Perfil;
-import hub.forum.api.domain.resposta.Resposta;
 import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.domain.topico.Topico;
 import hub.forum.api.domain.usuario.Usuario;
-import hub.forum.api.repository.*;
-import hub.forum.api.service.RespostaService;
+import hub.forum.api.dto.topico.DadosAtualizacaoTopico;
+import hub.forum.api.repository.CursoRepository;
+import hub.forum.api.repository.PerfilRepository;
+import hub.forum.api.repository.TopicoRepository;
+import hub.forum.api.repository.UsuarioRepository;
 import hub.forum.api.service.TopicoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,17 +20,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.time.LocalDateTime;
 
 @SpringBootTest
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
-class RespostaServiceDeletarRespostaTest {
+class TopicoServiceAtualizarTest {
 
     @Autowired
     TopicoRepository topicoRepository;
+
+    @Autowired
+    TopicoService topicoService;
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -39,16 +45,10 @@ class RespostaServiceDeletarRespostaTest {
     @Autowired
     PerfilRepository perfilRepository;
 
-    @Autowired
-    RespostaRepository respostaRepository;
-
-    @Autowired
-    RespostaService respostaService;
-
     @Test
     @Transactional
-    void deletarResposta() {
-        var perfil = perfilRepository.save(new Perfil("ADMIN"));
+    void atualizar() {
+        var perfil = perfilRepository.save(new Perfil("USUARIO"));
 
         var usuario = new Usuario();
         usuario.setNome("Usuario");
@@ -72,21 +72,16 @@ class RespostaServiceDeletarRespostaTest {
         topico.setAtivo(true);
         topicoRepository.save(topico);
 
-        var resposta = new Resposta();
-        resposta.setTopico(topico);
-        resposta.setMensagem("Mensagem atualiza");
-        resposta.setDataCriacao(LocalDateTime.now());
-        resposta.setAutor(usuario);
-        resposta.setAtivo(true);
-        resposta.setSolucao(false);
-        respostaRepository.save(resposta);
-        assertTrue(resposta.getAtivo());
+        var dadosAtualizados = new DadosAtualizacaoTopico("Teste atualizado",
+                "Mensagem atualizada");
+        var resultado = topicoService.atualizar(
+                topico.getId(),
+                dadosAtualizados,
+                usuario
+        );
 
-        respostaService.deletarResposta(resposta.getId(), usuario);
-
-        var respostaDeletada = respostaRepository.findById(resposta.getId())
-                .orElseThrow();
-
-        assertFalse(respostaDeletada.getAtivo());
+        assertNotNull(resultado);
+        assertEquals("Teste atualizado", resultado.titulo());
+        assertEquals("Mensagem atualizada", resultado.mensagem());
     }
 }

@@ -1,17 +1,14 @@
-package hub.forum.api.service.topico;
+package hub.forum.api.service.resposta.service;
 
 import hub.forum.api.domain.categoria.Categoria;
 import hub.forum.api.domain.curso.Curso;
 import hub.forum.api.domain.perfil.Perfil;
+import hub.forum.api.domain.resposta.Resposta;
 import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.domain.topico.Topico;
 import hub.forum.api.domain.usuario.Usuario;
-import hub.forum.api.dto.topico.DadosAtualizacaoTopico;
-import hub.forum.api.repository.CursoRepository;
-import hub.forum.api.repository.PerfilRepository;
-import hub.forum.api.repository.TopicoRepository;
-import hub.forum.api.repository.UsuarioRepository;
-import hub.forum.api.service.TopicoService;
+import hub.forum.api.repository.*;
+import hub.forum.api.service.RespostaService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -20,21 +17,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
-class TopicoServiceAtualizarTest {
+class RespostaServiceMarcarSolucaoTest {
 
     @Autowired
     TopicoRepository topicoRepository;
-
-    @Autowired
-    TopicoService topicoService;
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -45,10 +38,16 @@ class TopicoServiceAtualizarTest {
     @Autowired
     PerfilRepository perfilRepository;
 
+    @Autowired
+    RespostaRepository respostaRepository;
+
+    @Autowired
+    RespostaService respostaService;
+
     @Test
     @Transactional
-    void atualizar() {
-        var perfil = perfilRepository.save(new Perfil("USUARIO"));
+    void marcarSolucao() {
+        var perfil = perfilRepository.save(new Perfil("ADMIN"));
 
         var usuario = new Usuario();
         usuario.setNome("Usuario");
@@ -72,16 +71,26 @@ class TopicoServiceAtualizarTest {
         topico.setAtivo(true);
         topicoRepository.save(topico);
 
-        var dadosAtualizados = new DadosAtualizacaoTopico("Teste atualizado",
-                "Mensagem atualizada");
-        var resultado = topicoService.atualizar(
+        var resposta = new Resposta();
+        resposta.setTopico(topico);
+        resposta.setMensagem("Mensagem atualiza");
+        resposta.setDataCriacao(LocalDateTime.now());
+        resposta.setAutor(usuario);
+        resposta.setAtivo(true);
+        resposta.setSolucao(false);
+        respostaRepository.save(resposta);
+        assertTrue(resposta.getAtivo());
+
+        respostaService.marcarSolucao(
+                resposta.getId(),
                 topico.getId(),
-                dadosAtualizados,
-                usuario
+                usuario.getId()
         );
 
-        assertNotNull(resultado);
-        assertEquals("Teste atualizado", resultado.titulo());
-        assertEquals("Mensagem atualizada", resultado.mensagem());
+        var respostaAtualizada = respostaRepository.findById(resposta.getId()).orElseThrow();
+        var topicoAtualizado = topicoRepository.findById(topico.getId()).orElseThrow();
+
+        assertTrue(respostaAtualizada.getSolucao());
+        assertEquals(StatusTopico.SOLUCIONADO, topicoAtualizado.getStatus());
     }
 }
