@@ -10,7 +10,6 @@ import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.resposta.DadosAtualizacaoResposta;
 import hub.forum.api.repository.*;
 import hub.forum.api.service.RespostaService;
-import hub.forum.api.service.TopicoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -26,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
-class RespostaServiceTest {
+class RespostaServiceAtualizarTest {
 
     @Autowired
     TopicoRepository topicoRepository;
