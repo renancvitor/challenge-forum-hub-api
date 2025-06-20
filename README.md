@@ -155,10 +155,13 @@ spring.datasource.password=sua_senha
 ---
 
 <h2 align="center">🔑 Acesso à API</h2>
+
 - Acesso o Swagger em:
+
 ```bash
 http://localhost:8080/swagger-ui/index.html
 ```
+
 - Faça login para obter o token [JWT](https://jwt.io/) e utilizar nas requisições protegidas.
 
 ---
