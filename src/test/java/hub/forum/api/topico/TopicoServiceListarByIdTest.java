@@ -1,14 +1,16 @@
-package hub.forum.api.service.resposta.service;
+package hub.forum.api.topico;
 
 import hub.forum.api.domain.categoria.Categoria;
 import hub.forum.api.domain.curso.Curso;
 import hub.forum.api.domain.perfil.Perfil;
-import hub.forum.api.domain.resposta.Resposta;
 import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.domain.topico.Topico;
 import hub.forum.api.domain.usuario.Usuario;
-import hub.forum.api.repository.*;
-import hub.forum.api.service.RespostaService;
+import hub.forum.api.repository.CursoRepository;
+import hub.forum.api.repository.PerfilRepository;
+import hub.forum.api.repository.TopicoRepository;
+import hub.forum.api.repository.UsuarioRepository;
+import hub.forum.api.service.TopicoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -19,15 +21,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
-class RespostaServiceMarcarSolucaoTest {
+class TopicoServiceListarByIdTest {
 
     @Autowired
     TopicoRepository topicoRepository;
+
+    @Autowired
+    TopicoService topicoService;
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -38,32 +44,26 @@ class RespostaServiceMarcarSolucaoTest {
     @Autowired
     PerfilRepository perfilRepository;
 
-    @Autowired
-    RespostaRepository respostaRepository;
-
-    @Autowired
-    RespostaService respostaService;
-
     @Test
     @Transactional
-    void marcarSolucao() {
-        var perfil = perfilRepository.save(new Perfil("ADMIN"));
+    void listarById() {
+        var perfil = perfilRepository.save(new Perfil("TUTOR"));
 
         var usuario = new Usuario();
-        usuario.setNome("Usuario");
-        usuario.setEmail("usuario@example.com");
+        usuario.setNome("Tutor");
+        usuario.setEmail("tutor@example.com");
         usuario.setSenha("123456");
         usuario.setPerfil(perfil);
         usuario = usuarioRepository.save(usuario);
 
         var curso = new Curso();
-        curso.setNome("Spring Boot 3.0 atualiza");
+        curso.setNome("Spring Boot 3.0");
         curso.setCategoria(Categoria.TECNOLOGIA);
         curso = cursoRepository.save(curso);
 
         var topico = new Topico();
-        topico.setTitulo("Teste atualiza");
-        topico.setMensagem("Mensagem atualiza");
+        topico.setTitulo("Teste");
+        topico.setMensagem("Mensagem");
         topico.setDataCriacao(LocalDateTime.now());
         topico.setStatus(StatusTopico.NAO_RESPONDIDO);
         topico.setAutor(usuario);
@@ -71,26 +71,9 @@ class RespostaServiceMarcarSolucaoTest {
         topico.setAtivo(true);
         topicoRepository.save(topico);
 
-        var resposta = new Resposta();
-        resposta.setTopico(topico);
-        resposta.setMensagem("Mensagem atualiza");
-        resposta.setDataCriacao(LocalDateTime.now());
-        resposta.setAutor(usuario);
-        resposta.setAtivo(true);
-        resposta.setSolucao(false);
-        respostaRepository.save(resposta);
-        assertTrue(resposta.getAtivo());
+        var resultado = topicoService.listarById(topico.getId());
 
-        respostaService.marcarSolucao(
-                resposta.getId(),
-                topico.getId(),
-                usuario.getId()
-        );
-
-        var respostaAtualizada = respostaRepository.findById(resposta.getId()).orElseThrow();
-        var topicoAtualizado = topicoRepository.findById(topico.getId()).orElseThrow();
-
-        assertTrue(respostaAtualizada.getSolucao());
-        assertEquals(StatusTopico.SOLUCIONADO, topicoAtualizado.getStatus());
+        assertNotNull(resultado);
+        assertEquals("Teste", resultado.titulo());
     }
 }

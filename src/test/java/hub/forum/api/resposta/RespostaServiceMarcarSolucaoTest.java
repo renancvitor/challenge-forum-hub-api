@@ -1,4 +1,4 @@
-package hub.forum.api.service.resposta.service;
+package hub.forum.api.resposta;
 
 import hub.forum.api.domain.categoria.Categoria;
 import hub.forum.api.domain.curso.Curso;
@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
-class RespostaServiceDeletarRespostaTest {
+class RespostaServiceMarcarSolucaoTest {
 
     @Autowired
     TopicoRepository topicoRepository;
@@ -46,7 +46,7 @@ class RespostaServiceDeletarRespostaTest {
 
     @Test
     @Transactional
-    void deletarResposta() {
+    void marcarSolucao() {
         var perfil = perfilRepository.save(new Perfil("ADMIN"));
 
         var usuario = new Usuario();
@@ -81,11 +81,16 @@ class RespostaServiceDeletarRespostaTest {
         respostaRepository.save(resposta);
         assertTrue(resposta.getAtivo());
 
-        respostaService.deletarResposta(resposta.getId(), usuario);
+        respostaService.marcarSolucao(
+                resposta.getId(),
+                topico.getId(),
+                usuario.getId()
+        );
 
-        var respostaDeletada = respostaRepository.findById(resposta.getId())
-                .orElseThrow();
+        var respostaAtualizada = respostaRepository.findById(resposta.getId()).orElseThrow();
+        var topicoAtualizado = topicoRepository.findById(topico.getId()).orElseThrow();
 
-        assertFalse(respostaDeletada.getAtivo());
+        assertTrue(respostaAtualizada.getSolucao());
+        assertEquals(StatusTopico.SOLUCIONADO, topicoAtualizado.getStatus());
     }
 }
