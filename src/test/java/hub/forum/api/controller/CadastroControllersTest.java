@@ -124,4 +124,26 @@ class CadastroControllersTest {
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
+
+    @Test
+    @DisplayName("Cadastro de resposta: deveria devolver 400 quando informações inválidas")
+    @WithMockUser
+    void cadastrar_resposta() throws Exception {
+        var jsonInvalido = """
+            {
+                "mensagem": ""
+            }
+        """;
+
+        var response = mockMvc
+                .perform(
+                        post("/respostas/topicos/9/respostas")
+                                .contentType("application/json")
+                                .content(dadosCadastroRespostaJacksonTester.write(
+                                        new DadosCadastroResposta("")
+                                ).getJson())
+                ).andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+    }
 }
