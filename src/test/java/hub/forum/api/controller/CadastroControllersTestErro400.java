@@ -3,9 +3,10 @@ package hub.forum.api.controller;
 import hub.forum.api.domain.categoria.Categoria;
 import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.dto.curso.DadosCadastroCurso;
-import hub.forum.api.dto.curso.DadosDetalhamentoCurso;
+import hub.forum.api.dto.perfil.DadosCadastroPerfil;
 import hub.forum.api.dto.resposta.DadosCadastroResposta;
 import hub.forum.api.dto.topico.DadosCadastroTopico;
+import hub.forum.api.dto.usuario.DadosCadastroUsuario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-class CadastroControllersTest {
+class CadastroControllersTestErro400 {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private JacksonTester<DadosCadastroUsuario> dadosCadastroUsuarioJacksonTester;
+
+    @Autowired
+    private JacksonTester<DadosCadastroPerfil> dadosCadastroPerfilJacksonTester;
 
     @Autowired
     private JacksonTester<DadosCadastroCurso> dadosCadastroCursoJacksonTester;
@@ -41,19 +48,15 @@ class CadastroControllersTest {
     @DisplayName("Cadastro de usuário: deveria devolver 400 quando informações inválidas")
     @WithMockUser
     void cadastrar_usuario() throws Exception {
-        var jsonInvalido = """
-            {
-                "nome": "",
-                "email": "",
-                "senha": ""
-            }
-        """;
 
-        var response = mockMvc.perform(
-                post("/usuarios")
-                        .contentType("application/json")
-                        .content(jsonInvalido)
-        ).andReturn().getResponse();
+        var response = mockMvc
+                .perform(
+                        post("/usuarios")
+                                .contentType("application/json")
+                                .content(dadosCadastroUsuarioJacksonTester.write(
+                                        new DadosCadastroUsuario("", "", "", "")
+                                ).getJson())
+                ).andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
@@ -62,17 +65,15 @@ class CadastroControllersTest {
     @DisplayName("Cadastro de perfil: deveria devolver 400 quando informações inválidas")
     @WithMockUser
     void cadastrar_perfil() throws Exception {
-        var jsonInvalido = """
-            {
-                "nome": ""
-            }
-        """;
 
-        var response = mockMvc.perform(
-                post("/perfis")
-                        .contentType("application/json")
-                        .content(jsonInvalido)
-        ).andReturn().getResponse();
+        var response = mockMvc
+                .perform(
+                        post("/perfis")
+                                .contentType("application/json")
+                                .content(dadosCadastroPerfilJacksonTester.write(
+                                        new DadosCadastroPerfil("")
+                                ).getJson())
+                ).andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
