@@ -1,8 +1,11 @@
 package hub.forum.api.controller;
 
 import hub.forum.api.domain.categoria.Categoria;
+import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.dto.curso.DadosCadastroCurso;
 import hub.forum.api.dto.curso.DadosDetalhamentoCurso;
+import hub.forum.api.dto.resposta.DadosCadastroResposta;
+import hub.forum.api.dto.topico.DadosCadastroTopico;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +32,10 @@ class CadastroControllersTest {
     private JacksonTester<DadosCadastroCurso> dadosCadastroCursoJacksonTester;
 
     @Autowired
-    private JacksonTester<DadosDetalhamentoCurso> dadosDetalhamentoCursoJacksonTester;
+    private JacksonTester<DadosCadastroResposta> dadosCadastroRespostaJacksonTester;
+
+    @Autowired
+    private JacksonTester<DadosCadastroTopico> dadosCadastroTopicoJacksonTester;
 
     @Test
     @DisplayName("Cadastro de usuário: deveria devolver 400 quando informações inválidas")
@@ -88,6 +94,31 @@ class CadastroControllersTest {
                                 .contentType("application/json")
                                 .content(dadosCadastroCursoJacksonTester.write(
                                         new DadosCadastroCurso("", Categoria.TECNOLOGIA)
+                                ).getJson())
+                ).andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
+    @DisplayName("Cadastro de topico: deveria devolver 400 quando informações inválidas")
+    @WithMockUser
+    void cadastrar_topico() throws Exception {
+        var jsonInvalido = """
+            {
+                "titulo": "",
+                "mensagem": "",
+                "curso": ""
+            }
+        """;
+
+        var response = mockMvc
+                .perform(
+                        post("/topicos")
+                                .contentType("application/json")
+                                .content(dadosCadastroTopicoJacksonTester.write(
+                                        new DadosCadastroTopico("", "",
+                                                StatusTopico.NAO_RESPONDIDO, "")
                                 ).getJson())
                 ).andReturn().getResponse();
 
