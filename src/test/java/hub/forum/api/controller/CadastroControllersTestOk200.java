@@ -20,6 +20,7 @@ import hub.forum.api.service.UsuarioService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -58,11 +59,20 @@ class CadastroControllersTestOk200 {
     @Autowired
     private JacksonTester<DadosDetalhamentoPerfil> dadosDetalhamentoPerfilJacksonTester;
 
+    @Autowired
+    private JacksonTester<DadosCadastroUsuario> dadosCadastroUsuarioJacksonTester;
+
+    @Autowired
+    private JacksonTester<DadosDetalhamentoUsuario> dadosDetalhamentoUsuarioJacksonTester;
+
     @MockBean
     private PerfilService perfilService;
 
+    @MockBean
+    private UsuarioService usuarioService;
+
     @Test
-    @DisplayName("Cadastro de perfil: deveria devolver 200")
+    @DisplayName("Cadastro de perfil: deveria devolver 201")
     @WithMockUser(username = "renan", roles = {"ADMIN"})
     void cadastrar_perfil() throws Exception {
         Usuario usuarioLogado = new Usuario();
@@ -93,6 +103,51 @@ class CadastroControllersTestOk200 {
 
         var jsonEsperado = dadosDetalhamentoPerfilJacksonTester.write(
                 dadosDetalhamentoPerfil
+        ).getJson();
+
+        assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
+    }
+
+    @Test
+    @DisplayName("Cadastro de usuários: deveria devolver 201")
+    @WithMockUser(username = "renan", roles = {"ADMIN"})
+    void cadastrar_usuario() throws Exception {
+        Usuario usuarioLogado = new Usuario();
+        usuarioLogado.setPerfil(new Perfil("ADMIN"));
+
+        Authentication authentication = Mockito.mock(Authentication.class);
+        Mockito.when(authentication.getPrincipal()).thenReturn(usuarioLogado);
+
+        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
+
+        SecurityContextHolder.setContext(securityContext);
+
+        Perfil perfil = new Perfil("ADMIN");
+
+        Usuario usuarioMock =
+                new Usuario(2L, "Renan", "renan@example.com",
+                "123456", perfil);
+
+        BDDMockito.given(usuarioService.cadastrar(Mockito.any(DadosCadastroUsuario.class)))
+                .willReturn(usuarioMock);
+
+        DadosDetalhamentoUsuario dadosDetalhamentoUsuario = new DadosDetalhamentoUsuario(usuarioMock);
+
+        var response = mockMvc
+                .perform(
+                        post("/usuarios")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(dadosCadastroUsuarioJacksonTester.write(
+                                        new DadosCadastroUsuario("Renan", "renan@example.com",
+                                                "123456", "COMUM")
+                                ).getJson())
+                ).andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
+
+        var jsonEsperado = dadosDetalhamentoUsuarioJacksonTester.write(
+                dadosDetalhamentoUsuario
         ).getJson();
 
         assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
