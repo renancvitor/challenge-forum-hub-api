@@ -82,12 +82,6 @@ class CadastroControllersTestErro400 {
     @DisplayName("Cadastro de curso: deveria devolver 400 quando informações inválidas")
     @WithMockUser
     void cadastrar_curso() throws Exception {
-        var jsonInvalido = """
-            {
-                "nome": "",
-                "categoria": ""
-            }
-        """;
 
         var response = mockMvc
                 .perform(
@@ -105,13 +99,6 @@ class CadastroControllersTestErro400 {
     @DisplayName("Cadastro de topico: deveria devolver 400 quando informações inválidas")
     @WithMockUser
     void cadastrar_topico() throws Exception {
-        var jsonInvalido = """
-            {
-                "titulo": "",
-                "mensagem": "",
-                "curso": ""
-            }
-        """;
 
         var response = mockMvc
                 .perform(
@@ -130,11 +117,6 @@ class CadastroControllersTestErro400 {
     @DisplayName("Cadastro de resposta: deveria devolver 400 quando informações inválidas")
     @WithMockUser
     void cadastrar_resposta() throws Exception {
-        var jsonInvalido = """
-            {
-                "mensagem": ""
-            }
-        """;
 
         var response = mockMvc
                 .perform(
