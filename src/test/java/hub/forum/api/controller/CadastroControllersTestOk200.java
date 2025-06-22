@@ -78,6 +78,12 @@ class CadastroControllersTestOk200 {
     @Autowired
     private JacksonTester<DadosDetalhamentoResumidoTopico> dadosDetalhamentoResumidoTopicoJacksonTester;
 
+    @Autowired
+    private JacksonTester<DadosCadastroResposta> dadosCadastroRespostaJacksonTester;
+
+    @Autowired
+    private JacksonTester<DadosDetalhamentoResposta> dadosDetalhamentoRespostaJacksonTester;
+
     @MockBean
     private PerfilService perfilService;
 

@@ -1,4 +1,4 @@
-package hub.forum.api;
+package hub.forum.api.service;
 
 import hub.forum.api.domain.categoria.Categoria;
 import hub.forum.api.domain.perfil.Perfil;
@@ -8,10 +8,6 @@ import hub.forum.api.dto.topico.DadosCadastroTopico;
 import hub.forum.api.dto.usuario.DadosCadastroUsuario;
 import hub.forum.api.repository.PerfilRepository;
 import hub.forum.api.repository.UsuarioRepository;
-import hub.forum.api.service.CursoService;
-import hub.forum.api.service.RespostaService;
-import hub.forum.api.service.TopicoService;
-import hub.forum.api.service.UsuarioService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
