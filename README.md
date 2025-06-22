@@ -23,7 +23,7 @@ Este projeto proporciona prática em:
 <h2 align="center">⚙️ Tecnologias Utilizadas</h2>
 
 - ☕ [Java 17](https://www.java.com/pt-BR/) ou superior + 🌱 [Spring Boot 3](https://start.spring.io/)
-- 🔐 [Spring Security](https://spring.io/projects/spring-security) + 🧾 [JWT (JSON Web Token)](https://jwt.io/)
+- 🔐 [Spring Security](https://spring.io/projects/spring-security) + 🧾 [JWT](https://jwt.io/)
 - 📦 [JPA](https://spring.io/projects/spring-data-jpa) + 🐘 [Hibernate](https://hibernate.org/)
 - 🐬 Banco de dados [MySQL](https://www.mysql.com/)
 - 🛠️ Controle de versionamento de banco com [Flyway](https://flywaydb.org/)
@@ -51,7 +51,7 @@ O **FórumHub** é um back-end de fórum desenvolvido com [Spring Boot](https://
 
 ### 🔐 Autenticação e Segurança
 - Cadastro e login de usuários
-- Autenticação via [JWT (JSON Web Token)](https://jwt.io/)
+- Autenticação via [JWT](https://jwt.io/)
 - Controle de acesso baseado em perfis de usuário
 
 ### 📚 **Gerenciamento de Conteúdo**
@@ -85,7 +85,7 @@ O **FórumHub** é um back-end de fórum desenvolvido com [Spring Boot](https://
 
 O projeto conta com uma **cobertura significativa de testes unitários e de integração**, garantindo a qualidade e o correto funcionamento dos fluxos principais de negócio da API, incluindo:
 - Cadastro de usuários, perfis, cursos, tópicos e respostas.
-- Autenticação com JWT.
+- Autenticação com [JWT](https://jwt.io/).
 - Validações de regras de negócio.
 - Tratamento global de exceções.
 
