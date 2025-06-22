@@ -31,6 +31,7 @@ Projeto ideal para praticar:
 - [Spring Security](https://spring.io/projects/spring-security) + [JWT (JSON Web Token)](https://jwt.io/)
 - [JPA](https://spring.io/projects/spring-data-jpa) + Hibernate
 - Banco de dados [MySQL](https://www.mysql.com/)
+- Controle de versionamento de banco com [Flyway](https://flywaydb.org/)
 - Ferramenta de automação e gerenciamento de projetos: Maven
 - [Swagger (OpenAPI)](https://swagger.io/specification/)
 
@@ -40,6 +41,13 @@ Projeto ideal para praticar:
 
 - 💻 [IntelliJ IDE](https://www.jetbrains.com/pt-br/idea/#): Ambiente de desenvolvimento integrado.
 - 🐘 [MySQL](https://www.mysql.com/): Sistema de gerenciamento de banco de dados relacional de código aberto.
+
+---
+
+<h2 align="center">🗄️ Migrations e Versionamento de Banco</h2>
+
+O projeto utiliza o [Flyway](https://flywaydb.org/) para gerenciamento de **migrations de banco de dados** no MySQL. Com o Flyway, todas as alterações de estrutura no banco (como criação de tabelas e alterações de schema) são versionadas e controladas, garantindo a consistência entre os ambientes de desenvolvimento e produção.
+
 
 ---
 
