@@ -15,9 +15,7 @@ import hub.forum.api.dto.topico.DadosDetalhamentoResumidoTopico;
 import hub.forum.api.dto.usuario.DadosCadastroUsuario;
 import hub.forum.api.dto.usuario.DadosDetalhamentoUsuario;
 import hub.forum.api.repository.PerfilRepository;
-import hub.forum.api.service.CursoService;
-import hub.forum.api.service.PerfilService;
-import hub.forum.api.service.UsuarioService;
+import hub.forum.api.service.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,6 +38,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -72,6 +72,12 @@ class CadastroControllersTestOk200 {
     @Autowired
     private JacksonTester<DadosDetalhamentoCurso> dadosDetalhamentoCursoJacksonTester;
 
+    @Autowired
+    private JacksonTester<DadosCadastroTopico> dadosCadastroTopicoJacksonTester;
+
+    @Autowired
+    private JacksonTester<DadosDetalhamentoResumidoTopico> dadosDetalhamentoResumidoTopicoJacksonTester;
+
     @MockBean
     private PerfilService perfilService;
 
@@ -80,6 +86,12 @@ class CadastroControllersTestOk200 {
 
     @MockBean
     private CursoService cursoService;
+
+    @MockBean
+    private TopicoService topicoService;
+
+    @MockBean
+    private RespostaService respostaService;
 
     @Test
     @DisplayName("Cadastro de perfil: deveria devolver 201")
@@ -195,6 +207,52 @@ class CadastroControllersTestOk200 {
 
         var jsonEsperado = dadosDetalhamentoCursoJacksonTester.write(
                 dadosDetalhamentoCurso
+        ).getJson();
+
+        assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
+    }
+
+    @Test
+    @DisplayName("Cadastro de tópico: deveria devolver 201")
+    @WithMockUser(username = "renan", roles = {"ADMIN"})
+    void cadastrar_topico() throws Exception {
+        Usuario usuarioLogado = new Usuario();
+        usuarioLogado.setPerfil(new Perfil("ADMIN"));
+
+        Authentication authentication = Mockito.mock(Authentication.class);
+        Mockito.when(authentication.getPrincipal()).thenReturn(usuarioLogado);
+
+        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
+
+        SecurityContextHolder.setContext(securityContext);
+
+        var dadosDetalhamentoTopico = new DadosDetalhamentoResumidoTopico(
+                null,
+                "Título",
+                "Mensagem",
+                LocalDateTime.now());
+
+        when(topicoService.criar(any(), any())).thenReturn(dadosDetalhamentoTopico);
+
+        var response = mockMvc
+                .perform(
+                        post("/topicos")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(dadosCadastroTopicoJacksonTester.write(
+                                        new DadosCadastroTopico(
+                                                "Título",
+                                                "Mensagem",
+                                                StatusTopico.NAO_RESPONDIDO,
+                                                "Java"
+                                        )
+                                ).getJson())
+                ).andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
+
+        var jsonEsperado = dadosDetalhamentoResumidoTopicoJacksonTester.write(
+                dadosDetalhamentoTopico
         ).getJson();
 
         assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
