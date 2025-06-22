@@ -5,11 +5,13 @@
 ---
 
 <p align="center">
+  <img src="https://img.shields.io/badge/Java-17-blue?style=for-the-badge&logo=openjdk"/>
   <img src="https://img.shields.io/badge/Spring_Boot-3-green?style=for-the-badge&logo=springboot"/>
   <img src="https://img.shields.io/badge/MySQL-8-blue?style=for-the-badge&logo=mysql"/>
   <img src="https://img.shields.io/badge/JWT-enabled-orange?style=for-the-badge&logo=jwt"/>
   <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge">
 </p>
+
 
 ---
 
