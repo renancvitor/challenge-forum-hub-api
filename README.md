@@ -24,7 +24,7 @@ Este projeto proporciona prática em:
 
 - ☕ [Java 17](https://www.java.com/pt-BR/) ou superior + 🌱 [Spring Boot 3](https://start.spring.io/)
 - 🔐 [Spring Security](https://spring.io/projects/spring-security) + 🧾 [JWT (JSON Web Token)](https://jwt.io/)
-- 📦 [JPA](https://spring.io/projects/spring-data-jpa) + 🐘 Hibernate
+- 📦 [JPA](https://spring.io/projects/spring-data-jpa) + 🐘 [Hibernate](https://hibernate.org/)
 - 🐬 Banco de dados [MySQL](https://www.mysql.com/)
 - 🛠️ Controle de versionamento de banco com [Flyway](https://flywaydb.org/)
 - 📦 [Maven](https://maven.apache.org/): Gerenciamento de dependências e build.
