@@ -11,12 +11,12 @@ Simula o back-end de um fórum de discussão com autenticação, controle de usu
 O projeto adota arquitetura em camadas (controller, service, repository, domain e DTOs), aplicando boas práticas de organização, responsabilidade e manutenção de código.
 
 Este projeto proporciona prática em:
-- Boas práticas com [Spring Boot](https://spring.io/projects/spring-boot)
-- Estruturação de API REST
-- Validações
-- Tratamento de erros
-- Documentação com [Swagger (OpenAPI)](https://swagger.io/specification/)
-- Segurança com [JWT (JSON Web Token)](https://jwt.io/)
+- ⚙️ Boas práticas com [Spring Boot](https://spring.io/projects/spring-boot)
+- 🛠️ Estruturação de API REST
+- ✅ Validações
+- 🚨 Tratamento de erros
+- 📚 Documentação com [Swagger (OpenAPI)](https://swagger.io/specification/)
+- 🔐 Segurança com [JWT (JSON Web Token)](https://jwt.io/)
 
 ---
 
