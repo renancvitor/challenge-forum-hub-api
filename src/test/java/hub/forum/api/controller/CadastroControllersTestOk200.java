@@ -263,4 +263,47 @@ class CadastroControllersTestOk200 {
 
         assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
     }
+
+    @Test
+    @DisplayName("Cadastro de respostas: deveria devolver 201")
+    @WithMockUser(username = "renan", roles = {"ADMIN"})
+    void cadastrar_repostas() throws Exception {
+        Usuario usuarioLogado = new Usuario();
+        usuarioLogado.setPerfil(new Perfil("ADMIN"));
+
+        Authentication authentication = Mockito.mock(Authentication.class);
+        Mockito.when(authentication.getPrincipal()).thenReturn(usuarioLogado);
+
+        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
+
+        SecurityContextHolder.setContext(securityContext);
+
+        var dadosDetalhamentoResposta = new DadosDetalhamentoResposta(
+                null,
+                "Mensagem",
+                "Tópico",
+                LocalDateTime.now());
+
+        when(respostaService.cadastrar(any(), any(), any())).thenReturn(dadosDetalhamentoResposta);
+
+        var response = mockMvc
+                .perform(
+                        post("/respostas/topicos/1/respostas")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(dadosCadastroRespostaJacksonTester.write(
+                                        new DadosCadastroResposta(
+                                                "Mensagem"
+                                        )
+                                ).getJson())
+                ).andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
+
+        var jsonEsperado = dadosDetalhamentoRespostaJacksonTester.write(
+                dadosDetalhamentoResposta
+        ).getJson();
+
+        assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
+    }
 }
