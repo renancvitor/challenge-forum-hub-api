@@ -131,9 +131,9 @@ O projeto utiliza o [Flyway](https://flywaydb.org/) para gerenciar as **migratio
 <h2 align="center">🚀 Como Executar o Projeto</h2>
 
 ### Pré-requisitos:
-- [Java 17](https://www.java.com/pt-BR/) ou superior
-- [MySQL](https://www.mysql.com/) instalado
-- IDE de sua preferência ([IntelliJ IDE](https://www.jetbrains.com/pt-br/idea/#), [VSCode](https://code.visualstudio.com/), [Eclipse](https://eclipseide.org/) etc.)
+- ☕ [Java 17](https://www.java.com/pt-BR/) ou superior
+- 🐬 [MySQL](https://www.mysql.com/) instalado
+- 💻 IDE de sua preferência ([IntelliJ IDE](https://www.jetbrains.com/pt-br/idea/#), [VSCode](https://code.visualstudio.com/), [Eclipse](https://eclipseide.org/) etc.)
 
 ### Passo a passo:
 1. Clone o repositório
