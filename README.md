@@ -4,26 +4,6 @@
 
 ---
 
-<p align="center">
-  <!-- Linguagem e Framework -->
-  <img src="https://img.shields.io/badge/Java-17-blue?style=for-the-badge&logo=openjdk"/>
-  <img src="https://img.shields.io/badge/Spring_Boot-3-green?style=for-the-badge&logo=springboot"/>
-  <br>
-  <!-- Banco e Versionamento -->
-  <img src="https://img.shields.io/badge/MySQL-8-blue?style=for-the-badge&logo=mysql"/>
-  <img src="https://img.shields.io/badge/Flyway-Versioning-red?style=for-the-badge&logo=flyway"/>
-  <br>
-  <!-- Segurança e Documentação -->
-  <img src="https://img.shields.io/badge/JWT-enabled-orange?style=for-the-badge&logo=jwt"/>
-  <img src="https://img.shields.io/badge/Swagger-OpenAPI-85EA2D?style=for-the-badge&logo=swagger"/>
-  <br>
-  <!-- Build e Licença -->
-  <img src="https://img.shields.io/badge/Maven-Build-orange?style=for-the-badge&logo=apachemaven"/>
-  <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge">
-</p>
-
----
-
 <h2 align="center">📖 Sobre o Projeto</h2>
 
 O **FórumHub** é uma **API REST** desenvolvida como desafio da formação Back-End Java Orientado a Objetos - GB/ONE da [Alura](https://www.alura.com.br). 
@@ -42,13 +22,13 @@ Este projeto proporciona prática em:
 
 <h2 align="center">⚙️ Tecnologias Utilizadas</h2>
 
-- [Java 17](https://www.java.com/pt-BR/) ou superior + [Spring Boot 3](https://start.spring.io/)
-- [Spring Security](https://spring.io/projects/spring-security) + [JWT (JSON Web Token)](https://jwt.io/)
-- [JPA](https://spring.io/projects/spring-data-jpa) + Hibernate
-- Banco de dados [MySQL](https://www.mysql.com/)
-- Controle de versionamento de banco com [Flyway](https://flywaydb.org/)
-- [Maven](https://maven.apache.org/): Gerenciamento de dependências e build.
-- [Swagger (OpenAPI)](https://swagger.io/specification/)
+- ☕ [Java 17](https://www.java.com/pt-BR/) ou superior + 🌱 [Spring Boot 3](https://start.spring.io/)
+- 🔐 [Spring Security](https://spring.io/projects/spring-security) + 🧾 [JWT (JSON Web Token)](https://jwt.io/)
+- 📦 [JPA](https://spring.io/projects/spring-data-jpa) + 🐘 Hibernate
+- 🐬 Banco de dados [MySQL](https://www.mysql.com/)
+- 🛠️ Controle de versionamento de banco com [Flyway](https://flywaydb.org/)
+- 📦 [Maven](https://maven.apache.org/): Gerenciamento de dependências e build.
+- 📄 [Swagger (OpenAPI)](https://swagger.io/specification/)
 
 ---
 
