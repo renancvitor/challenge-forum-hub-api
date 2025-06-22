@@ -15,6 +15,7 @@ import hub.forum.api.dto.topico.DadosDetalhamentoResumidoTopico;
 import hub.forum.api.dto.usuario.DadosCadastroUsuario;
 import hub.forum.api.dto.usuario.DadosDetalhamentoUsuario;
 import hub.forum.api.repository.PerfilRepository;
+import hub.forum.api.service.CursoService;
 import hub.forum.api.service.PerfilService;
 import hub.forum.api.service.UsuarioService;
 import org.junit.jupiter.api.BeforeEach;
@@ -65,11 +66,20 @@ class CadastroControllersTestOk200 {
     @Autowired
     private JacksonTester<DadosDetalhamentoUsuario> dadosDetalhamentoUsuarioJacksonTester;
 
+    @Autowired
+    private JacksonTester<DadosCadastroCurso> dadosCadastroCursoJacksonTester;
+
+    @Autowired
+    private JacksonTester<DadosDetalhamentoCurso> dadosDetalhamentoCursoJacksonTester;
+
     @MockBean
     private PerfilService perfilService;
 
     @MockBean
     private UsuarioService usuarioService;
+
+    @MockBean
+    private CursoService cursoService;
 
     @Test
     @DisplayName("Cadastro de perfil: deveria devolver 201")
@@ -148,6 +158,43 @@ class CadastroControllersTestOk200 {
 
         var jsonEsperado = dadosDetalhamentoUsuarioJacksonTester.write(
                 dadosDetalhamentoUsuario
+        ).getJson();
+
+        assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
+    }
+
+    @Test
+    @DisplayName("Cadastro de curso: deveria devolver 201")
+    @WithMockUser(username = "renan", roles = {"ADMIN"})
+    void cadastrar_curso() throws Exception {
+        Usuario usuarioLogado = new Usuario();
+        usuarioLogado.setPerfil(new Perfil("ADMIN"));
+
+        Authentication authentication = Mockito.mock(Authentication.class);
+        Mockito.when(authentication.getPrincipal()).thenReturn(usuarioLogado);
+
+        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
+
+        SecurityContextHolder.setContext(securityContext);
+
+        var dadosDetalhamentoCurso = new DadosDetalhamentoCurso(null, "Java", Categoria.TECNOLOGIA);
+
+        when(cursoService.cadastrar(any(), any())).thenReturn(dadosDetalhamentoCurso);
+
+        var response = mockMvc
+                .perform(
+                        post("/cursos")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(dadosCadastroCursoJacksonTester.write(
+                                        new DadosCadastroCurso("Java", Categoria.TECNOLOGIA)
+                                ).getJson())
+                ).andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
+
+        var jsonEsperado = dadosDetalhamentoCursoJacksonTester.write(
+                dadosDetalhamentoCurso
         ).getJson();
 
         assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
