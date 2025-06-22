@@ -1,5 +1,5 @@
 <h1 align="center">🗣️📚 FórumHub — API REST com Spring Boot 3, MySQL e JWT<br> (<a href="https://www.alura.com.br">Alura - Challenge</a>) 🎯<br>
-  <img src="https://img.shields.io/badge/status-Concluído-brightgreen?scale=3">
+  <img src="https://img.shields.io/badge/status-Concluído-brightgreen?scale=5">
 </h1>
 
 ---
