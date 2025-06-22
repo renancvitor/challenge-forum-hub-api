@@ -1,21 +1,25 @@
-<h1 align="center">🗣️📚 FórumHub — API REST de Fórum (<a href="https://www.alura.com.br">Alura - Challenge</a>) 🎯<br>
+<h1 align="center">🗣️📚 FórumHub — API REST com Spring Boot 3, MySQL e JWT (<a href="https://www.alura.com.br">Alura - Challenge</a>) 🎯<br>
   <img src="https://img.shields.io/badge/status-Concluído-brightgreen">
 </h1>
 
 ---
 
-<h2 align="center">✅ Projeto concluído</h2>
-
-Este projeto faz parte da formação **Back-End Java Orientado a Objetos - GB/ONE**, da [Alura](https://www.alura.com.br).
+<p align="center">
+  <img src="https://img.shields.io/badge/Spring_Boot-3-green?style=for-the-badge&logo=springboot"/>
+  <img src="https://img.shields.io/badge/MySQL-8-blue?style=for-the-badge&logo=mysql"/>
+  <img src="https://img.shields.io/badge/JWT-enabled-orange?style=for-the-badge&logo=jwt"/>
+  <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge">
+</p>
 
 ---
 
 <h2 align="center">📖 Sobre o Projeto</h2>
 
-O **FórumHub** é uma **API REST** desenvolvida como desafio proposto pela plataforma [Alura](https://www.alura.com.br).
-Simula o back-end de um fórum de discussão com autenticação, controle de usuários, categorias, tópicos, respostas, cursos e controle de permissões. 
+O **FórumHub** é uma **API REST** desenvolvida como desafio da formação Back-End Java Orientado a Objetos - GB/ONE da [Alura](https://www.alura.com.br). 
+Simula o back-end de um fórum de discussão com autenticação, controle de usuários, categorias, tópicos, respostas, cursos e controle de permissões.
+O projeto adota arquitetura em camadas (controller, service, repository, domain e DTOs), aplicando boas práticas de organização, responsabilidade e manutenção de código.
 
-Projeto ideal para praticar:
+Este projeto proporciona prática em:
 - Boas práticas com [Spring Boot](https://spring.io/projects/spring-boot)
 - Estruturação de API REST
 - Validações
@@ -25,14 +29,14 @@ Projeto ideal para praticar:
 
 ---
 
-<h2 align="center">⚙️ Tecnologias Utilizados</h2>
+<h2 align="center">⚙️ Tecnologias Utilizadas</h2>
 
 - [Java 17](https://www.java.com/pt-BR/) ou superior + [Spring Boot 3](https://start.spring.io/)
 - [Spring Security](https://spring.io/projects/spring-security) + [JWT (JSON Web Token)](https://jwt.io/)
 - [JPA](https://spring.io/projects/spring-data-jpa) + Hibernate
 - Banco de dados [MySQL](https://www.mysql.com/)
 - Controle de versionamento de banco com [Flyway](https://flywaydb.org/)
-- Ferramenta de automação e gerenciamento de projetos: Maven
+- [Maven](https://maven.apache.org/): Gerenciamento de dependências e build.
 - [Swagger (OpenAPI)](https://swagger.io/specification/)
 
 ---
@@ -40,13 +44,13 @@ Projeto ideal para praticar:
 <h2 align="center">🧰 Ferramentas Utilizadas</h2>
 
 - 💻 [IntelliJ IDE](https://www.jetbrains.com/pt-br/idea/#): Ambiente de desenvolvimento integrado.
-- 🐘 [MySQL](https://www.mysql.com/): Sistema de gerenciamento de banco de dados relacional de código aberto.
+- 💾 [MySQL](https://www.mysql.com/): Sistema de gerenciamento de banco de dados relacional de código aberto.
 
 ---
 
-<h2 align="center">🗄️ Migrations e Versionamento de Banco</h2>
+<h2 align="center">🔄 Migrations e Versionamento de Banco</h2>
 
-O projeto utiliza o [Flyway](https://flywaydb.org/) para gerenciamento de **migrations de banco de dados** no MySQL. Com o Flyway, todas as alterações de estrutura no banco (como criação de tabelas e alterações de schema) são versionadas e controladas, garantindo a consistência entre os ambientes de desenvolvimento e produção.
+O projeto utiliza o [Flyway](https://flywaydb.org/) para gerenciar as **migrations de banco de dados** no [MySQL](https://www.mysql.com/). Todas as alterações de estrutura no banco (como criação de tabelas e alterações de schema) são versionadas e controladas, garantindo consistência entre os ambientes de desenvolvimento e produção.
 
 
 ---
@@ -137,7 +141,7 @@ O projeto utiliza o [Flyway](https://flywaydb.org/) para gerenciamento de **migr
 
 ### Pré-requisitos:
 - [Java 17](https://www.java.com/pt-BR/) ou superior
-- [MySQL](https://www.mysql.com/) instalado (ou outro banco configurado)
+- [MySQL](https://www.mysql.com/) instalado
 - IDE de sua preferência ([IntelliJ IDE](https://www.jetbrains.com/pt-br/idea/#), [VSCode](https://code.visualstudio.com/), [Eclipse](https://eclipseide.org/) etc.)
 
 ### Passo a passo:
@@ -149,13 +153,13 @@ git clone https://github.com/renancvitor/challenge-forum-hub-api.git
 ```bash
 cd challenge-forum-hub-api
 ```
-3. Configure o banco de dados no arquivo application.properties ou application.yml com as credenciais locais:
+3. Configure o banco de dados no arquivo `application.properties` com suas credenciais locais. Ao iniciar o projeto, as migrations serão aplicadas automaticamente pelo [Flyway](https://flywaydb.org/).
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/seu_banco
 spring.datasource.username=seu_usuario
 spring.datasource.password=sua_senha
 ```
-4. Execute o projeto:
+4. Execute o projeto com o Maven Wrapper:
 ```bash
 ./mvnw spring-boot:run
 ```
@@ -164,7 +168,7 @@ spring.datasource.password=sua_senha
 
 <h2 align="center">🔑 Acesso à API</h2>
 
-- Acesso o Swagger em:
+- Acesse o Swagger em:
 
 ```bash
 http://localhost:8080/swagger-ui/index.html
@@ -187,7 +191,7 @@ O **FórumHub** é um back-end de fórum desenvolvido com [Spring Boot](https://
 - **Cursos**
   - Cadastro de cursos
   - Listagem de cursos
-- Categorias de Tópicos
+- **Categorias**
   - Organização dos tópicos por categorias
 - **Tópicos de Discussão**
     - Criar novos tópicos
@@ -213,6 +217,7 @@ O **FórumHub** é um back-end de fórum desenvolvido com [Spring Boot](https://
 <h2 align="center">📢 Agradecimento</h2>
 
 Agradeço à [Alura](https://www.alura.com.br) por essa oportunidade de aprendizado contínuo e por incentivar o desenvolvimento de habilidades de programação de forma estruturada e desafiadora. 🚀
+Este projeto consolidou habilidades práticas em desenvolvimento de APIs RESTful robustas, autenticação segura com [Spring Security](https://spring.io/projects/spring-security) e [JWT](https://jwt.io/), tratamento global de exceções e versionamento controlado de banco com Flyway — competências amplamente aplicadas em desenvolvimento back-end profissional.
 
 ---
 
