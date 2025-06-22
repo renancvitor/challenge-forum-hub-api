@@ -43,6 +43,56 @@ Este projeto proporciona prática em:
 
 O projeto utiliza o [Flyway](https://flywaydb.org/) para gerenciar as **migrations de banco de dados** no [MySQL](https://www.mysql.com/). Todas as alterações de estrutura no banco (como criação de tabelas e alterações de schema) são versionadas e controladas, garantindo consistência entre os ambientes de desenvolvimento e produção.
 
+---
+
+<h2 align="center">✨ Funcionalidades</h2>
+
+O **FórumHub** é um back-end de fórum desenvolvido com [Spring Boot](https://spring.io/projects/spring-boot), com foco em boas práticas e organização de **API REST**.
+
+### 🔐 Autenticação e Segurança
+- Cadastro e login de usuários
+- Autenticação via [JWT (JSON Web Token)](https://jwt.io/)
+- Controle de acesso baseado em perfis de usuário
+
+### 📚 **Gerenciamento de Conteúdo**
+- **Cursos**
+  - Cadastro de cursos
+  - Listagem de cursos
+- **Categorias**
+  - Organização dos tópicos por categorias
+- **Tópicos de Discussão**
+  - Criar novos tópicos
+  - Listar tópicos (com paginação e filtros)
+  - Atualizar e excluir tópicos
+  - Controle de status dos tópicos
+  - Marcar uma resposta como solução
+- **Respostas aos Tópicos**
+  - Adicionar respostas aos tópicos
+  - Listar respostas (com paginação e filtros)
+  - Atualizar e excluir respostas
+
+### 🛠️ **Validações e Tratamento de Erros**
+- Validação de dados de entrada (DTOs com Bean Validation)
+- Mensagens de erros claras e padronizadas
+- Tratamento centralizado de exceções
+
+### 📊 **Documentação**
+- API documentada com [Swagger UI](https://swagger.io/specification/)
+
+---
+
+<h2 align="center">🧪 Testes Automatizados</h2>
+
+O projeto conta com uma **cobertura significativa de testes unitários e de integração**, garantindo a qualidade e o correto funcionamento dos fluxos principais de negócio da API, incluindo:
+- Cadastro de usuários, perfis, cursos, tópicos e respostas.
+- Autenticação com JWT.
+- Validações de regras de negócio.
+- Tratamento global de exceções.
+
+**Os testes foram desenvolvidos com:**
+- 📦 [JUnit 5](https://junit.org/junit5/)
+- 🔧 [Mockito](https://site.mockito.org/)
+- 🎯 [Spring Boot Test](https://docs.spring.io/spring-security/reference/servlet/test/index.html)
 
 ---
 
@@ -169,42 +219,6 @@ http://localhost:8080/swagger-ui/index.html
 
 ---
 
-<h2 align="center">✨ Funcionalidades</h2>
-
-O **FórumHub** é um back-end de fórum desenvolvido com [Spring Boot](https://spring.io/projects/spring-boot), com foco em boas práticas e organização de **API REST**.
-
-### 🔐 Autenticação e Segurança
-- Cadastro e login de usuários
-- Autenticação via [JWT (JSON Web Token)](https://jwt.io/)
-- Controle de acesso baseado em perfis de usuário
-
-### 📚 **Gerenciamento de Conteúdo**
-- **Cursos**
-  - Cadastro de cursos
-  - Listagem de cursos
-- **Categorias**
-  - Organização dos tópicos por categorias
-- **Tópicos de Discussão**
-    - Criar novos tópicos
-    - Listar tópicos (com paginação e filtros)
-    - Atualizar e excluir tópicos
-    - Controle de status dos tópicos
-    - Marcar uma resposta como solução
-- **Respostas aos Tópicos**
-    - Adicionar respostas aos tópicos
-    - Listar respostas (com paginação e filtros)
-    - Atualizar e excluir respostas
-
-### 🛠️ **Validações e Tratamento de Erros**
-- Validação de dados de entrada (DTOs com Bean Validation)
-- Mensagens de erros claras e padronizadas
-- Tratamento centralizado de exceções
-
-### 📊 **Documentação**
-- API documentada com [Swagger UI](https://swagger.io/specification/)
-
----
-
 <h2 align="center">📢 Agradecimento</h2>
 
 Agradeço à [Alura](https://www.alura.com.br) por essa oportunidade de aprendizado contínuo e por incentivar o desenvolvimento de habilidades de programação de forma estruturada e desafiadora. 🚀
@@ -230,11 +244,10 @@ Obrigado pelo interesse em contribuir!
 Se tiver dúvidas ou sugestões, sinta-se à vontade para entrar em contato:
 
 - 📧 **E-mail**: [renan.vitor.cm@gmail.com](mailto:renan.vitor.cm@gmail.com)
-- 🐦 **GitHub**: [renancvitor](https://github.com/renancvitor)
 - 🟦 **LinkedIn**: [Renan Vitor](https://www.linkedin.com/in/renan-vitor-developer/)
 
 ---
 
 <h2 align="center">📄 Licença</h2>
 
-📌 Este projeto está licenciado sob a [Licença MIT](LICENSE), permitindo sua utilização, modificação e distribuição de forma livre, conforme os termos descritos.
+📌 Este projeto está licenciado sob a [Licença MIT](LICENSE), o  que significa que você pode utilizá-lo, modificar, compartilhar e distribuir livremente, desde que mantenha os devidos créditos aos autores e inclua uma cópia da licença original.
