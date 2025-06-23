@@ -52,7 +52,7 @@ class TopicoControllerListarTest {
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("Cadastro de perfil: deveria devolver 200")
+    @DisplayName("Listar tópicos: deveria devolver 200")
     @WithMockUser(username = "renan", roles = {"ADMIN"})
     void listar() throws Exception {
         Usuario usuarioLogado = new Usuario();

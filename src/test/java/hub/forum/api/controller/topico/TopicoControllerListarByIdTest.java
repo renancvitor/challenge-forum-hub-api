@@ -6,6 +6,7 @@ import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.topico.DadosListagemUnicoTopico;
 import hub.forum.api.service.TopicoService;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
@@ -46,6 +48,8 @@ class TopicoControllerListarByIdTest {
     private ObjectMapper objectMapper;
 
     @Test
+    @DisplayName("Listar único tópico: deveria devolver 200")
+    @WithMockUser(username = "renan", roles = {"ADMIN"})
     void listarById() throws Exception {
         Usuario usuarioLogado = new Usuario();
         usuarioLogado.setPerfil(new Perfil("ADMIN"));

@@ -47,7 +47,7 @@ class TopicoControllerAtualizarTest {
     private TopicoService topicoService;
 
     @Test
-    @DisplayName("Cadastro de perfil: deveria devolver 200")
+    @DisplayName("Atualizar tópico: deveria devolver 200")
     @WithMockUser(username = "renan", roles = {"ADMIN"})
     void atualizar() throws Exception {
         Usuario usuarioLogado = new Usuario();
