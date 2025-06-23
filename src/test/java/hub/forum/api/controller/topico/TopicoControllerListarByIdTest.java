@@ -1,4 +1,4 @@
-package hub.forum.api.controller;
+package hub.forum.api.controller.topico;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hub.forum.api.domain.perfil.Perfil;
