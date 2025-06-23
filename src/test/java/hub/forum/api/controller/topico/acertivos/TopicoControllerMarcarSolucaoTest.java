@@ -1,4 +1,4 @@
-package hub.forum.api.controller;
+package hub.forum.api.controller.topico.acertivos;
 
 import hub.forum.api.domain.perfil.Perfil;
 import hub.forum.api.domain.usuario.Usuario;

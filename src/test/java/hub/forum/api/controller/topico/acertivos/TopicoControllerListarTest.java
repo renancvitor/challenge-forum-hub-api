@@ -1,11 +1,11 @@
-package hub.forum.api.controller.resposta;
+package hub.forum.api.controller.topico.acertivos;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hub.forum.api.domain.perfil.Perfil;
 import hub.forum.api.domain.usuario.Usuario;
-import hub.forum.api.dto.resposta.DadosListagemTotalResposta;
-import hub.forum.api.service.RespostaService;
+import hub.forum.api.dto.topico.DadosListagemTotalTopico;
+import hub.forum.api.service.TopicoService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -37,22 +37,22 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-class RespostaControllerListarTest {
+class TopicoControllerListarTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private RespostaService respostaService;
+    private TopicoService topicoService;
 
     @Autowired
-    private JacksonTester<DadosListagemTotalResposta> dadosListagemTotalRespostaJacksonTester;
+    private JacksonTester<DadosListagemTotalTopico> dadosListagemTotalTopicoJacksonTester;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("Listar respostas: deveria devolver 200")
+    @DisplayName("Listar tópicos: deveria devolver 200")
     @WithMockUser(username = "renan", roles = {"ADMIN"})
     void listar() throws Exception {
         Usuario usuarioLogado = new Usuario();
@@ -66,19 +66,19 @@ class RespostaControllerListarTest {
 
         SecurityContextHolder.setContext(securityContext);
 
-        var dadosListagemResposta = new DadosListagemTotalResposta(
+        var dadosListagemTotalTopico = new DadosListagemTotalTopico(
                 null,
+                "Título",
                 "Mensagem",
-                "Tópico Título",
                 LocalDateTime.now());
 
-        Page<DadosListagemTotalResposta> paginaMockada =
-                new PageImpl<>(List.of(dadosListagemResposta), PageRequest.of(0, 10), 1);
+        Page<DadosListagemTotalTopico> paginaMockada =
+                new PageImpl<>(List.of(dadosListagemTotalTopico), PageRequest.of(0, 10), 1);
 
-        when(respostaService.listar(any())).thenReturn(paginaMockada);
+        when(topicoService.listar(any())).thenReturn(paginaMockada);
 
         var response = mockMvc
-                .perform(get("/respostas")
+                .perform(get("/topicos")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn()
                 .getResponse();
@@ -91,7 +91,7 @@ class RespostaControllerListarTest {
         assertThat(jsonNode.get("content").isArray()).isTrue();
         assertThat(jsonNode.get("content").size()).isEqualTo(1);
 
-        JsonNode primeiraResposta = jsonNode.get("content").get(0);
-        assertThat(primeiraResposta.get("mensagem").asText()).isEqualTo("Mensagem");
+        JsonNode primeiroTopico = jsonNode.get("content").get(0);
+        assertThat(primeiroTopico.get("titulo").asText()).isEqualTo("Título");
     }
 }

@@ -1,6 +1,6 @@
-package hub.forum.api.controller.resposta;
+package hub.forum.api.controller.topico.acertivos;
 
-import hub.forum.api.service.RespostaService;
+import hub.forum.api.service.TopicoService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +15,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class RespostaControllerDeletarRespostaTest {
+class TopicoControllerDeletarTopicoTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private RespostaService respostaService;
+    private TopicoService topicoService;
 
     @Test
     @DisplayName("Deletar tópico: deveria devolver 204")
-    void deletarResposta() throws Exception {
-        mockMvc.perform(delete("/respostas/3")
-                .with(user("renan").roles("ADMIN")))
+    void deletarTopico() throws Exception {
+        mockMvc.perform(delete("/topicos/3")
+                        .with(user("renan").roles("ADMIN")))
                 .andExpect(status().isNoContent());
     }
 }

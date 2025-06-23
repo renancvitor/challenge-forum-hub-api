@@ -1,9 +1,10 @@
-package hub.forum.api.controller.resposta;
+package hub.forum.api.controller.resposta.acertivos;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hub.forum.api.domain.perfil.Perfil;
 import hub.forum.api.domain.usuario.Usuario;
-import hub.forum.api.dto.resposta.DadosAtualizacaoResposta;
-import hub.forum.api.dto.resposta.DadosDetalhamentoResposta;
+import hub.forum.api.dto.resposta.DadosListagemTotalResposta;
 import hub.forum.api.service.RespostaService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -23,16 +27,17 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-class RespostaControllerAtualizarTest {
+class RespostaControllerListarTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -41,51 +46,52 @@ class RespostaControllerAtualizarTest {
     private RespostaService respostaService;
 
     @Autowired
-    private JacksonTester<DadosAtualizacaoResposta> dadosAtualizacaoRespostaJacksonTester;
+    private JacksonTester<DadosListagemTotalResposta> dadosListagemTotalRespostaJacksonTester;
 
     @Autowired
-    private JacksonTester<DadosDetalhamentoResposta> dadosDetalhamentoRespostaJacksonTester;
+    private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("Atualizar reposta: deveria devolver 200")
+    @DisplayName("Listar respostas: deveria devolver 200")
     @WithMockUser(username = "renan", roles = {"ADMIN"})
-    void atualizar() throws Exception {
+    void listar() throws Exception {
         Usuario usuarioLogado = new Usuario();
         usuarioLogado.setPerfil(new Perfil("ADMIN"));
 
         Authentication authentication = Mockito.mock(Authentication.class);
-        when(authentication.getPrincipal()).thenReturn(usuarioLogado);
+        Mockito.when(authentication.getPrincipal()).thenReturn(usuarioLogado);
 
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
-        when(securityContext.getAuthentication()).thenReturn(authentication);
+        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
 
         SecurityContextHolder.setContext(securityContext);
 
-        var dadosDetalhamentoResposta = new DadosDetalhamentoResposta(
+        var dadosListagemResposta = new DadosListagemTotalResposta(
                 null,
                 "Mensagem",
                 "Tópico Título",
                 LocalDateTime.now());
 
-        when(respostaService.atualizar(any(), any(), any())).thenReturn(dadosDetalhamentoResposta);
+        Page<DadosListagemTotalResposta> paginaMockada =
+                new PageImpl<>(List.of(dadosListagemResposta), PageRequest.of(0, 10), 1);
+
+        when(respostaService.listar(any())).thenReturn(paginaMockada);
 
         var response = mockMvc
-                .perform(
-                        put("/respostas/1")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(dadosAtualizacaoRespostaJacksonTester.write(
-                                        new DadosAtualizacaoResposta(
-                                                "Mensagem att"
-                                        )
-                                ).getJson())
-                ).andReturn().getResponse();
+                .perform(get("/respostas")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn()
+                .getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
 
-        var jsonEsperado = dadosDetalhamentoRespostaJacksonTester.write(
-                dadosDetalhamentoResposta
-        ).getJson();
+        JsonNode jsonNode = objectMapper.readTree(response.getContentAsString());
 
-        assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
+        assertThat(jsonNode.get("content")).isNotNull();
+        assertThat(jsonNode.get("content").isArray()).isTrue();
+        assertThat(jsonNode.get("content").size()).isEqualTo(1);
+
+        JsonNode primeiraResposta = jsonNode.get("content").get(0);
+        assertThat(primeiraResposta.get("mensagem").asText()).isEqualTo("Mensagem");
     }
 }
