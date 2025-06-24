@@ -1,12 +1,11 @@
-package hub.forum.api.controller.topico.erros;
+package hub.forum.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hub.forum.api.domain.perfil.Perfil;
 import hub.forum.api.domain.usuario.Usuario;
-import hub.forum.api.dto.topico.DadosAtualizacaoTopico;
+import hub.forum.api.dto.resposta.DadosAtualizacaoResposta;
 import hub.forum.api.infra.exception.AutorizacaoException;
-import hub.forum.api.infra.exception.ValidacaoException;
-import hub.forum.api.service.TopicoService;
+import hub.forum.api.service.RespostaService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -27,19 +27,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class TopicoControllerAtualizarTestERRO {
+class RespostaControllerAtualizarTestERRO {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private TopicoService topicoService;
+    private RespostaService respostaService;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("Deveria retornar 403 quando usuário não for o autor do tópico")
+    @DisplayName("Deveria retornar 403 quando usuário não for o autor da resposta")
     void atualizar() throws Exception {
         Usuario usuarioLogado = new Usuario();
         usuarioLogado.setId(1L);
@@ -48,12 +48,11 @@ class TopicoControllerAtualizarTestERRO {
         usuarioLogado.setSenha("123456");
         usuarioLogado.setPerfil(new Perfil("ADMIN"));
 
-        var dadosAtualizacaoTopico = new DadosAtualizacaoTopico(
-                "Título",
+        var dadosAtualizacaoRespospota = new DadosAtualizacaoResposta(
                 "Mensagem"
         );
 
-        var json = objectMapper.writeValueAsString(dadosAtualizacaoTopico);
+        var json = objectMapper.writeValueAsString(dadosAtualizacaoRespospota);
 
         var auth = new UsernamePasswordAuthenticationToken(
                 usuarioLogado,
@@ -62,15 +61,15 @@ class TopicoControllerAtualizarTestERRO {
         );
 
         doThrow(new AutorizacaoException("Apenas o autor do tópico pode marcar uma resposta como solução"))
-                .when(topicoService)
-                .atualizar(5L, dadosAtualizacaoTopico, usuarioLogado);
+                .when(respostaService)
+                .atualizar(1L, dadosAtualizacaoRespospota, usuarioLogado);
 
-        mockMvc.perform(put("/topicos/5")
-                        .contentType("application/json")
-                        .content(json)
-                        .with(SecurityMockMvcRequestPostProcessors.authentication(auth)))
+        mockMvc.perform(put("/respostas/1")
+                .contentType("application/json")
+                .content(json)
+                .with(SecurityMockMvcRequestPostProcessors.authentication(auth)))
                 .andExpect(status().isForbidden());
 
-        verify(topicoService).atualizar(5L, dadosAtualizacaoTopico, usuarioLogado);
+        verify(respostaService).atualizar(1L, dadosAtualizacaoRespospota, usuarioLogado);
     }
 }
