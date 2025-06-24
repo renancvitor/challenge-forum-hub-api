@@ -4,6 +4,7 @@ import hub.forum.api.domain.curso.Curso;
 import hub.forum.api.domain.topico.Topico;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.topico.*;
+import hub.forum.api.infra.exception.AutorizacaoException;
 import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.repository.CursoRepository;
 import hub.forum.api.repository.TopicoRepository;
@@ -55,7 +56,7 @@ public class TopicoService {
                 .orElseThrow(() -> new EntityNotFoundException("Tópico com ID " + id + " não encontrado"));
 
         if (!topico.getAutor().getId().equals(usuario.getId())) {
-            throw new ValidacaoException("Apenas o autor pode atualizar o tópico");
+            throw new AutorizacaoException("Apenas o autor pode atualizar o tópico");
         }
 
         if ((dados.titulo() == null || dados.titulo().isBlank()) &&
@@ -75,7 +76,7 @@ public class TopicoService {
         String nomePerfil = autor.getPerfil().getNome();
 
         if (!nomePerfil.equals("ADMIN") && !nomePerfil.equals("MODERADOR")) {
-            throw new ValidacaoException("Apenas ADMIN ou MODERADOR podem deletar um tópico");
+            throw new AutorizacaoException("Apenas ADMIN ou MODERADOR podem deletar um tópico");
         }
 
         topico.setAtivo(false);

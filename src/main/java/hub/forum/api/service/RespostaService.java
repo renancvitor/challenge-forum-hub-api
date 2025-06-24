@@ -7,6 +7,7 @@ import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.resposta.DadosAtualizacaoResposta;
 import hub.forum.api.dto.resposta.DadosDetalhamentoResposta;
 import hub.forum.api.dto.resposta.DadosListagemTotalResposta;
+import hub.forum.api.infra.exception.AutorizacaoException;
 import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.repository.RespostaRepository;
 import hub.forum.api.repository.TopicoRepository;
@@ -61,7 +62,7 @@ public class RespostaService {
                                 "Resposta com ID " + id + " não encontrado"));
 
         if (!resposta.getAutor().getId().equals(usuario.getId())) {
-            throw new ValidacaoException("Apenas o autor pode atualizar a resposta");
+            throw new AutorizacaoException("Apenas o autor pode atualizar a resposta");
         }
 
         resposta.atualizarResposta(dados);
@@ -80,7 +81,7 @@ public class RespostaService {
         }
 
         if (!topico.getAutor().getId().equals(idUsuarioLogado)) {
-            throw new ValidacaoException("Apenas o autor do tópico pode marcar uma resposta como solução");
+            throw new AutorizacaoException("Apenas o autor do tópico pode marcar uma resposta como solução");
         }
 
         if (topico.getStatus() != StatusTopico.SOLUCIONADO) {
@@ -97,7 +98,7 @@ public class RespostaService {
         String nomePerfil = usuario.getPerfil().getNome();
 
         if (!nomePerfil.equals("ADMIN") && !nomePerfil.equals("MODERADOR")) {
-            throw new ValidacaoException("Apenas ADMIN ou MODERADOR podem deletar uma resposta");
+            throw new AutorizacaoException("Apenas ADMIN ou MODERADOR podem deletar uma resposta");
         }
 
         resposta.setAtivo(false);

@@ -5,6 +5,7 @@ import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.perfil.DadosCadastroPerfil;
 import hub.forum.api.dto.perfil.DadosDetalhamentoPerfil;
 import hub.forum.api.dto.perfil.DadosListagemPerfil;
+import hub.forum.api.infra.exception.AutorizacaoException;
 import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.repository.PerfilRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class PerfilService {
                                              Usuario usuarioLogado) {
         String nomePerfil = usuarioLogado.getPerfil().getNome();
         if (!nomePerfil.equals("ADMIN")) {
-            throw new ValidacaoException("Apenas ADMIN pode cadastrar um novo perfil");
+            throw new AutorizacaoException("Apenas ADMIN pode cadastrar um novo perfil");
         }
         var perfil = new Perfil(dados);
         perfilRepository.save(perfil);

@@ -5,6 +5,7 @@ import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.curso.DadosCadastroCurso;
 import hub.forum.api.dto.curso.DadosDetalhamentoCurso;
 import hub.forum.api.dto.curso.DadosListagemCurso;
+import hub.forum.api.infra.exception.AutorizacaoException;
 import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.repository.CursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class CursoService {
                                             Usuario usuarioLogado) {
         String nomePerfil = usuarioLogado.getPerfil().getNome();
         if (!nomePerfil.equals("ADMIN")) {
-            throw new ValidacaoException("Apenas ADMIN pode cadastrar um novo perfil");
+            throw new AutorizacaoException("Apenas ADMIN pode cadastrar um novo perfil");
         }
         var curso = new Curso(dados);
         cursoRepository.save(curso);
