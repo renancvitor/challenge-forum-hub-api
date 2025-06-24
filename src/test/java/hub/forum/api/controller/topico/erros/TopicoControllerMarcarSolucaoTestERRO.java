@@ -34,7 +34,7 @@ class TopicoControllerMarcarSolucaoTestERRO {
     private RespostaService respostaService;
 
     @Test
-    @DisplayName("Deveria retornar 400 quando usuário não for o autor do tópico")
+    @DisplayName("Deveria retornar 403 quando usuário não for o autor do tópico")
     void marcarRespostaComoSolucao() throws Exception {
         Usuario usuarioLogado = new Usuario();
         usuarioLogado.setId(1L);

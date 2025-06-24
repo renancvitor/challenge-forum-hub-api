@@ -1,10 +1,9 @@
-package hub.forum.api.controller.topico.erros;
+package hub.forum.api.controller.resposta.erros;
 
 import hub.forum.api.domain.perfil.Perfil;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.infra.exception.AutorizacaoException;
-import hub.forum.api.infra.exception.ValidacaoException;
-import hub.forum.api.service.TopicoService;
+import hub.forum.api.service.RespostaService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +24,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class TopicoControllerDeletarTopicoTestERRO {
+class RespostaControllerDeletarRespsotaTestERRO {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private TopicoService topicoService;
+    private RespostaService respostaService;
 
     @Test
     @DisplayName("Deveria retornar 403 quando usuário não tiver perfil compatível com ação")
-    void deletarTopico() throws Exception {
+    void deletarResposta() throws Exception {
         Usuario usuarioLogado = new Usuario();
         usuarioLogado.setId(1L);
         usuarioLogado.setNome("Jonas");
@@ -49,14 +48,14 @@ class TopicoControllerDeletarTopicoTestERRO {
                 List.of(new SimpleGrantedAuthority("ROLE_COMUM"))
         );
 
-        doThrow(new AutorizacaoException("Apenas ADMIN ou MODERADOR podem deletar um tópico"))
-                .when(topicoService)
-                .deletarTopico(2L, usuarioLogado);
+        doThrow(new AutorizacaoException("Apenas ADMIN ou MODERADOR podem deletar uma resposta"))
+                .when(respostaService)
+                .deletarResposta(2L, usuarioLogado);
 
-        mockMvc.perform(delete("/topicos/2")
+        mockMvc.perform(delete("/respostas/2")
                 .with(SecurityMockMvcRequestPostProcessors.authentication(auth)))
                 .andExpect(status().isForbidden());
 
-        verify(topicoService).deletarTopico(2L, usuarioLogado);
+        verify(respostaService).deletarResposta(2L, usuarioLogado);
     }
 }

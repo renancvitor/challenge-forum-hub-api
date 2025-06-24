@@ -1,4 +1,4 @@
-package hub.forum.api.controller;
+package hub.forum.api.controller.resposta.erros;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hub.forum.api.domain.perfil.Perfil;
@@ -19,7 +19,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
