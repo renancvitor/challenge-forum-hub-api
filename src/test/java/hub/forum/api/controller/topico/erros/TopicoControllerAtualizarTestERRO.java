@@ -5,7 +5,6 @@ import hub.forum.api.domain.perfil.Perfil;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.topico.DadosAtualizacaoTopico;
 import hub.forum.api.infra.exception.AutorizacaoException;
-import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.service.TopicoService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

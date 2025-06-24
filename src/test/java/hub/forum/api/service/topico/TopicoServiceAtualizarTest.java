@@ -7,6 +7,8 @@ import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.domain.topico.Topico;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.topico.DadosAtualizacaoTopico;
+import hub.forum.api.infra.exception.AutorizacaoException;
+import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.repository.CursoRepository;
 import hub.forum.api.repository.PerfilRepository;
 import hub.forum.api.repository.TopicoRepository;
@@ -20,10 +22,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -47,7 +48,7 @@ class TopicoServiceAtualizarTest {
 
     @Test
     @Transactional
-    void atualizar() {
+    void atualizarValidacaoException() {
         var perfil = perfilRepository.save(new Perfil("USUARIO"));
 
         var usuario = new Usuario();
@@ -55,7 +56,7 @@ class TopicoServiceAtualizarTest {
         usuario.setEmail("usuario@example.com");
         usuario.setSenha("123456");
         usuario.setPerfil(perfil);
-        usuario = usuarioRepository.save(usuario);
+        Usuario usuarioSalvo = usuarioRepository.save(usuario);
 
         var curso = new Curso();
         curso.setNome("Spring Boot 3.0 atualiza");
@@ -72,16 +73,51 @@ class TopicoServiceAtualizarTest {
         topico.setAtivo(true);
         topicoRepository.save(topico);
 
-        var dadosAtualizados = new DadosAtualizacaoTopico("Teste atualizado",
-                "Mensagem atualizada");
-        var resultado = topicoService.atualizar(
-                topico.getId(),
-                dadosAtualizados,
-                usuario
-        );
+        var dadosInvalidos = new DadosAtualizacaoTopico("", "");
 
-        assertNotNull(resultado);
-        assertEquals("Teste atualizado", resultado.titulo());
-        assertEquals("Mensagem atualizada", resultado.mensagem());
+        assertThrows(ValidacaoException.class, () -> {
+            topicoService.atualizar(topico.getId(), dadosInvalidos, usuarioSalvo);
+        });
+    }
+
+    @Test
+    @Transactional
+    void atualizarAutorizacaoException() {
+        var perfil = perfilRepository.save(new Perfil("USUARIO"));
+
+        var usuario = new Usuario();
+        usuario.setNome("Usuario");
+        usuario.setEmail("usuario@example.com");
+        usuario.setSenha("123456");
+        usuario.setPerfil(perfil);
+        Usuario usuarioSalvo = usuarioRepository.save(usuario);
+
+        var outroUsuario = new Usuario();
+        outroUsuario.setNome("Outro");
+        outroUsuario.setEmail("outro@example.com");
+        outroUsuario.setSenha("123456");
+        outroUsuario.setPerfil(perfil);
+        Usuario outroUsuarioSalvo = usuarioRepository.save(outroUsuario);
+
+        var curso = new Curso();
+        curso.setNome("Spring Boot 3.0 atualiza");
+        curso.setCategoria(Categoria.TECNOLOGIA);
+        curso = cursoRepository.save(curso);
+
+        var topico = new Topico();
+        topico.setTitulo("Teste atualiza");
+        topico.setMensagem("Mensagem atualiza");
+        topico.setDataCriacao(LocalDateTime.now());
+        topico.setStatus(StatusTopico.NAO_RESPONDIDO);
+        topico.setAutor(usuario);
+        topico.setCurso(curso);
+        topico.setAtivo(true);
+        topicoRepository.save(topico);
+
+        var dadosAtualizados = new DadosAtualizacaoTopico("Novo Titulo", "Nova Mensagem");
+
+        assertThrows(AutorizacaoException.class, () -> {
+            topicoService.atualizar(topico.getId(), dadosAtualizados, outroUsuarioSalvo);
+        });
     }
 }
