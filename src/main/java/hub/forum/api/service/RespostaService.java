@@ -65,6 +65,10 @@ public class RespostaService {
             throw new AutorizacaoException("Apenas o autor pode atualizar a resposta");
         }
 
+        if (dados.mensagem() == null || dados.mensagem().isBlank()) {
+            throw new ValidacaoException("É necessário alterar a mensagem.");
+        }
+
         resposta.atualizarResposta(dados);
         return new DadosDetalhamentoResposta(resposta);
     }
