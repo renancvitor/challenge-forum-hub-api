@@ -2,6 +2,7 @@ package hub.forum.api.controller.topico.erros;
 
 import hub.forum.api.domain.perfil.Perfil;
 import hub.forum.api.domain.usuario.Usuario;
+import hub.forum.api.infra.exception.AutorizacaoException;
 import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.service.RespostaService;
 import org.junit.jupiter.api.DisplayName;
@@ -48,13 +49,13 @@ class TopicoControllerMarcarSolucaoTestERRO {
                 List.of(new SimpleGrantedAuthority("ROLE_ADMIN"))
         );
 
-        doThrow(new ValidacaoException("Apenas o autor do tópico pode marcar uma resposta como solução"))
+        doThrow(new AutorizacaoException("Apenas o autor do tópico pode marcar uma resposta como solução"))
                 .when(respostaService)
                 .marcarSolucao(6L, 3L, 1L);
 
         mockMvc.perform(put("/topicos/3/resposta/6/solucao")
                         .with(SecurityMockMvcRequestPostProcessors.authentication(auth)))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isForbidden());
 
         verify(respostaService).marcarSolucao(6L, 3L, 1L);
     }

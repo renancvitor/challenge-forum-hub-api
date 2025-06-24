@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hub.forum.api.domain.perfil.Perfil;
 import hub.forum.api.domain.usuario.Usuario;
 import hub.forum.api.dto.topico.DadosAtualizacaoTopico;
+import hub.forum.api.infra.exception.AutorizacaoException;
 import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.service.TopicoService;
 import org.junit.jupiter.api.DisplayName;
@@ -60,7 +61,7 @@ class TopicoControllerAtualizarTestERRO {
                 List.of(new SimpleGrantedAuthority("ROLE_ADMIN"))
         );
 
-        doThrow(new ValidacaoException("Apenas o autor do tópico pode marcar uma resposta como solução"))
+        doThrow(new AutorizacaoException("Apenas o autor do tópico pode marcar uma resposta como solução"))
                 .when(topicoService)
                 .atualizar(5L, dadosAtualizacaoTopico, usuarioLogado);
 
@@ -68,7 +69,7 @@ class TopicoControllerAtualizarTestERRO {
                         .contentType("application/json")
                         .content(json)
                         .with(SecurityMockMvcRequestPostProcessors.authentication(auth)))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isForbidden());
 
         verify(topicoService).atualizar(5L, dadosAtualizacaoTopico, usuarioLogado);
     }

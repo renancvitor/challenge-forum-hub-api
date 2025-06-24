@@ -2,6 +2,7 @@ package hub.forum.api.controller.topico.erros;
 
 import hub.forum.api.domain.perfil.Perfil;
 import hub.forum.api.domain.usuario.Usuario;
+import hub.forum.api.infra.exception.AutorizacaoException;
 import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.service.TopicoService;
 import org.junit.jupiter.api.DisplayName;
@@ -48,13 +49,13 @@ class TopicoControllerDeletarTopicoTestERRO {
                 List.of(new SimpleGrantedAuthority("ROLE_COMUM"))
         );
 
-        doThrow(new ValidacaoException("Apenas ADMIN ou MODERADOR podem deletar um tópico"))
+        doThrow(new AutorizacaoException("Apenas ADMIN ou MODERADOR podem deletar um tópico"))
                 .when(topicoService)
                 .deletarTopico(2L, usuarioLogado);
 
         mockMvc.perform(delete("/topicos/2")
                 .with(SecurityMockMvcRequestPostProcessors.authentication(auth)))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isForbidden());
 
         verify(topicoService).deletarTopico(2L, usuarioLogado);
     }
