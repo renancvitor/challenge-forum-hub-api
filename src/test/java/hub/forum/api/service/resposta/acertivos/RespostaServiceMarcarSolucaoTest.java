@@ -1,4 +1,4 @@
-package hub.forum.api.service.resposta;
+package hub.forum.api.service.resposta.acertivos;
 
 import hub.forum.api.domain.categoria.Categoria;
 import hub.forum.api.domain.curso.Curso;
