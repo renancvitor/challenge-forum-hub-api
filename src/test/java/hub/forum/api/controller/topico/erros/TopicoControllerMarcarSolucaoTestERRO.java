@@ -1,4 +1,4 @@
-package hub.forum.api.controller;
+package hub.forum.api.controller.topico.erros;
 
 import hub.forum.api.domain.perfil.Perfil;
 import hub.forum.api.domain.usuario.Usuario;
@@ -6,7 +6,6 @@ import hub.forum.api.infra.exception.ValidacaoException;
 import hub.forum.api.service.RespostaService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,7 +34,7 @@ class TopicoControllerMarcarSolucaoTestERRO {
 
     @Test
     @DisplayName("Deveria retornar 400 quando usuário não for o autor do tópico")
-    void deveRetornar400QuandoUsuarioNaoEhAutor() throws Exception {
+    void marcarRespostaComoSolucao() throws Exception {
         Usuario usuarioLogado = new Usuario();
         usuarioLogado.setId(1L);
         usuarioLogado.setNome("Renan");
