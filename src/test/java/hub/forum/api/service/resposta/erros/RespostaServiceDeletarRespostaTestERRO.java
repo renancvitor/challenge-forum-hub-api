@@ -1,4 +1,4 @@
-package hub.forum.api.service.resposta;
+package hub.forum.api.service.resposta.erros;
 
 import hub.forum.api.domain.categoria.Categoria;
 import hub.forum.api.domain.curso.Curso;
@@ -7,7 +7,7 @@ import hub.forum.api.domain.resposta.Resposta;
 import hub.forum.api.domain.topico.StatusTopico;
 import hub.forum.api.domain.topico.Topico;
 import hub.forum.api.domain.usuario.Usuario;
-import hub.forum.api.dto.resposta.DadosAtualizacaoResposta;
+import hub.forum.api.infra.exception.AutorizacaoException;
 import hub.forum.api.repository.*;
 import hub.forum.api.service.RespostaService;
 import org.junit.jupiter.api.Test;
@@ -20,12 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
-class RespostaServiceAtualizarTest {
+class RespostaServiceDeletarRespostaTestERRO {
 
     @Autowired
     TopicoRepository topicoRepository;
@@ -47,15 +48,15 @@ class RespostaServiceAtualizarTest {
 
     @Test
     @Transactional
-    void atualizar() {
-        var perfil = perfilRepository.save(new Perfil("USUARIO"));
+    void deletarResposta() {
+        var perfil = perfilRepository.save(new Perfil("COMUM"));
 
         var usuario = new Usuario();
         usuario.setNome("Usuario");
         usuario.setEmail("usuario@example.com");
         usuario.setSenha("123456");
         usuario.setPerfil(perfil);
-        usuario = usuarioRepository.save(usuario);
+        Usuario usuarioSalvo = usuarioRepository.save(usuario);
 
         var curso = new Curso();
         curso.setNome("Spring Boot 3.0 atualiza");
@@ -80,15 +81,10 @@ class RespostaServiceAtualizarTest {
         resposta.setAtivo(true);
         resposta.setSolucao(false);
         respostaRepository.save(resposta);
+        assertTrue(resposta.getAtivo());
 
-        var dadosAtualiza = new DadosAtualizacaoResposta("Mensagem atualizada");
-        var resultado = respostaService.atualizar(
-                resposta.getId(),
-                dadosAtualiza,
-                usuario
-        );
-
-        assertNotNull(resultado);
-        assertEquals("Mensagem atualizada", resultado.mensagem());
+        assertThrows(AutorizacaoException.class, () -> {
+            respostaService.deletarResposta(resposta.getId(), usuarioSalvo);
+        });
     }
 }
