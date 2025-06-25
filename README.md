@@ -85,7 +85,7 @@ O **FórumHub** é um back-end de fórum desenvolvido com [Spring Boot](https://
 
 <h2 align="center">📽 Exemplos Visuais (Swagger)</h2>
 
-Para ver a interface [Swagger UI](https://swagger.io/specification/) em ação, acesse as [demonstrações visuais](./docs/swagger-demonstration.md) com GIFs interativos mostrando os principais endpoints da API.
+Para ver a interface [Swagger](https://swagger.io/specification/) em ação, acesse as [demonstrações visuais](./docs/swagger-demonstration.md) com GIFs interativos mostrando os principais endpoints da API.
 
 ---
 
