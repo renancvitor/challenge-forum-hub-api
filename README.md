@@ -180,7 +180,7 @@ O projeto conta com uma **cobertura significativa de testes unitários e de inte
 ```
 ---
 
-## 🧪 Cobertura de Testes Automatizados
+<h2 align="center">🧪 Cobertura de Testes Automatizados</h2>
 
 Os testes estão organizados por módulo e divididos em cenários de sucesso (acertivos) e erro:
 
@@ -304,4 +304,4 @@ Se tiver dúvidas ou sugestões, sinta-se à vontade para entrar em contato:
 
 <h2 align="center">📄 Licença</h2>
 
-📌 Este projeto está licenciado sob a [Licença MIT](LICENSE), o  que significa que você pode utilizá-lo, modificar, compartilhar e distribuir livremente, desde que mantenha os devidos créditos aos autores e inclua uma cópia da licença original.
+📌 Este projeto está licenciado sob a [Licença MIT](LICENSE), o  que significa que você pode utilizá-lo, modificar, compartilhar e distribuir livremente, desde que mantenha os devidos créditos aos autores e inclua uma cópia da licença original - veja o arquivo [LICENSE](LICENSE) para detalhes ou acesse a [licença MIT oficial](https://opensource.org/licenses/MIT).
