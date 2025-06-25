@@ -23,13 +23,15 @@ public class SpringDocConfigurations {
                                         .bearerFormat("JWT")))
                 .info(new Info()
                         .title("ForumHub API")
-                        .description("API Rest da aplicação ForumHub, contendo as funcionalidades de CRUD de perfis, " +
-                                "usuários, cursos, tópicos e respostas para um fórum.")
+                        .version("1.0.0")
+                        .description("API REST da aplicação ForumHub. Esta API fornece operações de criação, leitura, " +
+                                "atualização e remoção (CRUD) para os recursos de perfis, usuários, cursos, tópicos e " +
+                                "respostas, que compõem o funcionamento de um fórum.")
                         .contact(new Contact()
-                                .name("Time Backend")
-                                .email("backend@exemple.com"))
+                                .name("Renan C. Vitor")
+                                .email("renan.vitor.cm@gmail.com"))
                         .license(new License()
-                                .name("Apache 2.0")
-                                .url("http://forumhub/api/licenca")));
+                                .name("MIT License")
+                                .url("https://github.com/renancvitor/challenge-forum-hub-api/blob/main/LICENSE")));
     }
 }
