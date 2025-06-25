@@ -6,7 +6,7 @@
 
 <h2 align="center">📖 Visão Geral do Projeto</h2>
 
-**FórumHub** é uma **API REST** completa, segura e totalmente documentada para um sistema de fórum online, com autenticação via [JWT](https://jwt.io/), validação robusta e arquitetura profissional com [Spring Boot](https://spring.io/projects/spring-boot).
+**FórumHub** é uma **API REST** completa, segura e totalmente automatizada para um sistema de fórum online, com autenticação via [JWT](https://jwt.io/), validação robusta e arquitetura profissional com [Spring Boot](https://spring.io/projects/spring-boot).
 Desenvolvido como parte do Challenge da formação Back-End Java OOP da [Alura](https://www.alura.com.br).
 O projeto adota arquitetura em camadas (controller, service, repository, domain e DTOs), aplicando boas práticas de organização, responsabilidade e manutenção de código.
 
@@ -75,7 +75,7 @@ O **FórumHub** é um back-end de fórum desenvolvido com [Spring Boot](https://
 
 ### 🛠️ **Validações e Tratamento de Erros**
 - Validação de dados de entrada (DTOs com Bean Validation)
-- Mensagens de erros claras e padronizadas
+- Mensagens de erro claras e padronizadas
 - Tratamento centralizado de exceções
 
 ### 📊 **Documentação**
@@ -91,7 +91,9 @@ Para ver a interface [Swagger](https://swagger.io/specification/) em ação, ace
 
 ### 🗂️ **Diagrama ER**
 
-<h2 align="center">![Diagrama ER](./docs/diagrama-er.png)</h2>
+<p align="center">
+  <img src="./docs/diagrama-er.png" alt="Diagrama ER" width="600"/>
+</p>
 
 ---
 
@@ -277,7 +279,7 @@ spring.datasource.password=sua_senha
 
 <h2 align="center">🔑 Acesso à API</h2>
 
-- Acesse o Swagger em:
+- Acesse o [Swagger](https://swagger.io/specification/) em:
 
 ```bash
 http://localhost:8080/swagger-ui/index.html
