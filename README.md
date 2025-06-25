@@ -91,7 +91,7 @@ Para ver a interface [Swagger](https://swagger.io/specification/) em ação, ace
 
 ### 🗂️ **Diagrama ER**
 
-![Diagrama ER](./docs/diagrama-er.png)
+<h2 align="center">![Diagrama ER](./docs/diagrama-er.png)</h2>
 
 ---
 
@@ -115,14 +115,14 @@ O projeto conta com uma **cobertura significativa de testes unitários e de inte
 ```plaintext
 ├── hub.forum.api 
 │   ├── controller
-│   │    └── AutenticacaoController.java
+│   │    ├── AutenticacaoController.java
 │   │    ├── CursoController.java
 │   │    ├── PerfilController.java
 │   │    ├── RespostaController.java
 │   │    ├── TopicoController.java
 │   │    └── UsuarioController.java
 │   ├── domain
-│   │    └── categoria
+│   │    ├── categoria
 │   │    │    └── Categoria.java
 │   │    ├── curso
 │   │    │    └── Curso.java
@@ -131,28 +131,28 @@ O projeto conta com uma **cobertura significativa de testes unitários e de inte
 │   │    ├── resposta
 │   │    │    └── Resposta.java
 │   │    ├── topico
-│   │    │    └── StatusTopico.java
+│   │    │    ├── StatusTopico.java
 │   │    │    └── Topico.java
 │   │    └── usuario
-│   │    │    └── Usuario.java
+│   │         └── Usuario.java
 │   ├── dto
-│   │    └── curso
-│   │    │    └── DadosCadastroCurso.java
+│   │    ├── curso
+│   │    │    ├── DadosCadastroCurso.java
 │   │    │    ├── DadosDetalhamentoCurso.java
 │   │    │    └── DadosListagemCurso.java
 │   │    ├── perfil
-│   │    │    └── DadosCadastroPerfil.java
+│   │    │    ├── DadosCadastroPerfil.java
 │   │    │    ├── DadosDetalhamentoPerfil.java
 │   │    │    └── DadosListagemPerfil.java
 │   │    ├── resposta
-│   │    │    └── DadosAtualizacaoResposta.java
+│   │    │    ├── DadosAtualizacaoResposta.java
 │   │    │    ├── DadosCadastroResposta.java
 │   │    │    ├── DadosDetalhamentoResposta.java
 │   │    │    └── DadosListagemTotalResposta.java
 │   │    ├── token
 │   │    │    └── DadosTokenJWT.java
 │   │    ├── topico
-│   │    │    └── validar
+│   │    │    ├── validar
 │   │    │    │    └── DadosValidarResposta.java
 │   │    │    ├── DadosAtualizacaoTopico.java
 │   │    │    ├── DadosCadastroTopico.java
@@ -160,19 +160,19 @@ O projeto conta com uma **cobertura significativa de testes unitários e de inte
 │   │    │    ├── DadosListagemTotalTopico.java
 │   │    │    └── DadosListagemUnicoTopico.java
 │   │    └── usuario
-│   │    │    └── DadosCadastroUsuario.java
-│   │    │    ├── DadosDetalhamentoUsuario.java
-│   │    │    ├── DadosListagemUsuario.java
-│   │    │    └── DadosLogin.java 
+│   │         ├── DadosCadastroUsuario.java
+│   │         ├── DadosDetalhamentoUsuario.java
+│   │         ├── DadosListagemUsuario.java
+│   │         └── DadosLogin.java 
 │   ├── infra 
-│   │    └── exception
-│   │    │    └── TratadorDeErros.java
+│   │    ├── exception
+│   │    │    ├── TratadorDeErros.java
 │   │    │    └── ValidacaoException.java
 │   │    ├── security
-│   │    │    └── SecurityConfigurations.java
+│   │    │    ├── SecurityConfigurations.java
 │   │    │    └── SecurityFilter.java
-│   │    ├── springdoc
-│   │    │    └── SpringDocConfigurations.java 
+│   │    └── springdoc
+│   │         └── SpringDocConfigurations.java 
 │   ├── repository 
 │   │    ├── CursoRepository.java
 │   │    ├── PerfilRepository.java
@@ -180,7 +180,7 @@ O projeto conta com uma **cobertura significativa de testes unitários e de inte
 │   │    ├── TopicoRepository.java
 │   │    └── UsuarioRepository.java
 │   ├── service
-│   │    └── AutenticacaoService.java
+│   │    ├── AutenticacaoService.java
 │   │    ├── CursoService.java
 │   │    ├── PerfilService.java
 │   │    ├── RespostaService.java
@@ -200,28 +200,31 @@ Os testes estão organizados por módulo e divididos em cenários de sucesso (ac
 test
 └── hub.forum.api
     ├── controller
+    │   ├── all
+    │   │   ├── CadastroControllersTestErro400.java
+    │   │   └── CadastroControllersTestOk200.java        
     │   ├── resposta
     │   │   ├── acertivos
     │   │   │   ├── RespostaControllerAtualizarTest.java
     │   │   │   ├── RespostaControllerDeletarRespostaTest.java
     │   │   │   └── RespostaControllerListarTest.java
     │   │   └── erros
-    │   │       ├──  RespostaControllerAtualizarTestERRO.java
+    │   │       ├── RespostaControllerAtualizarTestERRO.java
     │   │       └── RespostaControllerDeletarRespostaTestERRO.java
-    │   ├── topico
-    │   │   ├── acertivos
-    │   │   │   ├── TopicoControllerAtualizarTest.java
-    │   │   │   ├── TopicoControllerDeletarTopicoTest.java
-    │   │   │   ├── TopicoControllerListarByIdTest.java
-    │   │   │   ├── TopicoControllerListarTest.java
-    │   │   │   └── TopicoControllerMarcarSolucaoTest.java
-    │   │   ├── erros
-    │   │   │   ├── TopicoControllerAtualizarTestERRO.java
-    │   │   │   ├── TopicoControllerDeletarTopicoTestERRO.java
-    │   │   │   └── TopicoControllerMarcarSolucaoTestERRO.java
-    │   │   ├── CadastroControllersTestErro400.java
-    │   │   └── CadastroControllersTestOk200.java
+    │   └── topico
+    │       ├── acertivos
+    │       │   ├── TopicoControllerAtualizarTest.java
+    │       │   ├── TopicoControllerDeletarTopicoTest.java
+    │       │   ├── TopicoControllerListarByIdTest.java
+    │       │   ├── TopicoControllerListarTest.java
+    │       │   └── TopicoControllerMarcarSolucaoTest.java
+    │       └── erros
+    │           ├── TopicoControllerAtualizarTestERRO.java
+    │           ├── TopicoControllerDeletarTopicoTestERRO.java
+    │           └── TopicoControllerMarcarSolucaoTestERRO.java
     └── service
+        ├── all
+        │   └── CadastroCompletoTest.java    
         ├── resposta
         │   ├── acertivos
         │   │   ├── RespostaServiceAtualizarTest.java
@@ -236,11 +239,10 @@ test
             │   ├── TopicoServiceAtualizarTest.java
             │   ├── TopicoServiceDeletarTopicoTest.java
             │   └── TopicoServiceListarByIdTest.java
-            ├── erros
-            │   ├── TopicoServiceAtualizarTestERRO.java
-            │   ├── TopicoServiceDeletarTestERRO.java
-            │   └── TopicoServiceListarByIdTestERRO.java
-            └── CadastroCompletoTest.java
+            └── erros
+                ├── TopicoServiceAtualizarTestERRO.java
+                ├── TopicoServiceDeletarTestERRO.java
+                └── TopicoServiceListarByIdTestERRO.java
 ```
 ---
 

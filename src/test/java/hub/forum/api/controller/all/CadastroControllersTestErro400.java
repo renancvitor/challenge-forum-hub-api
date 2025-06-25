@@ -1,4 +1,4 @@
-package hub.forum.api.controller;
+package hub.forum.api.controller.all;
 
 import hub.forum.api.domain.categoria.Categoria;
 import hub.forum.api.domain.topico.StatusTopico;
