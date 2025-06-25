@@ -1,21 +1,21 @@
 <h1 align="center"> 💬 FórumHub — API REST com Spring Boot 3, MySQL e JWT<br> (<a href="https://www.alura.com.br">Alura - Challenge</a>)<br>
-  <img src="https://img.shields.io/badge/status-Concluído-brightgreen" width="150" height="30" />
+  <img src="https://img.shields.io/badge/Status-Concluído-brightgreen" width="150" height="30" />
 </h1>
 
 ---
 
-<h2 align="center">📖 Sobre o Projeto</h2>
+<h2 align="center">📖 Visão Geral do Projeto</h2>
 
-O **FórumHub** é uma **API REST** desenvolvida como desafio da formação Back-End Java Orientado a Objetos - GB/ONE da [Alura](https://www.alura.com.br). 
-Simula o back-end de um fórum de discussão com autenticação, controle de usuários, categorias, tópicos, respostas, cursos e controle de permissões.
+**FórumHub** é uma **API REST** completa, segura e totalmente documentada para um sistema de fórum online, com autenticação via [JWT](https://jwt.io/), validação robusta e arquitetura profissional com [Spring Boot](https://spring.io/projects/spring-boot).
+Desenvolvido como parte do Challenge da formação Back-End Java OOP da [Alura](https://www.alura.com.br).
 O projeto adota arquitetura em camadas (controller, service, repository, domain e DTOs), aplicando boas práticas de organização, responsabilidade e manutenção de código.
 
-Este projeto proporciona prática em:
-- ⚙️ Boas práticas com [Spring Boot](https://spring.io/projects/spring-boot)
-- 🛠️ Estruturação de API REST
-- ✅ Validações
+O desenvolvimento do projeto consolidou habilidades como:
+- ⚙️ Arquitetura RESTful
+- 🛠️ Testes unitários e de integração com JUnit e Mockito
+- ✅ Validações robustas com Bean Validation
 - 🚨 Tratamento de erros
-- 📚 Documentação com [Swagger (OpenAPI)](https://swagger.io/specification/)
+- 📚 Documentação automatizada com [Swagger (OpenAPI)](https://swagger.io/specification/)
 - 🔐 Segurança com [JWT (JSON Web Token)](https://jwt.io/)
 
 ---
@@ -28,6 +28,8 @@ Este projeto proporciona prática em:
 - 🐬 Banco de dados [MySQL](https://www.mysql.com/)
 - 🛠️ Controle de versionamento de banco com [Flyway](https://flywaydb.org/)
 - 📦 [Maven](https://maven.apache.org/): Gerenciamento de dependências e build.
+- 📦 [JUnit 5](https://junit.org/)
+- 🔧 [Mockito](https://site.mockito.org/)
 - 📄 [Swagger (OpenAPI)](https://swagger.io/specification/)
 
 ---
@@ -178,6 +180,58 @@ O projeto conta com uma **cobertura significativa de testes unitários e de inte
 ```
 ---
 
+## 🧪 Cobertura de Testes Automatizados
+
+Os testes estão organizados por módulo e divididos em cenários de sucesso (acertivos) e erro:
+
+```plaintext
+test
+└── hub.forum.api
+├── controller
+|   ├── resposta
+│   │   ├── acertivos
+│   │   │   ├── RespostaControllerAtualizarTest.java
+│   │   │   ├── RespostaControllerDeletarRespostaTest.java
+│   │   │   └── RespostaControllerListarTest.java
+│   │   └── erros
+│   │       ├── RespostaControllerAtualizarTestERRO.java
+│   │       └── RespostaControllerDeletarRespostaTestERRO.java
+│   ├── topico
+│   │   ├── acertivos
+│   │   │   ├── TopicoControllerAtualizarTest.java
+│   │   │   ├── TopicoControllerDeletarTopicoTest.java
+│   │   │   ├── TopicoControllerListarByIdTest.java
+│   │   │   ├── TopicoControllerListarTest.java
+│   │   │   └── TopicoControllerMarcarSolucaoTest.java
+│   │   └── erros
+│   │       ├── TopicoControllerAtualizarTestERRO.java
+│   │       ├── TopicoControllerDeletarTopicoTestERRO.java
+│   │       └── TopicoControllerMarcarSolucaoTestERRO.java
+│   ├── CadastroControllersTestErro400.java
+│   └── CadastroControllersTestOk200.java
+├── service
+│   ├── resposta
+│   │   ├── acertivos
+│   │   │   ├── RespostaServiceAtualizarTest.java
+│   │   │   ├── RespostaServiceDeletarRespostaTest.java
+│   │   │   └── RespostaServiceMarcarSolucaoTest.java
+│   │   └── erros
+│   │       ├── RespostaServiceAtualizarTestERRO.java
+│   │       ├── RespostaServiceDeletarRespostaTestERRO.java
+│   │       └── RespostaServiceMarcarSolucaoTestERRO.java
+│   ├── topico
+│   │   ├── acertivos
+│   │   │   ├── TopicoServiceAtualizarTest.java
+│   │   │   ├── TopicoServiceDeletarTopicoTest.java
+│   │   │   └── TopicoServiceListarByIdTest.java
+│   │   └── erros
+│   │       ├── TopicoServiceAtualizarTestERRO.java
+│   │       ├── TopicoServiceDeletarTestERRO.java
+│   │       └── TopicoServiceListarByIdTestERRO.java
+|   └── CadastroCompletoTest.java
+```
+---
+
 <h2 align="center">🚀 Como Executar o Projeto</h2>
 
 ### Pré-requisitos:
@@ -194,7 +248,7 @@ git clone https://github.com/renancvitor/challenge-forum-hub-api.git
 ```bash
 cd challenge-forum-hub-api
 ```
-3. Configure o banco de dados no arquivo `application.properties` com suas credenciais locais. Ao iniciar o projeto, as migrations serão aplicadas automaticamente pelo [Flyway](https://flywaydb.org/).
+3. Configure o banco de dados no arquivo `src/main/resources/application.properties` com suas credenciais locais. Ao iniciar o projeto, as migrations serão aplicadas automaticamente pelo [Flyway](https://flywaydb.org/).
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/seu_banco
 spring.datasource.username=seu_usuario

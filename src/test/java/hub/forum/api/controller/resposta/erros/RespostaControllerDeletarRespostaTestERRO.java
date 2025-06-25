@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class RespostaControllerDeletarRespsotaTestERRO {
+class RespostaControllerDeletarRespostaTestERRO {
 
     @Autowired
     private MockMvc mockMvc;
