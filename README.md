@@ -83,9 +83,15 @@ O **FórumHub** é um back-end de fórum desenvolvido com [Spring Boot](https://
 
 ---
 
-<h2 align="center">📽 Exemplos Visuais (Swagger)</h2>
+<h2 align="center">📽 Documentação Visual</h2>
+
+### 📡 **API - Swagger**
 
 Para ver a interface [Swagger](https://swagger.io/specification/) em ação, acesse as [demonstrações visuais](./docs/swagger-demonstration.md) com GIFs interativos mostrando os principais endpoints da API.
+
+### 🗂️ **Diagrama ER**
+
+![Diagrama ER](./docs/diagrama-er.png)
 
 ---
 
@@ -193,48 +199,48 @@ Os testes estão organizados por módulo e divididos em cenários de sucesso (ac
 ```plaintext
 test
 └── hub.forum.api
-├── controller
-|   ├── resposta
-│   │   ├── acertivos
-│   │   │   ├── RespostaControllerAtualizarTest.java
-│   │   │   ├── RespostaControllerDeletarRespostaTest.java
-│   │   │   └── RespostaControllerListarTest.java
-│   │   └── erros
-│   │       ├── RespostaControllerAtualizarTestERRO.java
-│   │       └── RespostaControllerDeletarRespostaTestERRO.java
-│   ├── topico
-│   │   ├── acertivos
-│   │   │   ├── TopicoControllerAtualizarTest.java
-│   │   │   ├── TopicoControllerDeletarTopicoTest.java
-│   │   │   ├── TopicoControllerListarByIdTest.java
-│   │   │   ├── TopicoControllerListarTest.java
-│   │   │   └── TopicoControllerMarcarSolucaoTest.java
-│   │   └── erros
-│   │       ├── TopicoControllerAtualizarTestERRO.java
-│   │       ├── TopicoControllerDeletarTopicoTestERRO.java
-│   │       └── TopicoControllerMarcarSolucaoTestERRO.java
-│   ├── CadastroControllersTestErro400.java
-│   └── CadastroControllersTestOk200.java
-├── service
-│   ├── resposta
-│   │   ├── acertivos
-│   │   │   ├── RespostaServiceAtualizarTest.java
-│   │   │   ├── RespostaServiceDeletarRespostaTest.java
-│   │   │   └── RespostaServiceMarcarSolucaoTest.java
-│   │   └── erros
-│   │       ├── RespostaServiceAtualizarTestERRO.java
-│   │       ├── RespostaServiceDeletarRespostaTestERRO.java
-│   │       └── RespostaServiceMarcarSolucaoTestERRO.java
-│   ├── topico
-│   │   ├── acertivos
-│   │   │   ├── TopicoServiceAtualizarTest.java
-│   │   │   ├── TopicoServiceDeletarTopicoTest.java
-│   │   │   └── TopicoServiceListarByIdTest.java
-│   │   └── erros
-│   │       ├── TopicoServiceAtualizarTestERRO.java
-│   │       ├── TopicoServiceDeletarTestERRO.java
-│   │       └── TopicoServiceListarByIdTestERRO.java
-|   └── CadastroCompletoTest.java
+    ├── controller
+    │   ├── resposta
+    │   │   ├── acertivos
+    │   │   │   ├── RespostaControllerAtualizarTest.java
+    │   │   │   ├── RespostaControllerDeletarRespostaTest.java
+    │   │   │   └── RespostaControllerListarTest.java
+    │   │   └── erros
+    │   │       ├──  RespostaControllerAtualizarTestERRO.java
+    │   │       └── RespostaControllerDeletarRespostaTestERRO.java
+    │   ├── topico
+    │   │   ├── acertivos
+    │   │   │   ├── TopicoControllerAtualizarTest.java
+    │   │   │   ├── TopicoControllerDeletarTopicoTest.java
+    │   │   │   ├── TopicoControllerListarByIdTest.java
+    │   │   │   ├── TopicoControllerListarTest.java
+    │   │   │   └── TopicoControllerMarcarSolucaoTest.java
+    │   │   ├── erros
+    │   │   │   ├── TopicoControllerAtualizarTestERRO.java
+    │   │   │   ├── TopicoControllerDeletarTopicoTestERRO.java
+    │   │   │   └── TopicoControllerMarcarSolucaoTestERRO.java
+    │   │   ├── CadastroControllersTestErro400.java
+    │   │   └── CadastroControllersTestOk200.java
+    └── service
+        ├── resposta
+        │   ├── acertivos
+        │   │   ├── RespostaServiceAtualizarTest.java
+        │   │   ├── RespostaServiceDeletarRespostaTest.java
+        │   │   └── RespostaServiceMarcarSolucaoTest.java
+        │   └── erros
+        │       ├── RespostaServiceAtualizarTestERRO.java
+        │       ├── RespostaServiceDeletarRespostaTestERRO.java
+        │       └── RespostaServiceMarcarSolucaoTestERRO.java
+        └── topico
+            ├── acertivos
+            │   ├── TopicoServiceAtualizarTest.java
+            │   ├── TopicoServiceDeletarTopicoTest.java
+            │   └── TopicoServiceListarByIdTest.java
+            ├── erros
+            │   ├── TopicoServiceAtualizarTestERRO.java
+            │   ├── TopicoServiceDeletarTestERRO.java
+            │   └── TopicoServiceListarByIdTestERRO.java
+            └── CadastroCompletoTest.java
 ```
 ---
 
