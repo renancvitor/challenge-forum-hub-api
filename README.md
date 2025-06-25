@@ -83,6 +83,12 @@ O **FórumHub** é um back-end de fórum desenvolvido com [Spring Boot](https://
 
 ---
 
+<h2 align="center">📽 Exemplos Visuais (Swagger)</h2>
+
+Para ver a interface Swagger em ação, acesse as [demonstrações visuais] com GIFs interativos mostrando os principais endpoints da API.
+
+---
+
 <h2 align="center">🧪 Testes Automatizados</h2>
 
 O projeto conta com uma **cobertura significativa de testes unitários e de integração**, garantindo a qualidade e o correto funcionamento dos fluxos principais de negócio da API, incluindo:
