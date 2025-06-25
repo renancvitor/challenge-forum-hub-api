@@ -5,8 +5,9 @@ Este documento apresenta exemplos visuais da interface Swagger utilizada na API 
 ---
 
 ## 🔐 Login via API com JWT — autenticação segura em ação
-Gif mostrando requisição GET com paginação e filtro no Swagger.
-![](./gifs/login-via-api-com-jwt.gif)
+Gif mostrando requisição POST de login e recebendo token JWT
+![](./gifs/login-via-api-com-jwt.gif
+
 ---
 
 ## 📄 Consulta paginada de tópicos — resposta rápida e filtrada
