@@ -38,6 +38,7 @@ O desenvolvimento do projeto consolidou habilidades como:
 
 - 💻 [IntelliJ IDE](https://www.jetbrains.com/pt-br/idea/#): Ambiente de desenvolvimento integrado.
 - 💾 [MySQL](https://www.mysql.com/): Sistema de gerenciamento de banco de dados relacional de código aberto.
+- 📡 [Insomnia](https://insomnia.rest/): Ferramenta de teste de APIs REST que permite enviar requisições HTTP, validar respostas e testar endpoints com facilidade. 
 
 ---
 
@@ -85,7 +86,7 @@ O **FórumHub** é um back-end de fórum desenvolvido com [Spring Boot](https://
 
 <h2 align="center">📽 Documentação Visual</h2>
 
-### 📡 **API - Swagger**
+### 🌐 **API - Swagger**
 
 Para ver a interface [Swagger](https://swagger.io/specification/) em ação, acesse as [demonstrações visuais](./docs/swagger-demonstration.md) com GIFs interativos mostrando os principais endpoints da API.
 
@@ -266,7 +267,7 @@ cd challenge-forum-hub-api
 ```
 3. Configure o banco de dados no arquivo `src/main/resources/application.properties` com suas credenciais locais. Ao iniciar o projeto, as migrations serão aplicadas automaticamente pelo [Flyway](https://flywaydb.org/).
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/seu_banco
+spring.datasource.url=jdbc:mysql://localhost:3306/nome_do_banco
 spring.datasource.username=seu_usuario
 spring.datasource.password=sua_senha
 ```
